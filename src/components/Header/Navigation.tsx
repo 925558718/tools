@@ -33,14 +33,7 @@ function Navigation() {
 			description: "gradient_generator_desc",
 			icon: (
 				<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<defs>
-						<linearGradient id="gradientIcon" x1="0%" y1="0%" x2="100%" y2="100%">
-							<stop offset="0%" stopColor="#3b82f6" />
-							<stop offset="50%" stopColor="#8b5cf6" />
-							<stop offset="100%" stopColor="#06b6d4" />
-						</linearGradient>
-					</defs>
-					<rect x="4" y="4" width="16" height="16" rx="2" fill="url(#gradientIcon)" fillOpacity="0.3" stroke="currentColor" strokeWidth={1.5} />
+					<rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth={1.5} />
 					<circle cx="8" cy="8" r="1.5" fill="currentColor" />
 					<circle cx="16" cy="16" r="1.5" fill="currentColor" />
 					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 8L16 16" strokeDasharray="2 2" />
@@ -55,7 +48,7 @@ function Navigation() {
 				<NavigationMenuItem>
 					<NavigationMenuTrigger className="flex items-center space-x-2">
 						{/* CSS图标 */}
-						<div className="text-slate-500 dark:text-slate-400">
+						<div className="text-muted-foreground">
 							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
 							</svg>
@@ -82,8 +75,8 @@ function Navigation() {
 													<div className={cn(
 														"transition-colors duration-200",
 														isActive 
-															? "text-blue-600 dark:text-blue-400" 
-															: "text-slate-500 dark:text-slate-400"
+															? "text-primary" 
+															: "text-muted-foreground"
 													)}>
 														{item.icon}
 													</div>

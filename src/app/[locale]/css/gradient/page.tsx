@@ -23,6 +23,7 @@ import {
   generateTailwind,
   simplifyGradient
 } from "./config";
+import PageTitle from '@/components/PageTitle';
 
 const GradientGenerator = () => {
   const t = useTranslations();
@@ -209,103 +210,22 @@ const GradientGenerator = () => {
   const tailwindGradient = generateTailwind(config, tailwindVersion);
 
   return (
-    <>
-      <style jsx>{`
-        @keyframes gradient-x {
-          0%, 100% {
-            background-size: 200% 200%;
-            background-position: left center;
-          }
-          50% {
-            background-size: 200% 200%;
-            background-position: right center;
-          }
-        }
-        
-        @keyframes gradient-shift {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-        
-        .animate-gradient-x {
-          background-size: 400% 400%;
-          animation: gradient-shift 4s ease infinite;
-        }
-        
-        .gradient-title {
-          font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-          font-weight: 900;
-          font-size: 3.5rem;
-          letter-spacing: -0.025em;
-          background: linear-gradient(
-            -45deg,
-            #ee7752,
-            #e73c7e,
-            #23a6d5,
-            #23d5ab,
-            #7dd3fc,
-            #c084fc,
-            #fb7185
-          );
-          background-size: 400% 400%;
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: gradient-shift 3s ease infinite;
-          text-shadow: 0 0 30px rgba(238, 119, 82, 0.3);
-          filter: drop-shadow(0 0 10px rgba(199, 125, 255, 0.4));
-        }
-        
-        @media (max-width: 768px) {
-          .gradient-title {
-            font-size: 2.5rem;
-          }
-        }
-      `}</style>
-      
+    <>      
       <div className="min-h-screen w-full relative overflow-hidden">
-        {/* 背景渐变装饰 - 与其他页面保持一致 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-blue-900/20 dark:to-indigo-900/20" />
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/20 dark:bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-400/20 dark:bg-indigo-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-400/10 dark:bg-purple-500/5 rounded-full blur-3xl" />
-
         <main className="relative z-10 container mx-auto px-4 py-12 max-w-7xl">
-          {/* 标题区域 */}
-          <div className="text-center mb-12">
-            <h1 className="gradient-title mb-4">
-              {t('title')}
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              {t('subtitle')}
-            </p>
-            
-            {/* 特性标签 */}
-            <div className="flex items-center justify-center gap-6 mt-6 text-sm text-slate-500 dark:text-slate-400">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
-                <span>{t('features.live_preview')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                <span>{t('features.css_tailwind')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-                <span>{t('features.interactive_editor')}</span>
-              </div>
-            </div>
-          </div>
+          {/* 使用通用标题组件 */}
+          <PageTitle
+            titleKey="title"
+            subtitleKey="subtitle"
+            features={[
+              { key: 'features.live_preview', color: 'purple' },
+              { key: 'features.css_tailwind', color: 'blue' },
+              { key: 'features.interactive_editor', color: 'pink' }
+            ]}
+          />
 
           {/* 玻璃效果容器 - 与其他页面保持一致 */}
-          <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-slate-700/20 shadow-xl">
+          <div className="bg-card/70 backdrop-blur-xl rounded-3xl p-8 border border-border/20 shadow-xl">
             {/* Live Preview at top - Now rectangular */}
             <Card className="mb-6">
               <CardHeader className="pb-3">
@@ -314,7 +234,7 @@ const GradientGenerator = () => {
               </CardHeader>
               <CardContent>
                 <div 
-                  className="w-full h-64 rounded-lg border-2 border-gray-200 dark:border-gray-700 shadow-sm mb-4"
+                  className="w-full h-64 rounded-lg border-2 border-border shadow-sm mb-4"
                   style={{ background: cssGradient }}
                 />
                 
@@ -339,7 +259,7 @@ const GradientGenerator = () => {
                         }
                       }
                     }}
-                    className="relative w-full h-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 cursor-pointer transition-all duration-200 hover:border-primary hover:shadow-sm"
+                    className="relative w-full h-12 rounded-lg border-2 border-border cursor-pointer transition-all duration-200 hover:border-primary hover:shadow-sm"
                     aria-label={t('preview.interactive_bar')}
                     style={{ background: cssGradient }}
                     // biome-ignore lint/a11y/useSemanticElements: <explanation>
@@ -365,7 +285,7 @@ const GradientGenerator = () => {
                             }}
                           >
                             <div
-                              className={`relative h-full w-4 border-2 border-white rounded-lg shadow-lg cursor-grab transform-gpu transition-all duration-200 hover:scale-110 hover:shadow-xl ${dragging?.id === stop.id ? 'scale-110 shadow-xl' : ''}`}
+                              className={`relative h-full w-4 border-2 border-primary-foreground rounded-lg shadow-lg cursor-grab transform-gpu transition-all duration-200 hover:scale-110 hover:shadow-xl ${dragging?.id === stop.id ? 'scale-110 shadow-xl' : ''}`}
                               style={{ 
                                 backgroundColor: stop.color,
                                 cursor: dragging?.id === stop.id ? 'grabbing' : 'grab',
@@ -376,7 +296,7 @@ const GradientGenerator = () => {
                             {/* Hover X button for deletion */}
                             {config.stops.length > 2 && (
                               <div
-                                className="absolute -top-3 -right-1 w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full text-white text-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer shadow-lg border-2 border-white hover:scale-110 z-10"
+                                className="absolute -top-3 -right-1 w-6 h-6 bg-destructive hover:bg-destructive/90 rounded-full text-destructive-foreground text-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer shadow-lg border-2 border-primary-foreground hover:scale-110 z-10"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   e.preventDefault();
@@ -419,7 +339,7 @@ const GradientGenerator = () => {
                                       const alpha = stop.color.length > 7 ? stop.color.slice(7) : '';
                                       updateColorStop(stop.id, { color: e.target.value + alpha });
                                     }}
-                                    className="w-12 h-9 p-1 rounded border cursor-pointer"
+                                    className="w-12 h-9 p-1 rounded border border-border cursor-pointer"
                                     title="Choose color"
                                     aria-label="Choose color"
                                   />
@@ -562,7 +482,7 @@ const GradientGenerator = () => {
                         <div className="space-y-2">
                           <Label>{t('code.background_property')}</Label>
                           <div className="relative">
-                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
+                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{`background: ${cssGradient};`}</code>
                             </pre>
                             <Button
@@ -578,7 +498,7 @@ const GradientGenerator = () => {
                         <div className="space-y-2">
                           <Label>{t('code.css_class')}</Label>
                           <div className="relative">
-                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
+                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{`.gradient {\n  background: ${cssGradient};\n}`}</code>
                             </pre>
                             <Button
@@ -607,7 +527,7 @@ const GradientGenerator = () => {
                         <div className="space-y-2">
                           <Label>{t('code.tailwind_classes', { version: tailwindVersion.toUpperCase() })}</Label>
                           <div className="relative">
-                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
+                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{tailwindGradient}</code>
                             </pre>
                             <Button
@@ -623,7 +543,7 @@ const GradientGenerator = () => {
                         <div className="space-y-2">
                           <Label>{t('code.usage_example')}</Label>
                           <div className="relative">
-                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
+                            <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{`<div class="${tailwindGradient}">\n  <!-- Content -->\n</div>`}</code>
                             </pre>
                             <Button
@@ -637,22 +557,22 @@ const GradientGenerator = () => {
                         </div>
                         
                         {tailwindVersion === "v4" ? (
-                          <div className="p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded">
-                            <p className="text-sm text-blue-800 dark:text-blue-200">
+                          <div className="p-3 bg-secondary/10 border border-secondary/20 rounded">
+                            <p className="text-sm text-secondary-foreground">
                               <strong>{t('versions.v4')}:</strong> {t('versions.v4_note')}
                             </p>
                           </div>
                         ) : (
-                          <div className="p-3 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded">
-                            <p className="text-sm text-green-800 dark:text-green-200">
+                          <div className="p-3 bg-primary/10 border border-primary/20 rounded">
+                            <p className="text-sm text-primary-foreground">
                               <strong>{t('versions.v3')}:</strong> {t('versions.v3_note')}
                             </p>
                           </div>
                         )}
                         
                         {tailwindGradient.includes("bg-[") && (
-                          <div className="p-3 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded">
-                            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                          <div className="p-3 bg-accent/10 border border-accent/20 rounded">
+                            <p className="text-sm text-accent-foreground">
                               <strong>{t('complex_gradient.title')}:</strong> {t('complex_gradient.description')}
                               <br />{t('complex_gradient.reason1')}
                               <br />{t('complex_gradient.reason2')}
