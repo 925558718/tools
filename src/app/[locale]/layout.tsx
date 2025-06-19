@@ -13,9 +13,10 @@ import {
 	getNormalizedLocale,
 	defaultLocale,
 	supportedLocales,
-	loadI18nDictionary,
+	loadDictionaryByRoute,
 } from "@/i18n/langMap";
 import BugsnagErrorBoundary from "@/components/Bugsnap";
+import { headers } from "next/headers";
 // import Bugsnag from "@bugsnag/js";
 // import BugsnagPluginReact from "@bugsnag/plugin-react";
 // import BugsnagPerformance from "@bugsnag/browser-performance";
@@ -47,12 +48,16 @@ export async function generateMetadata({
 	const resolvedParams = await params;
 	const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
 
-	// 加载对应语言的字典
-	const dictionary = await loadI18nDictionary("main", locale);
+	// 获取当前路径
+	const headersList = await headers();
+	const pathname = headersList.get("x-pathname") || "/";
+
+	// 根据当前路径加载对应的翻译
+	const dictionary = await loadDictionaryByRoute(pathname, locale);
 
 	// 标题和描述支持多语言
-	const title = dictionary.meta_title;
-	const description = dictionary.meta_description;
+	const title = dictionary.meta_title || dictionary.meta?.title || "Developer Tools";
+	const description = dictionary.meta_description || dictionary.meta?.description || "Free online developer tools for software development";
 
 	// 构建基础URL
 	const baseUrl = "https://limgx.com";
@@ -77,7 +82,7 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: dictionary.meta_keywords,
+		keywords: dictionary.meta_keywords || dictionary.meta?.keywords,
 		authors: [{ name: "limgx.com" }],
 		robots: {
 			index: true,
@@ -108,13 +113,17 @@ export default async function RootLayout({
 	const resolvedParams = await params;
 	const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
 
-	// 加载当前语言的字典
-	const dictionary = await loadI18nDictionary("main", locale);
+	// 获取当前路径
+	const headersList = await headers();
+	const pathname = headersList.get("x-pathname") || "/";
+
+	// 根据当前路径加载对应的翻译
+	const dictionary = await loadDictionaryByRoute(pathname, locale);
 
 	// 动态生成结构化数据
-	const appName = dictionary.structured_data_app_name;
-	const appDescription = dictionary.structured_data_description;
-	const featureList = dictionary.structured_data_features;
+	const appName = dictionary.structured_data_app_name || "Developer Tools";
+	const appDescription = dictionary.structured_data_description || "Free online developer tools for software development";
+	const featureList = dictionary.structured_data_features || ["CSS Tools", "Code Generators", "Development Utilities"];
 
 	return (
 		<html lang={locale} suppressHydrationWarning>

@@ -58,8 +58,9 @@
 		"copy": "复制"
 	},
 	"versions": {
-		"v3": "v3 (当前版本)",
-		"v4": "v4 (最新版本)",
+		"version": "版本",
+		"v3": "v3 (当前)",
+		"v4": "v4 (最新)",
 		"v3_note": "Tailwind CSS v3: 使用传统渐变语法 (bg-gradient-*)。这是目前广泛使用的稳定版本。",
 		"v4_note": "Tailwind CSS v4: 使用新的渐变语法 (bg-linear-*, bg-radial-*)。这是具有改进渐变工具的最新版本。"
 	},
@@ -80,7 +81,8 @@
 	},
 	"messages": {
 		"positions_adjusted": "渐变位置已调整为 0%, 50%, 100%！",
-		"simplified_to_3": "已简化为3种颜色：{colors}",
-		"copied": "已复制到剪贴板！"
+		"simplified_to_3": "已简化为 3 种颜色: {colors}",
+		"copied": "已复制到剪贴板！",
+		"added_color_stop": "已在 {percentage}% 处添加颜色停止点"
 	}
 }

@@ -15,7 +15,14 @@ export default function middleware(request: NextRequest) {
   }
   
   // 其他路径使用next-intl的中间件
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+  
+  // 添加路径信息到请求头中，以便在服务器组件中获取
+  if (response) {
+    response.headers.set('x-pathname', pathname);
+  }
+  
+  return response;
 }
 
 // 配置中间件应用于所有路由

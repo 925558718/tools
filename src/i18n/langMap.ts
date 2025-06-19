@@ -143,34 +143,73 @@ export async function loadI18nDictionary(path: string, locale: string): Promise<
       .then(module => module.default);
     return dictionary;
   } catch (error) {
-    // 如果找不到指定语言的文件，尝试加载默认语言
-    console.warn(`未找到路径 ${path} 下的 ${normalizedLocale} 语言文件，将使用默认语言 ${defaultLocale}`);
-    const fallbackDictionary = await import(`public/i18n${path ? `/${path}` : ''}/${defaultLocale}.json`)
-      .then(module => module.default);
-    return fallbackDictionary;
+    try {
+      const fallbackDictionary = await import(`public/i18n/${path}/${defaultLocale}.json`)
+        .then(module => module.default);
+      return fallbackDictionary;
+    } catch (fallbackError) {
+      return {};
+    }
   }
 }
 
 /**
- * 根据当前路径确定要加载的语言文件路径
- * @param pathname 当前路径，例如 '/zh-CN/css/gradient'
- * @returns 对应的语言文件路径
+ * 加载多个翻译文件并合并
+ * @param paths 要加载的翻译文件路径数组
+ * @param locale 语言代码
+ * @returns 合并后的翻译字典
  */
-export function getDictionaryPathFromRoute(pathname: string): string {
-  // 移除语言前缀和开头的斜杠
-  const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '').replace(/^\//, '');
-  
-  // 根据路径匹配对应的语言文件
-  if (pathWithoutLocale.startsWith('css/gradient')) {
-    return 'css/gradient';
+export async function loadMergedDictionaries(paths: string[], locale: string): Promise<Record<string, any>> {
+  const normalizedLocale = getNormalizedLocale(locale);
+  const mergedDictionary: Record<string, any> = {};
+  for (const path of paths) {
+    try {
+      const dictionary = await import(`public/i18n/${path}/${normalizedLocale}.json`)
+        .then(module => module.default);
+      Object.assign(mergedDictionary, dictionary);
+    } catch (error) {
+      // 如果找不到指定语言的文件，尝试加载默认语言
+      try {
+        const fallbackDictionary = await import(`public/i18n/${path}/${defaultLocale}.json`)
+          .then(module => module.default);
+        Object.assign(mergedDictionary, fallbackDictionary);
+      } catch (fallbackError) {
+      }
+    }
   }
   
-  if (pathWithoutLocale.startsWith('css/')) {
-    return 'css';
+  return mergedDictionary;
+}
+
+/**
+ * 根据当前路径确定要加载的语言文件路径
+ * @param pathname 当前路径，例如 '/zh-CN/css/gradient' 或 '/css/gradient'
+ * @returns 对应的语言文件路径数组
+ */
+export function getDictionaryPathsFromRoute(pathname: string): string[] {
+  // 移除开头的斜杠
+  let pathWithoutLocale = pathname.replace(/^\//, '');
+  
+  // 检查第一个路径段是否是支持的语言代码
+  const pathSegments = pathWithoutLocale.split('/');
+  const firstSegment = pathSegments[0];
+  
+  // 如果第一个段是支持的语言代码，则移除它
+  if (firstSegment && supportedLocales.includes(firstSegment as SupportedLocale)) {
+    pathSegments.shift(); // 移除语言代码段
+    pathWithoutLocale = pathSegments.join('/');
   }
   
-  // 默认返回main
-  return 'main';
+  // 基础翻译文件（所有页面都需要）
+  const basePaths = ['common', 'navigation'];
+  
+  // 如果路径为空，说明是首页
+  if (pathWithoutLocale === '' || pathWithoutLocale === '/') {
+    return [...basePaths, 'home'];
+  }
+  
+  // 直接返回完整路径，不按层级分割
+  return [...basePaths, pathWithoutLocale];
 }
 
 /**
@@ -180,6 +219,6 @@ export function getDictionaryPathFromRoute(pathname: string): string {
  * @returns 加载的i18n字典对象
  */
 export async function loadDictionaryByRoute(pathname: string, locale: string): Promise<Record<string, any>> {
-  const dictPath = getDictionaryPathFromRoute(pathname);
-  return await loadI18nDictionary(dictPath, locale);
+  const dictPaths = getDictionaryPathsFromRoute(pathname);
+  return await loadMergedDictionaries(dictPaths, locale);
 }

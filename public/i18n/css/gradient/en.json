@@ -58,6 +58,7 @@
 		"copy": "Copy"
 	},
 	"versions": {
+		"version": "Version",
 		"v3": "v3 (Current)",
 		"v4": "v4 (Latest)",
 		"v3_note": "Tailwind CSS v3: Uses traditional gradient syntax (bg-gradient-*). This is the stable version currently in wide use.",
@@ -81,6 +82,7 @@
 	"messages": {
 		"positions_adjusted": "Gradient positions adjusted to 0%, 50%, 100%!",
 		"simplified_to_3": "Simplified to 3 colors: {colors}",
-		"copied": "Copied to clipboard!"
+		"copied": "Copied to clipboard!",
+		"added_color_stop": "Added color stop at {percentage}%"
 	}
 } 

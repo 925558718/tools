@@ -26,6 +26,7 @@ function Logo() {
 						fill="none"
 						stroke="currentColor"
 						strokeWidth="2.5"
+						aria-hidden="true"
 					>
 						{/* 创意的图像处理图标 */}
 						<circle 

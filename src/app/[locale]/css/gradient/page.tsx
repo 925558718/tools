@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
-import { Slider } from "@/components/shadcn/slider";
+import { useTranslations } from 'next-intl';
 import { Button } from "@/components/shadcn/button";
 import { Input } from "@/components/shadcn/input";
 import { Label } from "@/components/shadcn/label";
@@ -9,32 +9,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/shadcn/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/tabs";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/shadcn/popover";
-import { Copy, Plus, Trash2, RotateCcw, Shuffle } from "lucide-react";
+import { Copy, Plus, Trash2, RotateCcw, Shuffle, Baby } from "lucide-react";
 import { toast } from "sonner";
-
-interface ColorStop {
-  id: string;
-  color: string;
-  position: number;
-}
-
-interface GradientConfig {
-  type: "linear" | "radial";
-  direction: string;
-  stops: ColorStop[];
-}
+import { 
+  ColorStop, 
+  GradientConfig, 
+  defaultGradientConfig,
+  getLinearDirections,
+  getRadialShapes,
+  generateRandomColor,
+  generateRandomGradientConfig,
+  generateCSS,
+  generateTailwind,
+  simplifyGradient
+} from "./config";
 
 const GradientGenerator = () => {
-  const [config, setConfig] = useState<GradientConfig>({
-    type: "linear",
-    direction: "90deg",
-    stops: [
-      { id: "1", color: "#2A7B9B", position: 0 },
-      { id: "2", color: "#57C785", position: 50 },
-      { id: "3", color: "#EDDD53", position: 100 }
-    ]
-  });
-
+  const t = useTranslations();
+  
+  const [config, setConfig] = useState<GradientConfig>(defaultGradientConfig);
   const [outputFormat, setOutputFormat] = useState<"css" | "tailwind">("css");
   const [tailwindVersion, setTailwindVersion] = useState<"v3" | "v4">("v4");
   const [dragging, setDragging] = useState<{ id: string; startX: number; startPosition: number } | null>(null);
@@ -42,301 +35,9 @@ const GradientGenerator = () => {
   const [isDragEnd, setIsDragEnd] = useState(false);
   const gradientBarRef = useRef<HTMLDivElement>(null);
 
-  // Linear gradient direction options
-  const linearDirections = [
-    { value: "90deg", label: "To Right (90deg)" },
-    { value: "0deg", label: "To Top (0deg)" },
-    { value: "180deg", label: "To Bottom (180deg)" },
-    { value: "270deg", label: "To Left (270deg)" },
-    { value: "45deg", label: "To Top Right (45deg)" },
-    { value: "135deg", label: "To Bottom Right (135deg)" },
-    { value: "225deg", label: "To Bottom Left (225deg)" },
-    { value: "315deg", label: "To Top Left (315deg)" }
-  ];
-
-  // Radial gradient shape options
-  const radialShapes = [
-    { value: "circle", label: "Circle" },
-    { value: "ellipse", label: "Ellipse" },
-    { value: "circle at center", label: "Circle at Center" },
-    { value: "ellipse at center", label: "Ellipse at Center" },
-    { value: "circle at top", label: "Circle at Top" },
-    { value: "circle at bottom", label: "Circle at Bottom" }
-  ];
-
-  // Comprehensive Tailwind color mapping
-  const tailwindColorMap: { [key: string]: string } = {
-    // Reds
-    "#fee2e2": "red-50", "#fecaca": "red-100", "#fca5a5": "red-200", "#f87171": "red-300",
-    "#ef4444": "red-500", "#dc2626": "red-600", "#b91c1c": "red-700", "#991b1b": "red-800",
-    // Blues  
-    "#eff6ff": "blue-50", "#dbeafe": "blue-100", "#bfdbfe": "blue-200", "#93c5fd": "blue-300",
-    "#60a5fa": "blue-400", "#3b82f6": "blue-500", "#2563eb": "blue-600", "#1d4ed8": "blue-700", "#1e40af": "blue-800",
-    // Greens
-    "#f0fdf4": "green-50", "#dcfce7": "green-100", "#bbf7d0": "green-200", "#86efac": "green-300",
-    "#4ade80": "green-400", "#22c55e": "green-500", "#16a34a": "green-600", "#15803d": "green-700", "#166534": "green-800",
-    // Purples & Violets
-    "#faf5ff": "purple-50", "#f3e8ff": "purple-100", "#e9d5ff": "purple-200", "#c4b5fd": "purple-300",
-    "#a78bfa": "purple-400", "#8b5cf6": "purple-500", "#7c3aed": "purple-600", "#6d28d9": "purple-700", "#5b21b6": "purple-800",
-    "#5f27cd": "purple-600", // Custom mapping for your gradient color
-    // Yellows & Ambers
-    "#fefce8": "yellow-50", "#fef3c7": "yellow-100", "#fde68a": "yellow-200", "#fcd34d": "yellow-300",
-    "#facc15": "yellow-400", "#eab308": "yellow-500", "#ca8a04": "yellow-600", "#a16207": "yellow-700", "#854d0e": "yellow-800",
-    "#eddd53": "yellow-400", // Custom mapping for your gradient color
-    // Teals & Cyans
-    "#f0fdfa": "teal-50", "#ccfbf1": "teal-100", "#99f6e4": "teal-200", "#5eead4": "teal-300",
-    "#2dd4bf": "teal-400", "#14b8a6": "teal-500", "#0d9488": "teal-600", "#0f766e": "teal-700",
-    "#57c785": "emerald-400", // Custom mapping for your gradient color
-    // Custom colors from your example
-    "#2a7b9b": "sky-600", // Custom mapping for your gradient color
-    // Grays
-    "#f9fafb": "gray-50", "#f3f4f6": "gray-100", "#e5e7eb": "gray-200", "#d1d5db": "gray-300",
-    "#9ca3af": "gray-400", "#6b7280": "gray-500", "#4b5563": "gray-600", "#374151": "gray-700",
-    "#1f2937": "gray-800", "#111827": "gray-900",
-    // Indigos
-    "#eef2ff": "indigo-50", "#e0e7ff": "indigo-100", "#c7d2fe": "indigo-200", "#a5b4fc": "indigo-300",
-    "#818cf8": "indigo-400", "#6366f1": "indigo-500", "#4f46e5": "indigo-600", "#4338ca": "indigo-700",
-    // Sky colors
-    "#f0f9ff": "sky-50", "#e0f2fe": "sky-100", "#bae6fd": "sky-200", "#7dd3fc": "sky-300",
-    "#38bdf8": "sky-400", "#0ea5e9": "sky-500", "#0284c7": "sky-600", "#0369a1": "sky-700",
-    // Others
-    "#000000": "black", "#ffffff": "white"
-  };
-
-  // Generate CSS gradient string
-  const generateCSS = () => {
-    const sortedStops = [...config.stops].sort((a, b) => a.position - b.position);
-    const stopsString = sortedStops
-      .map(stop => `${stop.color} ${stop.position}%`)
-      .join(", ");
-
-    if (config.type === "linear") {
-      return `linear-gradient(${config.direction}, ${stopsString})`;
-    } 
-    return `radial-gradient(${config.direction}, ${stopsString})`;
-  };
-
-  // Generate Tailwind CSS classes (supports both v3 and v4)
-  const generateTailwind = () => {
-    const sortedStops = [...config.stops].sort((a, b) => a.position - b.position);
-    
-    // Get direction string based on version
-    const getDirection = () => {
-      if (config.type === "linear") {
-        const v4Directions: { [key: string]: string } = {
-          "0deg": "bg-linear-to-t",
-          "45deg": "bg-linear-to-tr", 
-          "90deg": "bg-linear-to-r",
-          "135deg": "bg-linear-to-br",
-          "180deg": "bg-linear-to-b",
-          "225deg": "bg-linear-to-bl",
-          "270deg": "bg-linear-to-l",
-          "315deg": "bg-linear-to-tl"
-        };
-        
-        const v3Directions: { [key: string]: string } = {
-          "0deg": "bg-gradient-to-t",
-          "45deg": "bg-gradient-to-tr",
-          "90deg": "bg-gradient-to-r", 
-          "135deg": "bg-gradient-to-br",
-          "180deg": "bg-gradient-to-b",
-          "225deg": "bg-gradient-to-bl",
-          "270deg": "bg-gradient-to-l",
-          "315deg": "bg-gradient-to-tl"
-        };
-        
-        const directions = tailwindVersion === "v4" ? v4Directions : v3Directions;
-        return directions[config.direction] || (tailwindVersion === "v4" ? "bg-linear-to-r" : "bg-gradient-to-r");
-      } 
-      return tailwindVersion === "v4" ? "bg-radial" : "bg-gradient-radial";
-    };
-
-    // Try to generate Tailwind classes with position support
-    const classes = [getDirection()];
-    
-    // Handle different numbers of stops
-    if (sortedStops.length === 2) {
-      const fromColor = hexToTailwindColor(sortedStops[0].color);
-      const toColor = hexToTailwindColor(sortedStops[1].color);
-      
-      // Add from color and position
-      classes.push(`from-${fromColor}`);
-      if (sortedStops[0].position !== 0) {
-        classes.push(`from-${sortedStops[0].position}%`);
-      }
-      
-      // Add to color and position
-      classes.push(`to-${toColor}`);
-      if (sortedStops[1].position !== 100) {
-        classes.push(`to-${sortedStops[1].position}%`);
-      }
-      
-      // Only use standard classes if colors are in Tailwind palette
-      if (!fromColor.includes('[') && !toColor.includes('[')) {
-        return classes.join(' ');
-      }
-    } 
-    else if (sortedStops.length === 3) {
-      const fromColor = hexToTailwindColor(sortedStops[0].color);
-      const viaColor = hexToTailwindColor(sortedStops[1].color);
-      const toColor = hexToTailwindColor(sortedStops[2].color);
-      
-      // Add from color and position
-      classes.push(`from-${fromColor}`);
-      if (sortedStops[0].position !== 0) {
-        classes.push(`from-${sortedStops[0].position}%`);
-      }
-      
-      // Add via color and position
-      classes.push(`via-${viaColor}`);
-      if (sortedStops[1].position !== 50) {
-        classes.push(`via-${sortedStops[1].position}%`);
-      }
-      
-      // Add to color and position
-      classes.push(`to-${toColor}`);
-      if (sortedStops[2].position !== 100) {
-        classes.push(`to-${sortedStops[2].position}%`);
-      }
-      
-      // Only use standard classes if colors are in Tailwind palette
-      if (!fromColor.includes('[') && !viaColor.includes('[') && !toColor.includes('[')) {
-        return classes.join(' ');
-      }
-    }
-    else if (sortedStops.length > 3) {
-      // For more than 3 colors, we can still try to use Tailwind syntax with arbitrary values
-      // Use first color as from, last as to, and try to fit middle colors as via
-      const fromColor = hexToTailwindColor(sortedStops[0].color);
-      const toColor = hexToTailwindColor(sortedStops[sortedStops.length - 1].color);
-      
-      classes.push(`from-${fromColor}`);
-      if (sortedStops[0].position !== 0) {
-        classes.push(`from-${sortedStops[0].position}%`);
-      }
-      
-      // Add middle colors as via with arbitrary values if needed
-      const middleStops = sortedStops.slice(1, -1);
-      if (middleStops.length === 1) {
-        const viaColor = hexToTailwindColor(middleStops[0].color);
-        classes.push(`via-${viaColor}`);
-        if (middleStops[0].position !== 50) {
-          classes.push(`via-${middleStops[0].position}%`);
-        }
-      } else if (middleStops.length > 1) {
-        // For multiple middle colors, use arbitrary value for via
-        const viaColors = middleStops.map(stop => `${stop.color} ${stop.position}%`).join(', ');
-        classes.push(`via-[${viaColors}]`);
-      }
-      
-      classes.push(`to-${toColor}`);
-      if (sortedStops[sortedStops.length - 1].position !== 100) {
-        classes.push(`to-${sortedStops[sortedStops.length - 1].position}%`);
-      }
-      
-      // Check if we can use standard classes
-      if (!fromColor.includes('[') && !toColor.includes('[') && middleStops.length <= 1) {
-        const viaColor = middleStops.length > 0 ? hexToTailwindColor(middleStops[0].color) : '';
-        if (middleStops.length === 0 || !viaColor.includes('[')) {
-          return classes.join(' ');
-        }
-      }
-    }
-    
-    // Fallback to arbitrary value for complex gradients
-    const fallbackCSS = generateCSS().replace(/\s+/g, '_');
-    return `bg-[${fallbackCSS}]`;
-  };
-
-  // Convert hex to closest Tailwind color or return arbitrary value
-  const hexToTailwindColor = (hex: string): string => {
-    const normalizedHex = hex.toLowerCase();
-    
-    // Direct match
-    if (tailwindColorMap[normalizedHex]) {
-      return tailwindColorMap[normalizedHex];
-    }
-    
-    // Find closest color by RGB distance (simplified)
-    let closestColor = `[${hex}]`;
-    let minDistance = Number.POSITIVE_INFINITY;
-    
-    for (const [colorHex, tailwindClass] of Object.entries(tailwindColorMap)) {
-      const distance = colorDistance(hex, colorHex);
-      if (distance < minDistance && distance < 80) { // Increased threshold for better matching
-        minDistance = distance;
-        closestColor = tailwindClass;
-      }
-    }
-    
-    // If we found a reasonably close match, use it
-    if (minDistance < 80) {
-      return closestColor;
-    }
-    
-    return `[${hex}]`;
-  };
-
-  // Calculate color distance (simplified RGB distance)
-  const colorDistance = (hex1: string, hex2: string): number => {
-    const rgb1 = hexToRgb(hex1);
-    const rgb2 = hexToRgb(hex2);
-    if (!rgb1 || !rgb2) return Number.POSITIVE_INFINITY;
-    
-    return Math.sqrt(
-      (rgb1.r - rgb2.r)**2 +
-      (rgb1.g - rgb2.g)**2 +
-      (rgb1.b - rgb2.b)**2
-    );
-  };
-
-  // Convert hex to RGB
-  const hexToRgb = (hex: string) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: Number.parseInt(result[1], 16),
-      g: Number.parseInt(result[2], 16),
-      b: Number.parseInt(result[3], 16)
-    } : null;
-  };
-
-  // Generate random color
-  const generateRandomColor = (): string => {
-    const colors = [
-      "#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57",
-      "#ff9ff3", "#54a0ff", "#5f27cd", "#00d2d3", "#ff9f43",
-      "#10ac84", "#ee5253", "#0abde3", "#3867d6", "#8c7ae6"
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
-
-  // Generate random gradient
-  const generateRandomGradient = () => {
-    const randomType = Math.random() > 0.5 ? "linear" : "radial";
-    const randomDirection = randomType === "linear" 
-      ? linearDirections[Math.floor(Math.random() * linearDirections.length)].value
-      : radialShapes[Math.floor(Math.random() * radialShapes.length)].value;
-    
-    const stopCount = Math.floor(Math.random() * 3) + 2; // 2-4 stops
-    const stops: ColorStop[] = [];
-    
-    for (let i = 0; i < stopCount; i++) {
-      stops.push({
-        id: (i + 1).toString(),
-        color: generateRandomColor(),
-        position: i === 0 ? 0 : i === stopCount - 1 ? 100 : Math.floor(Math.random() * 80) + 10
-      });
-    }
-    
-    // Sort stops by position
-    stops.sort((a, b) => a.position - b.position);
-    
-    setConfig({
-      type: randomType,
-      direction: randomDirection,
-      stops
-    });
-  };
+  // 获取方向选项
+  const linearDirections = getLinearDirections(t);
+  const radialShapes = getRadialShapes(t);
 
   // Handle gradient bar click to add color stop
   const handleGradientBarClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -367,7 +68,7 @@ const GradientGenerator = () => {
       stops: [...prev.stops, newStop]
     }));
     
-    toast.success(`Added color stop at ${clampedPercentage}%`);
+    toast.success(t('messages.added_color_stop', { percentage: clampedPercentage }));
   };
 
   // Handle drag start
@@ -473,59 +174,39 @@ const GradientGenerator = () => {
   // Copy to clipboard
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
+    toast.success(t('messages.copied'));
   };
 
   // Reset to default
   const resetGradient = () => {
-    setConfig({
-      type: "linear",
-      direction: "90deg",
-      stops: [
-        { id: "1", color: "#2A7B9B", position: 0 },
-        { id: "2", color: "#57C785", position: 50 },
-        { id: "3", color: "#EDDD53", position: 100 }
-      ]
-    });
+    setConfig(defaultGradientConfig);
   };
 
-  // Simplify gradient to 3 colors for better Tailwind compatibility
-  const simplifyGradient = () => {
-    const sortedStops = [...config.stops].sort((a, b) => a.position - b.position);
+  // Generate random gradient
+  const generateRandomGradient = () => {
+    setConfig(generateRandomGradientConfig(t));
+  };
+
+  // Simplify gradient
+  const handleSimplifyGradient = () => {
+    const simplifiedConfig = simplifyGradient(config);
+    setConfig(simplifiedConfig);
     
-    if (sortedStops.length <= 3) {
-      // Already simple, just adjust positions
-      const newStops = sortedStops.map((stop, index) => ({
-        ...stop,
-        position: index === 0 ? 0 : index === sortedStops.length - 1 ? 100 : 50
-      }));
-      setConfig(prev => ({ ...prev, stops: newStops }));
-      toast.success("Gradient positions adjusted to 0%, 50%, 100%!");
+    if (config.stops.length <= 3) {
+      toast.success(t('messages.positions_adjusted'));
     } else {
-      // Reduce to 3 colors: first, middle, last
+      const sortedStops = [...config.stops].sort((a, b) => a.position - b.position);
       const firstStop = sortedStops[0];
       const lastStop = sortedStops[sortedStops.length - 1];
       const middleIndex = Math.floor(sortedStops.length / 2);
       const middleStop = sortedStops[middleIndex];
-      
-      const newStops = [
-        { ...firstStop, position: 0 },
-        { ...middleStop, position: 50 },
-        { ...lastStop, position: 100 }
-      ];
-      
-      setConfig(prev => ({
-        ...prev,
-        stops: newStops
-      }));
-      
-      // Show what colors were selected
-      toast.success(`Simplified to 3 colors: ${firstStop.color}, ${middleStop.color}, ${lastStop.color}`);
+      const colors = `${firstStop.color}, ${middleStop.color}, ${lastStop.color}`;
+      toast.success(t('messages.simplified_to_3', { colors }));
     }
   };
 
-  const cssGradient = generateCSS();
-  const tailwindGradient = generateTailwind();
+  const cssGradient = generateCSS(config);
+  const tailwindGradient = generateTailwind(config, tailwindVersion);
 
   return (
     <>
@@ -600,25 +281,25 @@ const GradientGenerator = () => {
           {/* 标题区域 */}
           <div className="text-center mb-12">
             <h1 className="gradient-title mb-4">
-              CSS Gradient Generator
+              {t('title')}
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Create beautiful gradients with live preview and copy-ready CSS or Tailwind code
+              {t('subtitle')}
             </p>
             
             {/* 特性标签 */}
             <div className="flex items-center justify-center gap-6 mt-6 text-sm text-slate-500 dark:text-slate-400">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
-                <span>Live Preview</span>
+                <span>{t('features.live_preview')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                <span>CSS & Tailwind</span>
+                <span>{t('features.css_tailwind')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-                <span>Interactive Editor</span>
+                <span>{t('features.interactive_editor')}</span>
               </div>
             </div>
           </div>
@@ -628,8 +309,8 @@ const GradientGenerator = () => {
             {/* Live Preview at top - Now rectangular */}
             <Card className="mb-6">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Live Preview</CardTitle>
-                <CardDescription>See your gradient in real-time</CardDescription>
+                <CardTitle className="text-lg">{t('preview.title')}</CardTitle>
+                <CardDescription>{t('preview.description')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div 
@@ -639,12 +320,30 @@ const GradientGenerator = () => {
                 
                 {/* Interactive Gradient Bar */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Interactive Color Bar - Click to add, drag to move</Label>
-                  <div 
+                  <Label className="text-sm font-medium">{t('preview.interactive_bar')}</Label>
+                  {/* biome-ignore lint/a11y/useFocusableInteractive: <explanation> */}
+<div 
                     ref={gradientBarRef}
                     onClick={handleGradientBarClick}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        // 模拟点击事件
+                        const rect = gradientBarRef.current?.getBoundingClientRect();
+                        if (rect) {
+                          const mockEvent = {
+                            clientX: rect.left + rect.width / 2,
+                            target: e.target
+                          } as React.MouseEvent<HTMLDivElement>;
+                          handleGradientBarClick(mockEvent);
+                        }
+                      }
+                    }}
                     className="relative w-full h-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 cursor-pointer transition-all duration-200 hover:border-primary hover:shadow-sm"
+                    aria-label={t('preview.interactive_bar')}
                     style={{ background: cssGradient }}
+                    // biome-ignore lint/a11y/useSemanticElements: <explanation>
+                    role="button"
                   >
                     {/* Color stop handles - Now vertical bars with rounded corners */}
                     {config.stops.map((stop) => (
@@ -657,6 +356,12 @@ const GradientGenerator = () => {
                             onMouseDown={(e) => {
                               e.stopPropagation();
                               handleDragStart(e, stop.id);
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                e.stopPropagation();
+                              }
                             }}
                           >
                             <div
@@ -677,8 +382,19 @@ const GradientGenerator = () => {
                                   e.preventDefault();
                                   removeColorStop(stop.id);
                                 }}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    removeColorStop(stop.id);
+                                  }
+                                }}
+                                title="Remove color stop"
+                                // biome-ignore lint/a11y/useSemanticElements: <explanation>
+                                role="button"
+                                tabIndex={0}
                               >
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                   <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
                               </div>
@@ -688,13 +404,13 @@ const GradientGenerator = () => {
                         <PopoverContent className="w-72 p-4" side="left" align="center" sideOffset={8}>
                           <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                              <h4 className="font-medium text-sm">Edit Color Stop</h4>
+                              <h4 className="font-medium text-sm">{t('color_stop.edit')}</h4>
                               <span className="text-xs text-muted-foreground">#{config.stops.findIndex(s => s.id === stop.id) + 1}</span>
                             </div>
                             
                             <div className="space-y-3">
                               <div className="space-y-2">
-                                <Label className="text-sm font-medium">Color</Label>
+                                <Label className="text-sm font-medium">{t('color_stop.color')}</Label>
                                 <div className="flex gap-2">
                                   <Input
                                     type="color"
@@ -704,6 +420,8 @@ const GradientGenerator = () => {
                                       updateColorStop(stop.id, { color: e.target.value + alpha });
                                     }}
                                     className="w-12 h-9 p-1 rounded border cursor-pointer"
+                                    title="Choose color"
+                                    aria-label="Choose color"
                                   />
                                   <Input
                                     type="text"
@@ -711,13 +429,15 @@ const GradientGenerator = () => {
                                     onChange={(e) => updateColorStop(stop.id, { color: e.target.value })}
                                     className="flex-1"
                                     placeholder="#000000"
+                                    title="Enter hex color value"
+                                    aria-label="Enter hex color value"
                                   />
                                 </div>
                               </div>
                               
                               <div className="grid grid-cols-2 gap-3">
                                 <div className="space-y-2">
-                                  <Label className="text-sm font-medium">Position (%)</Label>
+                                  <Label className="text-sm font-medium">{t('color_stop.position')}</Label>
                                   <Input
                                     type="number"
                                     min="0"
@@ -725,10 +445,12 @@ const GradientGenerator = () => {
                                     value={stop.position}
                                     onChange={(e) => updateColorStop(stop.id, { position: Number.parseInt(e.target.value) || 0 })}
                                     className="w-full"
+                                    title="Set position percentage"
+                                    aria-label="Set position percentage"
                                   />
                                 </div>
                                 <div className="space-y-2">
-                                  <Label className="text-sm font-medium">Opacity (%)</Label>
+                                  <Label className="text-sm font-medium">{t('color_stop.opacity')}</Label>
                                   <Input
                                     type="number"
                                     min="0"
@@ -742,6 +464,8 @@ const GradientGenerator = () => {
                                     }}
                                     className="w-full"
                                     placeholder="100"
+                                    title="Set opacity percentage"
+                                    aria-label="Set opacity percentage"
                                   />
                                 </div>
                               </div>
@@ -752,7 +476,7 @@ const GradientGenerator = () => {
                     ))}
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    💡 Click anywhere to add a color stop, drag existing stops to reposition them, click a stop to edit it
+                    {t('preview.tip')}
                   </p>
                 </div>
               </CardContent>
@@ -763,23 +487,23 @@ const GradientGenerator = () => {
               <div className="space-y-4">
                 <Card>
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-lg">Settings</CardTitle>
+                    <CardTitle className="text-lg">{t('settings.title')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {/* Gradient Type */}
                     <div className="space-y-2">
-                      <Label>Type</Label>
+                      <Label>{t('settings.type')}</Label>
                       <Tabs value={config.type} onValueChange={(value: string) => setConfig(prev => ({ ...prev, type: value as "linear" | "radial" }))}>
                         <TabsList className="grid w-full grid-cols-2">
-                          <TabsTrigger value="linear">Linear</TabsTrigger>
-                          <TabsTrigger value="radial">Radial</TabsTrigger>
+                          <TabsTrigger value="linear">{t('settings.linear')}</TabsTrigger>
+                          <TabsTrigger value="radial">{t('settings.radial')}</TabsTrigger>
                         </TabsList>
                       </Tabs>
                     </div>
 
                     {/* Direction/Shape */}
                     <div className="space-y-2">
-                      <Label>{config.type === "linear" ? "Direction" : "Shape"}</Label>
+                      <Label>{config.type === "linear" ? t('settings.direction') : t('settings.shape')}</Label>
                       <Select 
                         value={config.direction} 
                         onValueChange={(value) => setConfig(prev => ({ ...prev, direction: value }))}
@@ -802,19 +526,17 @@ const GradientGenerator = () => {
                       <div className="flex gap-2">
                         <Button onClick={generateRandomGradient} variant="outline" className="flex-1">
                           <Shuffle className="w-4 h-4 mr-2" />
-                          Random
+                          {t('settings.random')}
                         </Button>
                         <Button onClick={resetGradient} variant="outline" className="flex-1">
                           <RotateCcw className="w-4 h-4 mr-2" />
-                          Reset
+                          {t('settings.reset')}
                         </Button>
                       </div>
                       {config.stops.length > 3 && (
-                        <Button onClick={simplifyGradient} variant="outline" className="w-full">
-                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                          Simplify for Tailwind
+                        <Button onClick={handleSimplifyGradient} variant="outline" className="w-full">
+                          <Baby className="w-4 h-4 mr-2" />
+                          {t('settings.simplify')}
                         </Button>
                       )}
                     </div>
@@ -826,19 +548,19 @@ const GradientGenerator = () => {
               <div className="lg:col-span-2">
                 <Card>
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-lg">Generated Code</CardTitle>
-                    <CardDescription>Copy the code to use in your project</CardDescription>
+                    <CardTitle className="text-lg">{t('code.title')}</CardTitle>
+                    <CardDescription>{t('code.description')}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Tabs value={outputFormat} onValueChange={(value: string) => setOutputFormat(value as "css" | "tailwind")}>
                       <TabsList className="grid w-full grid-cols-2 mb-4">
-                        <TabsTrigger value="css">CSS</TabsTrigger>
-                        <TabsTrigger value="tailwind">Tailwind</TabsTrigger>
+                        <TabsTrigger value="css">{t('code.css')}</TabsTrigger>
+                        <TabsTrigger value="tailwind">{t('code.tailwind')}</TabsTrigger>
                       </TabsList>
                       
                       <TabsContent value="css" className="space-y-4">
                         <div className="space-y-2">
-                          <Label>Background Property</Label>
+                          <Label>{t('code.background_property')}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
                               <code>{`background: ${cssGradient};`}</code>
@@ -854,7 +576,7 @@ const GradientGenerator = () => {
                         </div>
                         
                         <div className="space-y-2">
-                          <Label>CSS Class</Label>
+                          <Label>{t('code.css_class')}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
                               <code>{`.gradient {\n  background: ${cssGradient};\n}`}</code>
@@ -873,17 +595,17 @@ const GradientGenerator = () => {
                       <TabsContent value="tailwind" className="space-y-4">
                         {/* Version Selector */}
                         <div className="space-y-2">
-                          <Label>Tailwind CSS Version</Label>
+                          <Label>Tailwind CSS {t('versions.version')}</Label>
                           <Tabs value={tailwindVersion} onValueChange={(value: string) => setTailwindVersion(value as "v3" | "v4")}>
                             <TabsList className="grid w-full grid-cols-2">
-                              <TabsTrigger value="v3">v3 (Current)</TabsTrigger>
-                              <TabsTrigger value="v4">v4 (Latest)</TabsTrigger>
+                              <TabsTrigger value="v3">{t('versions.v3')}</TabsTrigger>
+                              <TabsTrigger value="v4">{t('versions.v4')}</TabsTrigger>
                             </TabsList>
                           </Tabs>
                         </div>
 
                         <div className="space-y-2">
-                          <Label>Tailwind CSS {tailwindVersion.toUpperCase()} Classes</Label>
+                          <Label>{t('code.tailwind_classes', { version: tailwindVersion.toUpperCase() })}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
                               <code>{tailwindGradient}</code>
@@ -899,7 +621,7 @@ const GradientGenerator = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <Label>Usage Example</Label>
+                          <Label>{t('code.usage_example')}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border">
                               <code>{`<div class="${tailwindGradient}">\n  <!-- Content -->\n</div>`}</code>
@@ -917,15 +639,13 @@ const GradientGenerator = () => {
                         {tailwindVersion === "v4" ? (
                           <div className="p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded">
                             <p className="text-sm text-blue-800 dark:text-blue-200">
-                              <strong>Tailwind CSS v4:</strong> Uses new gradient syntax (bg-linear-*, bg-radial-*). 
-                              This is the latest version with improved gradient utilities.
+                              <strong>{t('versions.v4')}:</strong> {t('versions.v4_note')}
                             </p>
                           </div>
                         ) : (
                           <div className="p-3 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded">
                             <p className="text-sm text-green-800 dark:text-green-200">
-                              <strong>Tailwind CSS v3:</strong> Uses traditional gradient syntax (bg-gradient-*). 
-                              This is the stable version currently in wide use.
+                              <strong>{t('versions.v3')}:</strong> {t('versions.v3_note')}
                             </p>
                           </div>
                         )}
@@ -933,16 +653,14 @@ const GradientGenerator = () => {
                         {tailwindGradient.includes("bg-[") && (
                           <div className="p-3 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded">
                             <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                              <strong>Complex Gradient:</strong> Using arbitrary value because:
-                              <br />• Colors not in Tailwind&apos;s standard palette, or
-                              <br />• More than 3 color stops (Tailwind supports max 3: from/via/to)
+                              <strong>{t('complex_gradient.title')}:</strong> {t('complex_gradient.description')}
+                              <br />{t('complex_gradient.reason1')}
+                              <br />{t('complex_gradient.reason2')}
                               <br /><br />
-                              <strong>Note:</strong> Tailwind CSS supports position syntax like:
-                              <br />• <code>from-blue-500 from-10%</code>
-                              <br />• <code>via-red-500 via-30%</code> 
-                              <br />• <code>to-green-500 to-90%</code>
+                              <strong>{t('complex_gradient.note')}</strong>
+                              <br />{t('complex_gradient.position_examples')}
                               <br /><br />
-                              <strong>Arbitrary Value Format:</strong> <code>bg-[linear-gradient(...)]</code>
+                              <strong>{t('complex_gradient.arbitrary_format')}</strong>
                             </p>
                           </div>
                         )}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
 import {
   getNormalizedLocale,
   defaultLocale,
@@ -15,14 +16,11 @@ export async function generateMetadata({
 
   // 根据当前路径动态加载对应语言的字典
   const dictionary = await loadDictionaryByRoute("/css/gradient", locale);
-
+  
   // 标题和描述支持多语言
-  const title =
-    dictionary.meta.title
-  const description =
-    dictionary.meta.description
-  const keywords =
-    dictionary.meta.keywords
+  const title = dictionary.meta?.title || dictionary.title || "CSS Gradient Generator";
+  const description = dictionary.meta?.description || dictionary.subtitle || "Create beautiful CSS gradients with live preview";
+  const keywords = dictionary.meta?.keywords || "CSS gradient, gradient generator, tailwind gradients";
 
   // 构建基础URL
   const baseUrl = "https://tools.limgx.com";
@@ -30,19 +28,19 @@ export async function generateMetadata({
   // 构建当前语言的URL (默认语言不需要语言前缀)
   const currentUrl =
     locale === defaultLocale 
-      ? `${baseUrl}/dev/gradient` 
-      : `${baseUrl}/${locale}/dev/gradient`;
+      ? `${baseUrl}/css/gradient` 
+      : `${baseUrl}/${locale}/css/gradient`;
 
   // 构建备用语言链接
   const languageAlternates: Record<string, string> = {};
 
   // 添加默认语言链接
-  languageAlternates[defaultLocale] = `${baseUrl}/dev/gradient`;
+  languageAlternates[defaultLocale] = `${baseUrl}/css/gradient`;
 
   // 添加其他语言链接
   for (const lang of supportedLocales) {
     if (lang !== defaultLocale) {
-      languageAlternates[lang] = `${baseUrl}/${lang}/dev/gradient`;
+      languageAlternates[lang] = `${baseUrl}/${lang}/css/gradient`;
     }
   }
 
@@ -69,10 +67,23 @@ export async function generateMetadata({
   };
 }
 
-export default function GradientLayout({
+export default async function GradientLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  return <>{children}</>;
+  // 等待参数解析并标准化语言代码
+  const resolvedParams = await params;
+  const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
+
+  // 加载页面特定的翻译
+  const dictionary = await loadDictionaryByRoute("/css/gradient", locale);
+
+  return (
+    <NextIntlClientProvider locale={locale} messages={dictionary}>
+      {children}
+    </NextIntlClientProvider>
+  );
 } 
