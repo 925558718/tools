@@ -45,9 +45,8 @@
     }
   },
   "meta": {
-    "title": "编解码工具 - 专业的编码和解码工具集",
-    "description": "免费的在线编码和解码工具，包括Base64、URL编码、哈希计算、JWT工具、二维码生成等。",
-    "keywords": "编解码,编码,解码,base64,url编码,哈希,jwt,二维码,十六进制转换器,json格式化,图片编码"
+    "title": "编解码工具 - 在线编码解码转换",
+    "description": "免费编解码工具，支持Base64、URL、哈希、JWT、二维码、图片等多种格式转换。"
   },
   "base64": {
     "title": "Base64 编码/解码",
@@ -105,11 +104,6 @@
       "upload_file": "上传文件",
       "copy": "复制",
       "download": "下载"
-    },
-    "meta": {
-      "title": "Base64编码/解码器 - 免费在线工具",
-      "description": "将文本转换为Base64格式或从Base64解码回文本。支持中文字符和文件上传。",
-      "keywords": "base64,编码器,解码器,文本编码,文件编码,中文字符"
     }
   },
   "url": {
@@ -176,11 +170,6 @@
       "clear": "清空",
       "copy": "复制",
       "test_link": "测试链接"
-    },
-    "meta": {
-      "title": "URL编码/解码器 - 免费在线工具",
-      "description": "编码和解码URL参数。支持中文字符和特殊符号。",
-      "keywords": "url编码,url解码,百分号编码,url参数,web开发"
     }
   },
   "hash": {
@@ -238,11 +227,6 @@
     "success": {
       "calculation_complete": "哈希计算完成",
       "copied": "已复制到剪贴板"
-    },
-    "meta": {
-      "title": "哈希计算器 - MD5、SHA1、SHA256在线工具",
-      "description": "使用各种算法计算哈希值，包括MD5、SHA1、SHA256、SHA512。支持盐值和文件上传。",
-      "keywords": "哈希计算器,md5,sha1,sha256,sha512,密码学,密码哈希"
     }
   },
   "jwt": {
@@ -319,11 +303,6 @@
       "copy": "复制",
       "show": "显示",
       "hide": "隐藏"
-    },
-    "meta": {
-      "title": "JWT工具 - 解码和验证JWT令牌",
-      "description": "解码JWT令牌、验证签名并生成新令牌。支持各种算法。",
-      "keywords": "jwt,json web token,令牌解码,jwt验证,jwt生成器"
     }
   },
   "hex": {
@@ -411,11 +390,6 @@
       "clear": "清空",
       "copy": "复制",
       "download": "下载"
-    },
-    "meta": {
-      "title": "十六进制转换器 - 文本转十六进制在线工具",
-      "description": "文本与十六进制格式之间的转换。支持二进制转换和各种编码格式。",
-      "keywords": "十六进制转换器,文本转十六进制,十六进制,二进制转换器,编码工具"
     }
   },
   "json": {
@@ -506,11 +480,6 @@
       "copy": "复制",
       "download": "下载",
       "upload": "上传文件"
-    },
-    "meta": {
-      "title": "JSON格式化器 - 在线格式化和验证JSON",
-      "description": "格式化、验证和压缩JSON数据。支持语法高亮和错误检测。",
-      "keywords": "json格式化器,json验证器,json美化器,json压缩,json工具"
     }
   },
   "image": {
@@ -603,11 +572,6 @@
       "copy": "复制",
       "download": "下载",
       "preview": "预览"
-    },
-    "meta": {
-      "title": "图片编码器 - 在线将图片转换为Base64",
-      "description": "将图片转换为Base64格式。支持多种图片格式和各种输出选项。",
-      "keywords": "图片编码器,base64图片,图片转base64,图片转换,web开发"
     }
   },
   "qr": {
@@ -727,11 +691,6 @@
       "copy": "复制",
       "reset": "重置",
       "preview": "预览"
-    },
-    "meta": {
-      "title": "二维码生成器 - 在线创建二维码",
-      "description": "为网址、文本、WiFi、电话号码、邮箱等生成二维码。可自定义大小和纠错级别。",
-      "keywords": "二维码生成器,二维码创建器,二维码扫描器,二维码制作器,条形码"
     }
   },
   "text_to_hex": {

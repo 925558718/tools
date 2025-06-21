@@ -8,9 +8,8 @@
       "interactive_editor": "交互式编辑器"
     },
     "meta": {
-      "title": "CSS渐变生成器 - LocalImage | 创建美丽的渐变效果",
-      "description": "免费在线CSS渐变生成器，具有实时预览功能，支持Tailwind CSS v3/v4，生成即用代码。为您的网页项目创建精美的线性和径向渐变，支持实时编辑。",
-      "keywords": "CSS渐变, 渐变生成器, Tailwind渐变, 线性渐变, 径向渐变, CSS工具, 背景生成器"
+      "title": "CSS渐变生成器 - 线性径向渐变代码工具",
+      "description": "免费CSS渐变生成器，支持线性、径向渐变，实时预览与代码导出。"
     },
     "preview": {
       "title": "实时预览",

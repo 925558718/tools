@@ -20,7 +20,6 @@ console.log(t("logo_subtitle"))
 	return {
 		title: appName,
 		description: appDescription,
-		keywords: featureList.join(", "),
 	};
 }
 

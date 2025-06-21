@@ -15,7 +15,6 @@ export async function generateMetadata({
 	// 标题和描述支持多语言
 	const title = t("meta.title") || t("title") || "CSS Gradient Generator";
 	const description = t("meta.description") || t("subtitle") || "Create beautiful CSS gradients with live preview";
-	const keywords = t("meta.keywords") || "CSS gradient, gradient generator, tailwind gradients";
 
 	// 构建基础URL
 	const baseUrl = "https://tools.limgx.com";
@@ -38,7 +37,6 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords,
 		authors: [{ name: "tools.limgx.com" }],
 		robots: {
 			index: true,
@@ -54,6 +52,16 @@ export async function generateMetadata({
 		alternates: {
 			canonical: currentUrl,
 			languages: languageAlternates,
+		},
+		openGraph: {
+			title: t('meta.title'),
+			description: t('meta.description'),
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: t('meta.title'),
+			description: t('meta.description'),
 		},
 	};
 }

@@ -3,9 +3,8 @@
     "title": "CSS Gradient Generator",
     "subtitle": "Create beautiful gradients with live preview and copy-ready CSS or Tailwind code",
     "meta": {
-      "title": "CSS Gradient Generator - LocalImage | Create Beautiful Gradients",
-      "description": "Free online CSS gradient generator with live preview, Tailwind CSS v3/v4 support, and copy-ready code. Create beautiful linear and radial gradients for your web projects with real-time editing.",
-      "keywords": "CSS gradient, gradient generator, tailwind gradients, linear gradient, radial gradient, css tools, background generator"
+      "title": "CSS Gradient Generator - Online Linear Radial Gradient Code Tool",
+      "description": "Free CSS gradient generator for linear and radial gradients. Live preview and Tailwind code export for web design and frontend development."
     },
     "features": {
       "live_preview": "Live Preview",

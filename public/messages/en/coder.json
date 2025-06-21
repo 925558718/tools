@@ -45,9 +45,8 @@
     }
   },
   "meta": {
-    "title": "Codec Tools - Professional Encoding and Decoding Tools",
-    "description": "Free online encoding and decoding tools including Base64, URL encoding, hash calculation, JWT tools, QR code generation, and more.",
-    "keywords": "codec, encoding, decoding, base64, url encoding, hash, jwt, qr code, hex converter, json formatter, image encoding"
+    "title": "Codec Tools - Online Encoding Decoding Converter",
+    "description": "Free codec tools for Base64, URL, hash, JWT, QR code, image and more. Fast, secure, and easy online conversion."
   },
   "base64": {
     "title": "Base64 Encoder/Decoder",
@@ -105,11 +104,6 @@
       "upload_file": "Upload File",
       "copy": "Copy",
       "download": "Download"
-    },
-    "meta": {
-      "title": "Base64 Encoder/Decoder - Free Online Tool",
-      "description": "Convert text to Base64 format or decode Base64 back to text. Support for Chinese characters and file uploads.",
-      "keywords": "base64, encoder, decoder, text encoding, file encoding, chinese characters"
     }
   },
   "url": {
@@ -176,11 +170,6 @@
       "clear": "Clear",
       "copy": "Copy",
       "test_link": "Test Link"
-    },
-    "meta": {
-      "title": "URL Encoder/Decoder - Free Online Tool",
-      "description": "Encode and decode URL parameters. Support for Chinese characters and special symbols.",
-      "keywords": "url encoding, url decoder, percent encoding, url parameters, web development"
     }
   },
   "hash": {
@@ -238,11 +227,6 @@
     "success": {
       "calculation_complete": "Hash calculation complete",
       "copied": "Copied to clipboard"
-    },
-    "meta": {
-      "title": "Hash Calculator - MD5, SHA1, SHA256 Online Tool",
-      "description": "Calculate hash values using various algorithms including MD5, SHA1, SHA256, SHA512. Support for salt and file uploads.",
-      "keywords": "hash calculator, md5, sha1, sha256, sha512, cryptography, password hashing"
     }
   },
   "jwt": {
@@ -317,11 +301,6 @@
       "copy": "Copy",
       "show": "Show",
       "hide": "Hide"
-    },
-    "meta": {
-      "title": "JWT Tools - Decode and Validate JWT Tokens",
-      "description": "Decode JWT tokens, validate signatures, and generate new tokens. Support for various algorithms.",
-      "keywords": "jwt, json web token, token decoder, jwt validation, jwt generator"
     }
   },
   "hex": {
@@ -409,11 +388,6 @@
       "clear": "Clear",
       "copy": "Copy",
       "download": "Download"
-    },
-    "meta": {
-      "title": "Hex Converter - Text to Hexadecimal Online Tool",
-      "description": "Convert between text and hexadecimal format. Support for binary conversion and various encoding formats.",
-      "keywords": "hex converter, text to hex, hexadecimal, binary converter, encoding tools"
     }
   },
   "json": {
@@ -504,11 +478,6 @@
       "copy": "Copy",
       "download": "Download",
       "upload": "Upload File"
-    },
-    "meta": {
-      "title": "JSON Formatter - Format and Validate JSON Online",
-      "description": "Format, validate and compress JSON data. Support for syntax highlighting and error detection.",
-      "keywords": "json formatter, json validator, json beautifier, json compression, json tools"
     }
   },
   "image": {
@@ -601,11 +570,6 @@
       "copy": "Copy",
       "download": "Download",
       "preview": "Preview"
-    },
-    "meta": {
-      "title": "Image Encoder - Convert Images to Base64 Online",
-      "description": "Convert images to Base64 format. Support for multiple image formats and various output options.",
-      "keywords": "image encoder, base64 image, image to base64, image conversion, web development"
     }
   },
   "qr": {
@@ -725,11 +689,6 @@
       "copy": "Copy",
       "reset": "Reset",
       "preview": "Preview"
-    },
-    "meta": {
-      "title": "QR Code Generator - Create QR Codes Online",
-      "description": "Generate QR codes for URLs, text, WiFi, phone numbers, emails and more. Customizable size and error correction.",
-      "keywords": "qr code generator, qr code creator, qr code scanner, qr code maker, barcode"
     }
   },
   "text_to_hex": {

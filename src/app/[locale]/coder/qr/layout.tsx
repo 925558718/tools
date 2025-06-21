@@ -7,7 +7,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t('meta.title'),
     description: t('meta.description'),
-    keywords: t('meta.keywords'),
     openGraph: {
       title: t('meta.title'),
       description: t('meta.description'),
