@@ -261,18 +261,16 @@
       "title": "JWT Decoding",
       "description": "Decode JWT token and validate its signature",
       "token_label": "JWT Token",
-      "token_placeholder": "Enter JWT token...",
       "secret_label": "Secret (Optional, for signature validation)",
-      "secret_placeholder": "Enter secret to validate signature...",
       "button": "Decode Token"
     },
     "generate": {
       "title": "Generate JWT Token",
       "description": "Generate JWT token using custom payload and secret",
       "payload_label": "Payload Data (JSON format)",
-      "payload_placeholder": "{\"sub\": \"1234567890\", \"name\": \"John Doe\", \"iat\": 1516239022}",
+      "payload_placeholder": "Enter...",
       "secret_label": "Secret",
-      "secret_placeholder": "Enter secret...",
+      "secret_placeholder": "Enter...",
       "algorithm_label": "Algorithm",
       "button": "Generate Token",
       "load_example": "Load Example"
@@ -579,6 +577,24 @@
       "customizable": "Customizable",
       "download": "Download"
     },
+    "tabs": {
+      "generate": "Generate QR Code",
+      "decode": "Decode QR Code"
+    },
+    "generate": {
+      "title": "Generate QR Code",
+      "description": "Convert text content to QR code"
+    },
+    "decode": {
+      "title": "Decode QR Code",
+      "description": "Extract content from QR code image",
+      "upload_label": "Upload QR Code Image",
+      "upload_button": "Upload Image",
+      "supported_formats": "Supported formats: JPG, PNG, GIF, etc., max 5MB",
+      "result_title": "Decode Result",
+      "placeholder": "Image decoding requires backend support",
+      "info": "Image decoding requires backend support"
+    },
     "input": {
       "title": "QR Code Content",
       "description": "Enter content to generate QR code",
@@ -591,15 +607,28 @@
       "title": "QR Code Options",
       "size_label": "Size",
       "error_correction_label": "Error Correction Level",
+      "error_correction_low": "Low (7%)",
+      "error_correction_low_desc": "Can recover 7% of data",
+      "error_correction_medium": "Medium (15%)",
+      "error_correction_medium_desc": "Can recover 15% of data",
+      "error_correction_high": "High (25%)",
+      "error_correction_high_desc": "Can recover 25% of data",
+      "error_correction_highest": "Highest (30%)",
+      "error_correction_highest_desc": "Can recover 30% of data",
       "foreground_color": "Foreground Color",
       "background_color": "Background Color",
       "margin_label": "Margin"
     },
     "result": {
       "title": "Generated QR Code",
-      "download_png": "Download PNG",
+      "download_png": "Download",
       "download_svg": "Download SVG",
-      "copy_image": "Copy Image"
+      "copy_image": "Copy Image",
+      "copy_content": "Copy Content",
+      "alt_text": "QR Code"
+    },
+    "examples": {
+      "title": "Quick Examples"
     },
     "types": {
       "text": "Text",
@@ -630,18 +659,19 @@
       "body_label": "Message Body (Optional)"
     },
     "instructions": {
-      "title": "QR Code Instructions",
-      "content": "Content: ",
-      "content_desc": "Enter the text, URL, or data you want to encode in the QR code.",
-      "size": "Size: ",
-      "size_desc": "Larger sizes are easier to scan but take up more space.",
-      "error_correction": "Error Correction: ",
-      "error_correction_desc": "Higher levels allow the QR code to work even if partially damaged.",
-      "types": "Types: ",
-      "types_desc": "Different content types have specific formats for better compatibility."
+      "title": "Usage Instructions",
+      "content": "Generate QR Code: ",
+      "content_desc": "Convert text, URLs, contact information and other content to QR codes.",
+      "size": "Custom Options: ",
+      "size_desc": "Adjust size, color, margin and error correction level.",
+      "error_correction": "Error Correction Level: ",
+      "error_correction_desc": "Higher levels make QR codes more fault-tolerant but larger in size.",
+      "types": "Supported Formats: ",
+      "types_desc": "URLs, text, WiFi configuration, contact information, etc."
     },
     "errors": {
-      "empty_content": "Please enter content for the QR code",
+      "empty_content": "Please enter content to generate QR code",
+      "invalid_format": "Please select an image file",
       "invalid_url": "Invalid URL format",
       "invalid_email": "Invalid email format",
       "invalid_phone": "Invalid phone number format",
@@ -649,10 +679,11 @@
     },
     "success": {
       "generated": "QR code generated successfully",
-      "copied": "Image copied to clipboard"
+      "copied": "Copied to clipboard"
     },
     "common": {
       "clear": "Clear",
+      "copy": "Copy",
       "reset": "Reset",
       "preview": "Preview"
     },

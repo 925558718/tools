@@ -19,7 +19,7 @@ interface HashResult {
 }
 
 export default function HashPage() {
-  const t = useTranslations('coder.hash');
+  const t = useTranslations();
   const [input, setInput] = useState('');
   const [salt, setSalt] = useState('');
   const [results, setResults] = useState<HashResult[]>([]);
@@ -110,37 +110,37 @@ export default function HashPage() {
   };
 
   const quickExamples = [
-    t('examples.hello_world'),
-    t('examples.password'),
-    t('examples.admin'),
-    t('examples.test_text')
+    t('hash.examples.hello_world'),
+    t('hash.examples.password'),
+    t('hash.examples.admin'),
+    t('hash.examples.test_text')
   ];
 
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey={t('title')}
-        subtitleKey={t('description')}
+        titleKey="hash.title"
+        subtitleKey="hash.description"
         features={[
-          { key: t('features.multiple_algorithms'), color: 'blue' },
-          { key: t('features.salt_encryption'), color: 'green' },
-          { key: t('features.file_support'), color: 'purple' }
+          { key: 'hash.features.multiple_algorithms', color: 'blue' },
+          { key: 'hash.features.salt_encryption', color: 'green' },
+          { key: 'hash.features.file_support', color: 'purple' }
         ]}
       />
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('input.title')}</CardTitle>
+          <CardTitle>{t('hash.input.title')}</CardTitle>
           <CardDescription>
-            {t('input.description')}
+            {t('hash.input.description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="input">{t('input.text_label')}</Label>
+            <Label htmlFor="input">{t('hash.input.text_label')}</Label>
             <Textarea
               id="input"
-              placeholder={t('input.text_placeholder')}
+              placeholder={t('hash.input.text_placeholder')}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={6}
@@ -148,10 +148,10 @@ export default function HashPage() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="salt">{t('input.salt_label')}</Label>
+            <Label htmlFor="salt">{t('hash.input.salt_label')}</Label>
             <Input
               id="salt"
-              placeholder={t('input.salt_placeholder')}
+              placeholder={t('hash.input.salt_placeholder')}
               value={salt}
               onChange={(e) => setSalt(e.target.value)}
             />
@@ -159,15 +159,15 @@ export default function HashPage() {
 
           <div className="flex gap-2">
             <Button onClick={calculateHashes} disabled={isCalculating}>
-              {isCalculating ? t('input.calculating') : t('input.calculate_button')}
+              {isCalculating ? t('hash.input.calculating') : t('hash.input.calculate_button')}
             </Button>
             <Button variant="outline" onClick={handleClear}>
               <RotateCcw className="w-4 h-4 mr-2" />
-              {t('input.clear')}
+              {t('hash.input.clear')}
             </Button>
             <Button variant="outline" onClick={() => document.getElementById('file-upload')?.click()}>
               <Upload className="w-4 h-4 mr-2" />
-              {t('input.upload_file')}
+              {t('hash.input.upload_file')}
             </Button>
             <input
               id="file-upload"
@@ -224,7 +224,7 @@ export default function HashPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>{t('examples.title')}</CardTitle>
+            <CardTitle>{t('hash.examples.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -245,28 +245,28 @@ export default function HashPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>{t('instructions.title')}</CardTitle>
+            <CardTitle>{t('hash.instructions.title')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
             <div>
-              <span className="font-medium">{t('instructions.md5')}</span>
-              {t('instructions.md5_desc')}
+              <span className="font-medium">{t('hash.instructions.md5')}</span>
+              {t('hash.instructions.md5_desc')}
             </div>
             <div>
-              <span className="font-medium">{t('instructions.sha1')}</span>
-              {t('instructions.sha1_desc')}
+              <span className="font-medium">{t('hash.instructions.sha1')}</span>
+              {t('hash.instructions.sha1_desc')}
             </div>
             <div>
-              <span className="font-medium">{t('instructions.sha256')}</span>
-              {t('instructions.sha256_desc')}
+              <span className="font-medium">{t('hash.instructions.sha256')}</span>
+              {t('hash.instructions.sha256_desc')}
             </div>
             <div>
-              <span className="font-medium">{t('instructions.sha512')}</span>
-              {t('instructions.sha512_desc')}
+              <span className="font-medium">{t('hash.instructions.sha512')}</span>
+              {t('hash.instructions.sha512_desc')}
             </div>
             <div>
-              <span className="font-medium">{t('instructions.salt')}</span>
-              {t('instructions.salt_desc')}
+              <span className="font-medium">{t('hash.instructions.salt')}</span>
+              {t('hash.instructions.salt_desc')}
             </div>
           </CardContent>
         </Card>

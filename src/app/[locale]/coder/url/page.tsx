@@ -106,12 +106,12 @@ export default function UrlPage() {
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey={t('url.title')}
-        subtitleKey={t('url.description')}
+        titleKey="url.title"
+        subtitleKey="url.description"
         features={[
-          { key: t('url.features.url_safe'), color: 'blue' },
-          { key: t('url.features.chinese_support'), color: 'green' },
-          { key: t('url.features.parameter_encoding'), color: 'purple' }
+          { key: 'url.features.url_safe', color: 'blue' },
+          { key: 'url.features.chinese_support', color: 'green' },
+          { key: 'url.features.parameter_encoding', color: 'purple' }
         ]}
       />
 

@@ -95,12 +95,12 @@ export default function Base64Page() {
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey={t('base64.title')}
-        subtitleKey={t('base64.description')}
+        titleKey="base64.title"
+        subtitleKey="base64.description"
         features={[
-          { key: t('base64.features.text_encoding'), color: 'blue' },
-          { key: t('base64.features.file_support'), color: 'green' },
-          { key: t('base64.features.chinese_support'), color: 'purple' }
+          { key: 'base64.features.text_encoding', color: 'blue' },
+          { key: 'base64.features.file_support', color: 'green' },
+          { key: 'base64.features.chinese_support', color: 'purple' }
         ]}
       />
 
@@ -212,13 +212,13 @@ export default function Base64Page() {
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('instructions.title')}</CardTitle>
+          <CardTitle>{t('base64.instructions.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <p><strong>{t('instructions.encode_mode')}</strong>{t('instructions.encode_desc')}</p>
-          <p><strong>{t('instructions.decode_mode')}</strong>{t('instructions.decode_desc')}</p>
-          <p><strong>{t('instructions.file_support')}</strong>{t('instructions.file_desc')}</p>
-          <p><strong>{t('instructions.notes')}</strong>{t('instructions.notes_desc')}</p>
+          <p><strong>{t('base64.instructions.encode_mode')}</strong>{t('base64.instructions.encode_desc')}</p>
+          <p><strong>{t('base64.instructions.decode_mode')}</strong>{t('base64.instructions.decode_desc')}</p>
+          <p><strong>{t('base64.instructions.file_support')}</strong>{t('base64.instructions.file_desc')}</p>
+          <p><strong>{t('base64.instructions.notes')}</strong>{t('base64.instructions.notes_desc')}</p>
         </CardContent>
       </Card>
     </div>

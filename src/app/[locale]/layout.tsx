@@ -12,11 +12,11 @@ import { NextIntlClientProvider } from "next-intl";
 import {
 
 	supportedLocales,
-	loadDictionaryByRoute,
 	getNormalizedLocale,
 } from "@/i18n/langMap";
 import BugsnagErrorBoundary from "@/components/Bugsnap";
 import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
 
 const Opensans = Open_Sans({
@@ -39,19 +39,12 @@ export async function generateMetadata({
 	const resolvedParams = await params;
 	const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
 
-	// 获取当前路径
-	const headersList = await headers();
-	const pathname = headersList.get("x-pathname") || "/";
-
-	// 根据当前路径加载对应的翻译
-	const dictionary = await loadDictionaryByRoute(pathname, locale);
-
 	// 标题和描述支持多语言
-	const title = dictionary.meta_title || dictionary.meta?.title || "Developer Tools";
-	const description = dictionary.meta_description || dictionary.meta?.description || "Free online developer tools for software development";
+	const title = "Developer Tools";
+	const description =  "Free online developer tools for software development";
 
 	// 构建基础URL
-	const baseUrl = "https://limgx.com";
+	const baseUrl = "https://tools.limgx.com";
 
 	// 构建当前语言的URL (默认语言不需要语言前缀)
 	const currentUrl =
@@ -73,7 +66,6 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: dictionary.meta_keywords || dictionary.meta?.keywords,
 		authors: [{ name: "limgx.com" }],
 		robots: {
 			index: true,
@@ -144,8 +136,9 @@ export default async function RootLayout({
 									<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-accent/10 to-primary/10 rounded-full blur-3xl"/>
 								</div>
 								
-								{/* 页面内容 */}
-								{children}
+								<div className="relative z-10 mt-20 max-w-7xl mx-auto min-h-screen">
+									{children}
+								</div>
 								
 								{/* Footer独立显示 */}
 								<Footer />

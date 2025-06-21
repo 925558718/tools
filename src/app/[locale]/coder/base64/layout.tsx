@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('coder.base64');
+  const t = await getTranslations('base64');
   
   return {
     title: t('meta.title'),

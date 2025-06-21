@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/card';
 import { Button } from '@/components/shadcn/button';
 import { Textarea } from '@/components/shadcn/textarea';
@@ -23,6 +24,7 @@ interface QRCodeOptions {
 }
 
 export default function QRPage() {
+  const t = useTranslations();
   const [input, setInput] = useState('');
   const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
   const [decodedText, setDecodedText] = useState<string | null>(null);
@@ -39,7 +41,7 @@ export default function QRPage() {
 
   const generateQRCode = async () => {
     if (!input.trim()) {
-      toast.error('请输入要生成二维码的内容');
+      toast.error(t('qr.errors.empty_content'));
       return;
     }
 
@@ -55,9 +57,9 @@ export default function QRPage() {
       });
       
       setQrCodeUrl(url);
-      toast.success('二维码生成成功');
+      toast.success(t('qr.success.generated'));
     } catch (error) {
-      toast.error('二维码生成失败');
+      toast.error(t('qr.errors.generation_failed'));
     }
   };
 
@@ -66,7 +68,7 @@ export default function QRPage() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      toast.error('请选择图片文件');
+      toast.error(t('qr.errors.invalid_format'));
       return;
     }
 
@@ -76,8 +78,8 @@ export default function QRPage() {
       img.onload = () => {
         // 这里应该使用真实的二维码解码库
         // 由于浏览器限制，我们只能显示图片
-        setDecodedText('图片解码功能需要后端支持');
-        toast.info('图片解码功能需要后端支持');
+        setDecodedText(t('qr.decode.placeholder'));
+        toast.info(t('qr.decode.info'));
       };
       img.src = e.target?.result as string;
     };
@@ -86,7 +88,7 @@ export default function QRPage() {
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success('已复制到剪贴板');
+    toast.success(t('qr.success.copied'));
   };
 
   const handleClear = () => {
@@ -118,44 +120,44 @@ export default function QRPage() {
   ];
 
   const errorCorrectionLevels = [
-    { value: 'L', label: '低 (7%)', description: '可恢复7%的数据' },
-    { value: 'M', label: '中 (15%)', description: '可恢复15%的数据' },
-    { value: 'Q', label: '高 (25%)', description: '可恢复25%的数据' },
-    { value: 'H', label: '最高 (30%)', description: '可恢复30%的数据' }
+    { value: 'L', label: t('qr.options.error_correction_low'), description: t('qr.options.error_correction_low_desc') },
+    { value: 'M', label: t('qr.options.error_correction_medium'), description: t('qr.options.error_correction_medium_desc') },
+    { value: 'Q', label: t('qr.options.error_correction_high'), description: t('qr.options.error_correction_high_desc') },
+    { value: 'H', label: t('qr.options.error_correction_highest'), description: t('qr.options.error_correction_highest_desc') }
   ];
 
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey="二维码工具"
-        subtitleKey="生成和解析二维码的工具"
+        titleKey="qr.title"
+        subtitleKey="qr.description"
         features={[
-          { key: '二维码生成', color: 'blue' },
-          { key: '多种格式', color: 'green' },
-          { key: '自定义设置', color: 'purple' }
+          { key: 'qr.features.multiple_types', color: 'blue' },
+          { key: 'qr.features.customizable', color: 'green' },
+          { key: 'qr.features.download', color: 'purple' }
         ]}
       />
 
       <Tabs defaultValue="generate" className="space-y-4">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="generate">生成二维码</TabsTrigger>
-          <TabsTrigger value="decode">解码二维码</TabsTrigger>
+          <TabsTrigger value="generate">{t('qr.tabs.generate')}</TabsTrigger>
+          <TabsTrigger value="decode">{t('qr.tabs.decode')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="generate" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>生成二维码</CardTitle>
+              <CardTitle>{t('qr.generate.title')}</CardTitle>
               <CardDescription>
-                将文本内容转换为二维码
+                {t('qr.generate.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="input">内容</Label>
+                <Label htmlFor="input">{t('qr.input.content_label')}</Label>
                 <Textarea
                   id="input"
-                  placeholder="请输入要生成二维码的内容..."
+                  placeholder={t('placeholders.enter')}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   rows={4}
@@ -164,7 +166,7 @@ export default function QRPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="width">尺寸</Label>
+                  <Label htmlFor="width">{t('qr.options.size_label')}</Label>
                   <Input
                     id="width"
                     type="number"
@@ -176,7 +178,7 @@ export default function QRPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="margin">边距</Label>
+                  <Label htmlFor="margin">{t('qr.options.margin_label')}</Label>
                   <Input
                     id="margin"
                     type="number"
@@ -190,7 +192,7 @@ export default function QRPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="dark-color">前景色</Label>
+                  <Label htmlFor="dark-color">{t('qr.options.foreground_color')}</Label>
                   <Input
                     id="dark-color"
                     type="color"
@@ -203,7 +205,7 @@ export default function QRPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="light-color">背景色</Label>
+                  <Label htmlFor="light-color">{t('qr.options.background_color')}</Label>
                   <Input
                     id="light-color"
                     type="color"
@@ -217,7 +219,7 @@ export default function QRPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="error-correction">纠错级别</Label>
+                <Label htmlFor="error-correction">{t('qr.options.error_correction_label')}</Label>
                 <select
                   id="error-correction"
                   value={options.errorCorrectionLevel}
@@ -236,10 +238,10 @@ export default function QRPage() {
               </div>
 
               <div className="flex gap-2">
-                <Button onClick={generateQRCode}>生成二维码</Button>
+                <Button onClick={generateQRCode}>{t('qr.input.generate_button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  清空
+                  {t('qr.common.clear')}
                 </Button>
               </div>
             </CardContent>
@@ -249,15 +251,15 @@ export default function QRPage() {
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle>生成的二维码</CardTitle>
+                  <CardTitle>{t('qr.result.title')}</CardTitle>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" onClick={handleDownload}>
                       <Download className="w-4 h-4 mr-2" />
-                      下载
+                      {t('qr.result.download_png')}
                     </Button>
                     <Button variant="outline" size="sm" onClick={() => handleCopy(input)}>
                       <Copy className="w-4 h-4 mr-2" />
-                      复制内容
+                      {t('qr.result.copy_content')}
                     </Button>
                   </div>
                 </div>
@@ -266,7 +268,7 @@ export default function QRPage() {
                 <div className="flex justify-center">
                   <img
                     src={qrCodeUrl}
-                    alt="二维码"
+                    alt={t('qr.result.alt_text')}
                     className="max-w-full max-h-96 object-contain rounded-lg border"
                   />
                 </div>
@@ -278,25 +280,25 @@ export default function QRPage() {
         <TabsContent value="decode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>解码二维码</CardTitle>
+              <CardTitle>{t('qr.decode.title')}</CardTitle>
               <CardDescription>
-                从二维码图片中提取内容
+                {t('qr.decode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="qr-upload">上传二维码图片</Label>
+                <Label htmlFor="qr-upload">{t('qr.decode.upload_label')}</Label>
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
                     onClick={() => fileInputRef.current?.click()}
                   >
                     <Upload className="w-4 h-4 mr-2" />
-                    上传图片
+                    {t('qr.decode.upload_button')}
                   </Button>
                   <Button variant="outline" onClick={handleClear}>
                     <RotateCcw className="w-4 h-4 mr-2" />
-                    清空
+                    {t('qr.common.clear')}
                   </Button>
                 </div>
                 <input
@@ -307,7 +309,7 @@ export default function QRPage() {
                   accept="image/*"
                 />
                 <p className="text-sm text-gray-500">
-                  支持格式：JPG、PNG、GIF等，最大5MB
+                  {t('qr.decode.supported_formats')}
                 </p>
               </div>
             </CardContent>
@@ -317,10 +319,10 @@ export default function QRPage() {
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle>解码结果</CardTitle>
+                  <CardTitle>{t('qr.decode.result_title')}</CardTitle>
                   <Button variant="outline" size="sm" onClick={() => handleCopy(decodedText)}>
                     <Copy className="w-4 h-4 mr-2" />
-                    复制
+                    {t('qr.common.copy')}
                   </Button>
                 </div>
               </CardHeader>
@@ -339,7 +341,7 @@ export default function QRPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>快速示例</CardTitle>
+          <CardTitle>{t('qr.examples.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
@@ -359,14 +361,13 @@ export default function QRPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>使用说明</CardTitle>
+          <CardTitle>{t('qr.instructions.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <p><strong>生成二维码：</strong>将文本、URL、联系方式等内容转换为二维码。</p>
-          <p><strong>自定义选项：</strong>可调整尺寸、颜色、边距和纠错级别。</p>
-          <p><strong>纠错级别：</strong>级别越高，二维码越容错，但尺寸也越大。</p>
-          <p><strong>支持格式：</strong>URL、文本、WiFi配置、联系人信息等。</p>
-          <p><strong>解码功能：</strong>目前需要后端支持，前端仅支持图片预览。</p>
+          <p><strong>{t('qr.instructions.content')}</strong>{t('qr.instructions.content_desc')}</p>
+          <p><strong>{t('qr.instructions.size')}</strong>{t('qr.instructions.size_desc')}</p>
+          <p><strong>{t('qr.instructions.error_correction')}</strong>{t('qr.instructions.error_correction_desc')}</p>
+          <p><strong>{t('qr.instructions.types')}</strong>{t('qr.instructions.types_desc')}</p>
         </CardContent>
       </Card>
     </div>

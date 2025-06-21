@@ -22,7 +22,7 @@ interface DecodedToken {
 }
 
 export default function JwtPage() {
-  const t = useTranslations('coder.jwt');
+  const t = useTranslations();
   const [token, setToken] = useState('');
   const [decodedToken, setDecodedToken] = useState<DecodedToken | null>(null);
   const [secret, setSecret] = useState('');
@@ -35,7 +35,7 @@ export default function JwtPage() {
 
   const decodeToken = () => {
     if (!token.trim()) {
-      toast.error(t('errors.empty_token'));
+      toast.error(t('jwt.errors.empty_token'));
       return;
     }
 
@@ -58,7 +58,7 @@ export default function JwtPage() {
           isValid = true;
         } catch (verifyError) {
           isValid = false;
-          error = t('result.signature_invalid');
+          error = t('jwt.result.signature_invalid');
         }
       }
 
@@ -70,20 +70,20 @@ export default function JwtPage() {
         error
       });
 
-      toast.success(t('success.token_parsed'));
+      toast.success(t('jwt.success.token_parsed'));
     } catch (error) {
-      toast.error(t('errors.token_parse_failed'));
+      toast.error(t('jwt.errors.token_parse_failed'));
     }
   };
 
   const generateToken = () => {
     if (!payload.trim()) {
-      toast.error(t('errors.empty_payload'));
+      toast.error(t('jwt.errors.empty_payload'));
       return;
     }
 
     if (!secret.trim()) {
-      toast.error(t('errors.empty_secret'));
+      toast.error(t('jwt.errors.empty_secret'));
       return;
     }
 
@@ -91,15 +91,15 @@ export default function JwtPage() {
       const payloadObj = JSON.parse(payload);
       const token = jwt.sign(payloadObj, secret, { algorithm: algorithm as any });
       setGeneratedToken(token);
-      toast.success(t('success.token_generated'));
+      toast.success(t('jwt.success.token_generated'));
     } catch (error) {
-      toast.error(t('errors.token_generation_failed'));
+      toast.error(t('jwt.errors.token_generation_failed'));
     }
   };
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success(t('success.copied'));
+    toast.success(t('jwt.success.copied'));
   };
 
   const handleClear = () => {
@@ -132,35 +132,35 @@ export default function JwtPage() {
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey={t('title')}
-        subtitleKey={t('description')}
+        titleKey="jwt.title"
+        subtitleKey="jwt.description"
         features={[
-          { key: t('features.token_decoding'), color: 'blue' },
-          { key: t('features.signature_validation'), color: 'green' },
-          { key: t('features.token_generation'), color: 'purple' }
+          { key: 'jwt.features.token_decoding', color: 'blue' },
+          { key: 'jwt.features.signature_validation', color: 'green' },
+          { key: 'jwt.features.token_generation', color: 'purple' }
         ]}
       />
 
       <Tabs defaultValue="decode" className="space-y-4">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="decode">{t('tabs.decode')}</TabsTrigger>
-          <TabsTrigger value="generate">{t('tabs.generate')}</TabsTrigger>
+          <TabsTrigger value="decode">{t('jwt.tabs.decode')}</TabsTrigger>
+          <TabsTrigger value="generate">{t('jwt.tabs.generate')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="decode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('decode.title')}</CardTitle>
+              <CardTitle>{t('jwt.decode.title')}</CardTitle>
               <CardDescription>
-                {t('decode.description')}
+                {t('jwt.decode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="token">{t('decode.token_label')}</Label>
+                <Label htmlFor="token">{t('jwt.decode.token_label')}</Label>
                 <Textarea
                   id="token"
-                  placeholder={t('decode.token_placeholder')}
+                  placeholder={t('placeholders.enter')}
                   value={token}
                   onChange={(e) => setToken(e.target.value)}
                   rows={4}
@@ -168,12 +168,12 @@ export default function JwtPage() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="secret">{t('decode.secret_label')}</Label>
+                <Label htmlFor="secret">{t('jwt.decode.secret_label')}</Label>
                 <div className="relative">
                   <Input
                     id="secret"
                     type={showSecret ? "text" : "password"}
-                    placeholder={t('decode.secret_placeholder')}
+                    placeholder={t('placeholders.enter')}
                     value={secret}
                     onChange={(e) => setSecret(e.target.value)}
                   />
@@ -190,10 +190,10 @@ export default function JwtPage() {
               </div>
 
               <div className="flex gap-2">
-                <Button onClick={decodeToken}>{t('decode.button')}</Button>
+                <Button onClick={decodeToken}>{t('jwt.decode.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('jwt.common.clear')}
                 </Button>
               </div>
             </CardContent>
@@ -202,14 +202,14 @@ export default function JwtPage() {
           {decodedToken && (
             <Card>
               <CardHeader>
-                <CardTitle>{t('result.title')}</CardTitle>
+                <CardTitle>{t('jwt.result.title')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <h4 className="font-semibold mb-2 flex items-center">
                       <Shield className="w-4 h-4 mr-2" />
-                      {t('result.header_info')}
+                      {t('jwt.result.header_info')}
                     </h4>
                     <pre className="bg-gray-100 dark:bg-gray-800 p-3 rounded text-sm overflow-auto">
                       {JSON.stringify(decodedToken.header, null, 2)}
@@ -219,7 +219,7 @@ export default function JwtPage() {
                   <div>
                     <h4 className="font-semibold mb-2 flex items-center">
                       <User className="w-4 h-4 mr-2" />
-                      {t('result.payload_info')}
+                      {t('jwt.result.payload_info')}
                     </h4>
                     <pre className="bg-gray-100 dark:bg-gray-800 p-3 rounded text-sm overflow-auto">
                       {JSON.stringify(decodedToken.payload, null, 2)}
@@ -230,25 +230,25 @@ export default function JwtPage() {
                 {decodedToken.payload.exp && (
                   <div className="flex items-center text-sm">
                     <Clock className="w-4 h-4 mr-2" />
-                    <span className="font-medium">{t('result.expiration_time')}:</span>
+                    <span className="font-medium">{t('jwt.result.expiration_time')}:</span>
                     <span className={`ml-2 ${isExpired(decodedToken.payload.exp) ? 'text-red-500' : 'text-green-500'}`}>
                       {formatDate(decodedToken.payload.exp)}
-                      {isExpired(decodedToken.payload.exp) && ` ${t('result.expired')}`}
+                      {isExpired(decodedToken.payload.exp) && ` ${t('jwt.result.expired')}`}
                     </span>
                   </div>
                 )}
 
                 {secret && (
                   <div>
-                    <h4 className="font-semibold mb-2">{t('result.signature_validation')}</h4>
+                    <h4 className="font-semibold mb-2">{t('jwt.result.signature_validation')}</h4>
                     <div className={`flex items-center ${decodedToken.isValid ? 'text-green-600' : 'text-red-600'}`}>
-                      {decodedToken.isValid ? t('result.signature_valid') : t('result.signature_invalid')}
+                      {decodedToken.isValid ? t('jwt.result.signature_valid') : t('jwt.result.signature_invalid')}
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <h4 className="font-semibold mb-2">{t('result.signature')}</h4>
+                  <h4 className="font-semibold mb-2">{t('jwt.result.signature')}</h4>
                   <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-sm break-all">
                     {decodedToken.signature}
                   </div>
@@ -261,39 +261,39 @@ export default function JwtPage() {
         <TabsContent value="generate" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('generate.title')}</CardTitle>
+              <CardTitle>{t('jwt.generate.title')}</CardTitle>
               <CardDescription>
-                {t('generate.description')}
+                {t('jwt.generate.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="payload">{t('generate.payload_label')}</Label>
+                <Label htmlFor="payload">{t('jwt.generate.payload_label')}</Label>
                 <Textarea
                   id="payload"
-                  placeholder={t('generate.payload_placeholder')}
+                  placeholder={t('placeholders.enter')}
                   value={payload}
                   onChange={(e) => setPayload(e.target.value)}
                   rows={6}
                 />
                 <Button variant="outline" size="sm" onClick={loadExample}>
-                  {t('generate.load_example')}
+                  {t('jwt.generate.load_example')}
                 </Button>
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="generate-secret">{t('generate.secret_label')}</Label>
+                <Label htmlFor="generate-secret">{t('jwt.generate.secret_label')}</Label>
                 <Input
                   id="generate-secret"
                   type="password"
-                  placeholder={t('generate.secret_placeholder')}
+                  placeholder={t('placeholders.enter')}
                   value={secret}
                   onChange={(e) => setSecret(e.target.value)}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="algorithm">{t('generate.algorithm_label')}</Label>
+                <Label htmlFor="algorithm">{t('jwt.generate.algorithm_label')}</Label>
                 <select
                   id="algorithm"
                   value={algorithm}
@@ -307,10 +307,10 @@ export default function JwtPage() {
               </div>
 
               <div className="flex gap-2">
-                <Button onClick={generateToken}>{t('generate.button')}</Button>
+                <Button onClick={generateToken}>{t('jwt.generate.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('jwt.common.clear')}
                 </Button>
               </div>
             </CardContent>
@@ -319,7 +319,7 @@ export default function JwtPage() {
           {generatedToken && (
             <Card>
               <CardHeader>
-                <CardTitle>{t('result.generated_token')}</CardTitle>
+                <CardTitle>{t('jwt.result.generated_token')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-sm break-all">
@@ -339,28 +339,28 @@ export default function JwtPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('instructions.title')}</CardTitle>
+          <CardTitle>{t('jwt.instructions.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 text-sm">
           <div>
-            <span className="font-medium">{t('instructions.structure')}</span>
-            {t('instructions.structure_desc')}
+            <span className="font-medium">{t('jwt.instructions.structure')}</span>
+            {t('jwt.instructions.structure_desc')}
           </div>
           <div>
-            <span className="font-medium">{t('instructions.header')}</span>
-            {t('instructions.header_desc')}
+            <span className="font-medium">{t('jwt.instructions.header')}</span>
+            {t('jwt.instructions.header_desc')}
           </div>
           <div>
-            <span className="font-medium">{t('instructions.payload')}</span>
-            {t('instructions.payload_desc')}
+            <span className="font-medium">{t('jwt.instructions.payload')}</span>
+            {t('jwt.instructions.payload_desc')}
           </div>
           <div>
-            <span className="font-medium">{t('instructions.signature')}</span>
-            {t('instructions.signature_desc')}
+            <span className="font-medium">{t('jwt.instructions.signature')}</span>
+            {t('jwt.instructions.signature_desc')}
           </div>
           <div>
-            <span className="font-medium">{t('instructions.common_fields')}</span>
-            {t('instructions.common_fields_desc')}
+            <span className="font-medium">{t('jwt.instructions.common_fields')}</span>
+            {t('jwt.instructions.common_fields_desc')}
           </div>
         </CardContent>
       </Card>

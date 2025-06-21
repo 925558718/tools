@@ -12,7 +12,7 @@ import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
 
 export default function HexPage() {
-  const t = useTranslations('coder.hex');
+  const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'text-to-hex' | 'hex-to-text' | 'text-to-binary' | 'binary-to-text'>('text-to-hex');
@@ -112,25 +112,25 @@ export default function HexPage() {
 
   const examples = [
     {
-      name: t('examples.text_to_hex'),
+      name: t('hex.examples.text_to_hex'),
       input: 'Hello World',
       output: '48656c6c6f20576f726c64',
       mode: 'text-to-hex' as const
     },
     {
-      name: t('examples.hex_to_text'),
+      name: t('hex.examples.hex_to_text'),
       input: '48656c6c6f20576f726c64',
       output: 'Hello World',
       mode: 'hex-to-text' as const
     },
     {
-      name: t('examples.chinese_text'),
+      name: t('hex.examples.chinese_text'),
       input: '你好世界',
       output: 'e4bda0e5a5bde4b896e7958c',
       mode: 'text-to-hex' as const
     },
     {
-      name: t('examples.text_to_binary'),
+      name: t('hex.examples.text_to_binary'),
       input: 'ABC',
       output: '01000001 01000010 01000011',
       mode: 'text-to-binary' as const
@@ -146,12 +146,12 @@ export default function HexPage() {
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey={t('title')}
-        subtitleKey={t('description')}
+        titleKey="hex.title"
+        subtitleKey="hex.description"
         features={[
-          { key: t('features.text_to_hex'), color: 'blue' },
-          { key: t('features.hex_to_text'), color: 'green' },
-          { key: t('features.binary_support'), color: 'purple' }
+          { key: 'hex.features.text_to_hex', color: 'blue' },
+          { key: 'hex.features.hex_to_text', color: 'green' },
+          { key: 'hex.features.binary_support', color: 'purple' }
         ]}
       />
 
@@ -314,7 +314,7 @@ export default function HexPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('examples.title')}</CardTitle>
+          <CardTitle>{t('hex.examples.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -327,18 +327,18 @@ export default function HexPage() {
                     size="sm"
                     onClick={() => loadExample(example)}
                   >
-                    {t('examples.load_example')}
+                    {t('hex.examples.load_example')}
                   </Button>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div>
-                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('examples.original')}</p>
+                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('hex.examples.original')}</p>
                     <p className="bg-gray-100 dark:bg-gray-800 p-2 rounded font-mono break-all">
                       {example.input}
                     </p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('examples.hex')}</p>
+                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('hex.examples.hex')}</p>
                     <p className="bg-gray-100 dark:bg-gray-800 p-2 rounded font-mono break-all">
                       {example.output}
                     </p>
@@ -352,14 +352,14 @@ export default function HexPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('instructions.title')}</CardTitle>
+          <CardTitle>{t('hex.instructions.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <p><strong>{t('instructions.text_to_hex')}</strong>{t('instructions.text_to_hex_desc')}</p>
-          <p><strong>{t('instructions.hex_to_text')}</strong>{t('instructions.hex_to_text_desc')}</p>
-          <p><strong>{t('instructions.binary')}</strong>{t('instructions.binary_desc')}</p>
-          <p><strong>{t('instructions.format')}</strong>{t('instructions.format_desc')}</p>
-          <p><strong>{t('instructions.use_cases')}</strong>{t('instructions.use_cases_desc')}</p>
+          <p><strong>{t('hex.instructions.text_to_hex')}</strong>{t('hex.instructions.text_to_hex_desc')}</p>
+          <p><strong>{t('hex.instructions.hex_to_text')}</strong>{t('hex.instructions.hex_to_text_desc')}</p>
+          <p><strong>{t('hex.instructions.binary')}</strong>{t('hex.instructions.binary_desc')}</p>
+          <p><strong>{t('hex.instructions.format')}</strong>{t('hex.instructions.format_desc')}</p>
+          <p><strong>{t('hex.instructions.use_cases')}</strong>{t('hex.instructions.use_cases_desc')}</p>
         </CardContent>
       </Card>
     </div>
