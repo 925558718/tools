@@ -14,9 +14,10 @@ import { useTranslations } from 'next-intl';
 import { getSupportedAlgorithms, getAlgorithmInfo, generateKeyPair, type KeyPair } from '@/lib/keygen';
 
 export default function KeygenPage() {
-  const t = useTranslations('cryption');
+  const t = useTranslations('keygen');
+  const commonT = useTranslations();
   
-  // 密钥对生成状态
+  // Key pair generation state
   const [keyGenAlgorithm, setKeyGenAlgorithm] = useState('RS256');
   const [keyGenKeySize, setKeyGenKeySize] = useState(2048);
   const [keyGenCurve, setKeyGenCurve] = useState('P-256');
@@ -46,12 +47,12 @@ export default function KeygenPage() {
           privateKey: result.keyPair.privateKey,
           publicKey: result.keyPair.publicKey
         });
-        toast.success(t('keygen.success'));
+        toast.success(t('success'));
       } else {
-        toast.error(result.error || t('keygen.error'));
+        toast.error(result.error || t('error'));
       }
     } catch (error) {
-      toast.error(t('keygen.error'));
+      toast.error(t('error'));
     } finally {
       setIsGeneratingKeys(false);
     }
@@ -59,7 +60,7 @@ export default function KeygenPage() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success(t('common.copied'));
+    toast.success(commonT('copied'));
   };
 
   const getAlgorithmDescription = (algorithm: string) => {
@@ -67,28 +68,25 @@ export default function KeygenPage() {
     if (!info) return '';
     
     if (algorithm.startsWith('RS')) {
-      return `${info.name} (${info.keySize}位, 安全性: ${info.security})`;
+      return `${t(`algorithms.${algorithm}`)} (${info.keySize}${t('bits')}, ${t('security')})`;
     }if (algorithm.startsWith('ES')) {
-      return `${info.name} (${info.curve}, 安全性: ${info.security})`;
+      return `${t(`algorithms.${algorithm}`)} (${info.curve}, ${t('security')})`;
     }
-      return `${info.name} (${info.curve}, 安全性: ${info.security})`;
+      return `${t(`algorithms.${algorithm}`)} (${info.curve}, ${t('security')})`;
   };
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold">{t('keygen.title')}</h1>
-        <p className="text-muted-foreground">{t('keygen.description')}</p>
-      </div>
+      <PageTitle titleKey="keygen.title" subtitleKey="keygen.description" />
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('keygen.title')}</CardTitle>
-          <CardDescription>{t('keygen.description')}</CardDescription>
+          <CardTitle>{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="keygen-algorithm">{t('keygen.algorithm')}</Label>
+            <Label htmlFor="keygen-algorithm">{t('algorithm')}</Label>
             <Select value={keyGenAlgorithm} onValueChange={setKeyGenAlgorithm}>
               <SelectTrigger>
                 <SelectValue />
@@ -105,15 +103,15 @@ export default function KeygenPage() {
 
           {keyGenAlgorithm.startsWith('RS') && (
             <div className="space-y-2">
-              <Label htmlFor="keygen-keysize">{t('keygen.keySize')}</Label>
+              <Label htmlFor="keygen-keysize">{t('keySize')}</Label>
               <Select value={keyGenKeySize.toString()} onValueChange={(value) => setKeyGenKeySize(Number(value))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1024">1024 位</SelectItem>
-                  <SelectItem value="2048">2048 位</SelectItem>
-                  <SelectItem value="4096">4096 位</SelectItem>
+                  <SelectItem value="1024">1024 {t('bits')}</SelectItem>
+                  <SelectItem value="2048">2048 {t('bits')}</SelectItem>
+                  <SelectItem value="4096">4096 {t('bits')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -121,7 +119,7 @@ export default function KeygenPage() {
 
           {keyGenAlgorithm.startsWith('ES') && (
             <div className="space-y-2">
-              <Label htmlFor="keygen-curve">{t('keygen.curve')}</Label>
+              <Label htmlFor="keygen-curve">{t('curve')}</Label>
               <Select value={keyGenCurve} onValueChange={setKeyGenCurve}>
                 <SelectTrigger>
                   <SelectValue />
@@ -136,7 +134,7 @@ export default function KeygenPage() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="keygen-format">{t('keygen.format')}</Label>
+            <Label htmlFor="keygen-format">{t('format')}</Label>
             <Select value={keyGenFormat} onValueChange={setKeyGenFormat}>
               <SelectTrigger>
                 <SelectValue />
@@ -150,13 +148,13 @@ export default function KeygenPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="keygen-passphrase">{t('keygen.passphrase')}</Label>
+            <Label htmlFor="keygen-passphrase">{t('passphrase')}</Label>
             <Input
               id="keygen-passphrase"
               type="text"
               value={keyGenPassphrase}
               onChange={(e) => setKeyGenPassphrase(e.target.value)}
-              placeholder={t('keygen.passphrasePlaceholder')}
+              placeholder={t('passphrasePlaceholder')}
             />
           </div>
 
@@ -165,13 +163,13 @@ export default function KeygenPage() {
             disabled={isGeneratingKeys}
             className="w-full"
           >
-            {isGeneratingKeys ? t('keygen.generating') : t('keygen.generate')}
+            {isGeneratingKeys ? t('generating') : t('generate')}
           </Button>
 
           {generatedKeyPair && (
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>{t('keygen.privateKey')}</Label>
+                <Label>{t('privateKey')}</Label>
                 <div className="relative">
                   <Textarea
                     value={generatedKeyPair.privateKey}
@@ -185,13 +183,13 @@ export default function KeygenPage() {
                     className="absolute top-2 right-2"
                     onClick={() => copyToClipboard(generatedKeyPair.privateKey)}
                   >
-                    {t('common.copy')}
+                    {commonT('copy')}
                   </Button>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label>{t('keygen.publicKey')}</Label>
+                <Label>{t('publicKey')}</Label>
                 <div className="relative">
                   <Textarea
                     value={generatedKeyPair.publicKey}
@@ -205,7 +203,7 @@ export default function KeygenPage() {
                     className="absolute top-2 right-2"
                     onClick={() => copyToClipboard(generatedKeyPair.publicKey)}
                   >
-                    {t('common.copy')}
+                    {commonT('copy')}
                   </Button>
                 </div>
               </div>

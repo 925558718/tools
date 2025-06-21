@@ -27,7 +27,7 @@ export interface KeyGenResult {
 }
 
 /**
- * 生成密钥对的主函数
+ * Main function to generate key pairs
  */
 export const generateKeyPair = async (options: KeyGenOptions): Promise<KeyGenResult> => {
   try {
@@ -35,7 +35,7 @@ export const generateKeyPair = async (options: KeyGenOptions): Promise<KeyGenRes
     
     let rawKeyPair: any;
     
-    // 根据算法生成原始密钥对
+    // Generate raw key pair based on algorithm
     if (algorithm.startsWith('RS')) {
       rawKeyPair = await generateRSAKeyPair(keySize);
     } else if (algorithm.startsWith('ES')) {
@@ -43,10 +43,10 @@ export const generateKeyPair = async (options: KeyGenOptions): Promise<KeyGenRes
     } else if (algorithm === 'EdDSA') {
       rawKeyPair = await generateEdDSAKeyPair();
     } else {
-      return { success: false, error: '不支持的算法' };
+      return { success: false, error: 'Unsupported algorithm' };
     }
 
-    // 导出为指定格式
+    // Export to specified format
     const exportedKeyPair = await exportToFormat(rawKeyPair, format, passphrase);
     
     const keyPair: KeyPair = {
@@ -62,13 +62,13 @@ export const generateKeyPair = async (options: KeyGenOptions): Promise<KeyGenRes
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '密钥对生成失败' 
+      error: error instanceof Error ? error.message : 'Key pair generation failed' 
     };
   }
 };
 
 /**
- * 导出为指定格式
+ * Export to specified format
  */
 const exportToFormat = async (
   keyPair: any, 
@@ -88,21 +88,21 @@ const exportToFormat = async (
 };
 
 /**
- * 验证密钥对
+ * Validate key pair
  */
 export const validateKeyPairFormat = (keyPair: KeyPair): boolean => {
   return validateKeyPair(keyPair);
 };
 
 /**
- * 测试密钥对功能
+ * Test key pair functionality
  */
 export const testKeyPairFunctionality = async (keyPair: KeyPair): Promise<boolean> => {
   return await testKeyPair(keyPair);
 };
 
 /**
- * 获取支持的算法列表
+ * Get supported algorithms list
  */
 export const getSupportedAlgorithms = () => {
   return {
@@ -113,17 +113,17 @@ export const getSupportedAlgorithms = () => {
 };
 
 /**
- * 获取算法详细信息
+ * Get algorithm details
  */
 export const getAlgorithmInfo = (algorithm: string) => {
   const info: Record<string, any> = {
-    RS256: { name: 'RSA SHA-256', keySize: 2048, security: '高' },
-    RS384: { name: 'RSA SHA-384', keySize: 2048, security: '高' },
-    RS512: { name: 'RSA SHA-512', keySize: 2048, security: '高' },
-    ES256: { name: 'ECDSA SHA-256', curve: 'P-256', security: '高' },
-    ES384: { name: 'ECDSA SHA-384', curve: 'P-384', security: '高' },
-    ES512: { name: 'ECDSA SHA-512', curve: 'P-521', security: '高' },
-    EdDSA: { name: 'Edwards-curve Digital Signature', curve: 'Ed25519', security: '高' }
+    RS256: { name: 'RSA SHA-256', keySize: 2048, security: 'High' },
+    RS384: { name: 'RSA SHA-384', keySize: 2048, security: 'High' },
+    RS512: { name: 'RSA SHA-512', keySize: 2048, security: 'High' },
+    ES256: { name: 'ECDSA SHA-256', curve: 'P-256', security: 'High' },
+    ES384: { name: 'ECDSA SHA-384', curve: 'P-384', security: 'High' },
+    ES512: { name: 'ECDSA SHA-512', curve: 'P-521', security: 'High' },
+    EdDSA: { name: 'Edwards-curve Digital Signature', curve: 'Ed25519', security: 'High' }
   };
   
   return info[algorithm] || null;

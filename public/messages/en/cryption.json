@@ -1,22 +1,33 @@
 {
-  "keygen": {
-    "title": "Key Pair Generator",
-    "description": "Generate secure cryptographic key pairs for RSA, ECDSA, and EdDSA algorithms",
-    "algorithm": "Algorithm",
-    "keySize": "Key Size",
-    "curve": "Curve",
-    "format": "Format",
-    "passphrase": "Passphrase (Optional)",
-    "passphrasePlaceholder": "Enter passphrase to encrypt private key",
-    "generate": "Generate Key Pair",
-    "generating": "Generating...",
-    "success": "Key pair generated successfully!",
-    "error": "Failed to generate key pair",
-    "privateKey": "Private Key",
-    "publicKey": "Public Key",
-    "metadata": {
-      "title": "Key Pair Generator - Generate RSA, ECDSA, EdDSA Keys",
-      "description": "Free online tool to generate secure cryptographic key pairs. Support RSA, ECDSA, and EdDSA algorithms with multiple output formats."
-    }
-  }
-} 
+	"keygen": {
+		"title": "Key Pair Generator",
+		"description": "Generate secure cryptographic key pairs for RSA, ECDSA, and EdDSA algorithms",
+		"algorithm": "Algorithm",
+		"keySize": "Key Size",
+		"curve": "Curve",
+		"format": "Format",
+		"passphrase": "Passphrase (Optional)",
+		"passphrasePlaceholder": "Enter passphrase to encrypt private key",
+		"generate": "Generate Key Pair",
+		"generating": "Generating...",
+		"success": "Key pair generated successfully!",
+		"error": "Failed to generate key pair",
+		"privateKey": "Private Key",
+		"publicKey": "Public Key",
+		"algorithms": {
+			"RS256": "RSA SHA-256",
+			"RS384": "RSA SHA-384",
+			"RS512": "RSA SHA-512",
+			"ES256": "ECDSA SHA-256",
+			"ES384": "ECDSA SHA-384",
+			"ES512": "ECDSA SHA-512",
+			"EdDSA": "Edwards-curve Digital Signature"
+		},
+		"security": "High",
+		"bits": "bits",
+		"metadata": {
+			"title": "Key Pair Generator - Generate RSA, ECDSA, EdDSA Keys",
+			"description": "Free online tool to generate secure cryptographic key pairs. Support RSA, ECDSA, and EdDSA algorithms with multiple output formats."
+		}
+	}
+}

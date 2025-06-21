@@ -14,6 +14,17 @@
     "error": "密钥对生成失败",
     "privateKey": "私钥",
     "publicKey": "公钥",
+    "algorithms": {
+      "RS256": "RSA SHA-256",
+      "RS384": "RSA SHA-384",
+      "RS512": "RSA SHA-512",
+      "ES256": "ECDSA SHA-256",
+      "ES384": "ECDSA SHA-384",
+      "ES512": "ECDSA SHA-512",
+      "EdDSA": "Edwards-curve 数字签名"
+    },
+    "security": "高",
+    "bits": "位",
     "metadata": {
       "title": "密钥对生成器 - 生成 RSA、ECDSA、EdDSA 密钥",
       "description": "免费在线工具，用于生成安全的加密密钥对。支持 RSA、ECDSA 和 EdDSA 算法，多种输出格式。"
