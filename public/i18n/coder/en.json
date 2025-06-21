@@ -1,0 +1,665 @@
+{
+  "title": "Codec Tools",
+  "description": "Professional encoding and decoding tools for developers",
+  "features": {
+    "title": "Features",
+    "encoding": {
+      "title": "Encoding Tools"
+    },
+    "security": {
+      "title": "Security Tools"
+    }
+  },
+  "tools": {
+    "base64": {
+      "name": "Base64",
+      "description": "Base64 encoding and decoding tool"
+    },
+    "url": {
+      "name": "URL Encoding",
+      "description": "URL encoding and decoding tool"
+    },
+    "hash": {
+      "name": "Hash Calculator",
+      "description": "MD5, SHA1, SHA256 and other hash algorithms"
+    },
+    "jwt": {
+      "name": "JWT Tools",
+      "description": "JWT token decoding and validation"
+    },
+    "qr": {
+      "name": "QR Code",
+      "description": "QR code generation and decoding"
+    },
+    "hex": {
+      "name": "Hex Converter",
+      "description": "Convert between text and hexadecimal format"
+    },
+    "json": {
+      "name": "JSON Formatter",
+      "description": "Format, validate and beautify JSON data"
+    },
+    "image": {
+      "name": "Image Encoding",
+      "description": "Image Base64 encoding conversion"
+    }
+  },
+  "meta": {
+    "title": "Codec Tools - Professional Encoding and Decoding Tools",
+    "description": "Free online encoding and decoding tools including Base64, URL encoding, hash calculation, JWT tools, QR code generation, and more.",
+    "keywords": "codec, encoding, decoding, base64, url encoding, hash, jwt, qr code, hex converter, json formatter, image encoding"
+  },
+  "base64": {
+    "title": "Base64 Encoder/Decoder",
+    "description": "Convert text to Base64 format or decode Base64 back to text",
+    "features": {
+      "text_encoding": "Text Encoding",
+      "file_support": "File Support",
+      "chinese_support": "Chinese Support"
+    },
+    "tabs": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "encode": {
+      "title": "Text Encoding",
+      "description": "Convert plain text to Base64 format",
+      "input_label": "Input Text",
+      "input_placeholder": "Enter text to encode...",
+      "button": "Encode"
+    },
+    "decode": {
+      "title": "Base64 Decoding",
+      "description": "Convert Base64 format back to plain text",
+      "input_label": "Base64 Text",
+      "input_placeholder": "Enter Base64 encoded text...",
+      "button": "Decode"
+    },
+    "result": {
+      "title": "Result"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "encode_mode": "Encode Mode: ",
+      "encode_desc": "Convert plain text to Base64 format, supports Chinese and special characters.",
+      "decode_mode": "Decode Mode: ",
+      "decode_desc": "Convert Base64 format back to original text.",
+      "file_support": "File Support: ",
+      "file_desc": "You can upload files for Base64 encoding.",
+      "notes": "Notes: ",
+      "notes_desc": "Base64 encoding increases data size by approximately 33%."
+    },
+    "errors": {
+      "encode_failed": "Encoding failed: Input contains invalid characters",
+      "decode_failed": "Decoding failed: Input is not valid Base64 format",
+      "empty_input": "Please enter content to convert",
+      "conversion_failed": "Conversion failed"
+    },
+    "success": {
+      "encoded": "Encoded successfully",
+      "decoded": "Decoded successfully",
+      "copied": "Copied to clipboard"
+    },
+    "common": {
+      "clear": "Clear",
+      "upload_file": "Upload File",
+      "copy": "Copy",
+      "download": "Download"
+    },
+    "meta": {
+      "title": "Base64 Encoder/Decoder - Free Online Tool",
+      "description": "Convert text to Base64 format or decode Base64 back to text. Support for Chinese characters and file uploads.",
+      "keywords": "base64, encoder, decoder, text encoding, file encoding, chinese characters"
+    }
+  },
+  "url": {
+    "title": "URL Encoder/Decoder",
+    "description": "Encode and decode URL parameters",
+    "features": {
+      "url_safe": "URL Safe",
+      "chinese_support": "Chinese Support",
+      "parameter_encoding": "Parameter Encoding"
+    },
+    "tabs": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "encode": {
+      "title": "URL Encoding",
+      "description": "Convert text to URL-safe encoding format",
+      "input_label": "Input Text",
+      "input_placeholder": "Enter text to encode...",
+      "button": "Encode"
+    },
+    "decode": {
+      "title": "URL Decoding",
+      "description": "Convert URL encoding format back to original text",
+      "input_label": "URL Encoded Text",
+      "input_placeholder": "Enter URL encoded text...",
+      "button": "Decode"
+    },
+    "result": {
+      "title": "Result"
+    },
+    "examples": {
+      "title": "Encoding Examples",
+      "chinese_text": "Chinese Text",
+      "special_chars": "Special Characters",
+      "url_params": "URL Parameters",
+      "original_text": "Original Text",
+      "encoded_result": "Encoded Result",
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "url_encoding": "URL Encoding: ",
+      "url_encoding_desc": "Convert special characters to %XX format to ensure URL safety.",
+      "common_encoding": "Common Encoding: ",
+      "common_encoding_desc": "Space→%20, Chinese→%XX%XX%XX, Special symbols→%XX.",
+      "use_cases": "Use Cases: ",
+      "use_cases_desc": "URL parameters, form submission, API calls, etc.",
+      "notes": "Notes: ",
+      "notes_desc": "Some characters have special meanings in URLs and need to be encoded."
+    },
+    "errors": {
+      "empty_input": "Please enter content to convert",
+      "conversion_failed": "Conversion failed",
+      "invalid_url": "This is not a complete URL"
+    },
+    "success": {
+      "encoded": "Encoded successfully",
+      "decoded": "Decoded successfully",
+      "copied": "Copied to clipboard"
+    },
+    "common": {
+      "clear": "Clear",
+      "copy": "Copy",
+      "test_link": "Test Link"
+    },
+    "meta": {
+      "title": "URL Encoder/Decoder - Free Online Tool",
+      "description": "Encode and decode URL parameters. Support for Chinese characters and special symbols.",
+      "keywords": "url encoding, url decoder, percent encoding, url parameters, web development"
+    }
+  },
+  "hash": {
+    "title": "Hash Calculator",
+    "description": "Calculate hash values using various algorithms",
+    "features": {
+      "multiple_algorithms": "Multiple Algorithms",
+      "salt_encryption": "Salt Encryption",
+      "file_support": "File Support"
+    },
+    "input": {
+      "title": "Input Content",
+      "description": "Enter text content to calculate hash",
+      "text_label": "Text Content",
+      "text_placeholder": "Enter text to calculate hash...",
+      "salt_label": "Salt (Optional)",
+      "salt_placeholder": "Enter salt to increase security...",
+      "calculate_button": "Calculate Hash",
+      "calculating": "Calculating...",
+      "clear": "Clear",
+      "upload_file": "Upload File"
+    },
+    "result": {
+      "title": "Calculation Results",
+      "download_results": "Download Results",
+      "algorithm": "Algorithm",
+      "hash": "Hash",
+      "length": "Length",
+      "copy": "Copy"
+    },
+    "examples": {
+      "title": "Quick Examples",
+      "hello_world": "Hello World",
+      "password": "password",
+      "admin": "admin",
+      "test_text": "Test Text"
+    },
+    "instructions": {
+      "title": "Algorithm Description",
+      "md5": "MD5: ",
+      "md5_desc": "128-bit hash algorithm, fast but less secure, mainly used for data integrity verification.",
+      "sha1": "SHA1: ",
+      "sha1_desc": "160-bit hash algorithm, more secure than MD5 but still has collision risks.",
+      "sha256": "SHA256: ",
+      "sha256_desc": "256-bit hash algorithm, widely used secure hash algorithm.",
+      "sha512": "SHA512: ",
+      "sha512_desc": "512-bit hash algorithm, provides the highest level of security.",
+      "salt": "Salt: ",
+      "salt_desc": "Add random string before hash calculation to improve security."
+    },
+    "errors": {
+      "empty_input": "Please enter content to calculate hash",
+      "calculation_failed": "Hash calculation failed"
+    },
+    "success": {
+      "calculation_complete": "Hash calculation complete",
+      "copied": "Copied to clipboard"
+    },
+    "meta": {
+      "title": "Hash Calculator - MD5, SHA1, SHA256 Online Tool",
+      "description": "Calculate hash values using various algorithms including MD5, SHA1, SHA256, SHA512. Support for salt and file uploads.",
+      "keywords": "hash calculator, md5, sha1, sha256, sha512, cryptography, password hashing"
+    }
+  },
+  "jwt": {
+    "title": "JWT Tools",
+    "description": "JWT token decoding, validation and generation tools",
+    "features": {
+      "token_decoding": "Token Decoding",
+      "signature_validation": "Signature Validation",
+      "token_generation": "Token Generation"
+    },
+    "tabs": {
+      "decode": "Decode & Validate",
+      "generate": "Generate Token"
+    },
+    "decode": {
+      "title": "JWT Decoding",
+      "description": "Decode JWT token and validate its signature",
+      "token_label": "JWT Token",
+      "token_placeholder": "Enter JWT token...",
+      "secret_label": "Secret (Optional, for signature validation)",
+      "secret_placeholder": "Enter secret to validate signature...",
+      "button": "Decode Token"
+    },
+    "generate": {
+      "title": "Generate JWT Token",
+      "description": "Generate JWT token using custom payload and secret",
+      "payload_label": "Payload Data (JSON format)",
+      "payload_placeholder": "{\"sub\": \"1234567890\", \"name\": \"John Doe\", \"iat\": 1516239022}",
+      "secret_label": "Secret",
+      "secret_placeholder": "Enter secret...",
+      "algorithm_label": "Algorithm",
+      "button": "Generate Token",
+      "load_example": "Load Example"
+    },
+    "result": {
+      "title": "Decoding Result",
+      "header_info": "Header Information",
+      "payload_info": "Payload Information",
+      "expiration_time": "Expiration Time",
+      "expired": "(Expired)",
+      "signature_validation": "Signature Validation",
+      "signature_valid": "✅ Signature validation passed",
+      "signature_invalid": "❌ Signature validation failed",
+      "signature": "Signature",
+      "generated_token": "Generated Token"
+    },
+    "instructions": {
+      "title": "JWT Description",
+      "structure": "JWT Structure: ",
+      "structure_desc": "Consists of three parts: Header, Payload, and Signature.",
+      "header": "Header: ",
+      "header_desc": "Contains token type and signature algorithm information.",
+      "payload": "Payload: ",
+      "payload_desc": "Contains claim information such as user ID, permissions, expiration time, etc.",
+      "signature": "Signature: ",
+      "signature_desc": "Used to verify the integrity and authenticity of the token.",
+      "common_fields": "Common Fields: ",
+      "common_fields_desc": "sub (subject), iat (issued at), exp (expiration time), iss (issuer)."
+    },
+    "errors": {
+      "empty_token": "Please enter JWT token",
+      "empty_payload": "Please enter payload data",
+      "empty_secret": "Please enter secret",
+      "token_parse_failed": "Token parsing failed",
+      "token_generation_failed": "Token generation failed"
+    },
+    "success": {
+      "token_parsed": "Token parsed successfully",
+      "token_generated": "JWT token generated successfully",
+      "copied": "Copied to clipboard"
+    },
+    "common": {
+      "clear": "Clear",
+      "copy": "Copy",
+      "show": "Show",
+      "hide": "Hide"
+    },
+    "meta": {
+      "title": "JWT Tools - Decode and Validate JWT Tokens",
+      "description": "Decode JWT tokens, validate signatures, and generate new tokens. Support for various algorithms.",
+      "keywords": "jwt, json web token, token decoder, jwt validation, jwt generator"
+    }
+  },
+  "hex": {
+    "title": "Hex Converter",
+    "description": "Convert between text and hexadecimal format",
+    "features": {
+      "text_to_hex": "Text to Hex",
+      "hex_to_text": "Hex to Text",
+      "binary_support": "Binary Support"
+    },
+    "tabs": {
+      "text_to_hex": "Text → Hex",
+      "hex_to_text": "Hex → Text",
+      "binary": "Binary"
+    },
+    "text_to_hex": {
+      "title": "Text to Hexadecimal",
+      "description": "Convert text to hexadecimal format",
+      "input_label": "Input Text",
+      "input_placeholder": "Enter text to convert to hex...",
+      "button": "Convert to Hex"
+    },
+    "hex_to_text": {
+      "title": "Hexadecimal to Text",
+      "description": "Convert hexadecimal format back to text",
+      "input_label": "Hexadecimal Text",
+      "input_placeholder": "Enter hex text (e.g., 48656C6C6F)...",
+      "button": "Convert to Text"
+    },
+    "binary": {
+      "title": "Binary Converter",
+      "description": "Convert between text and binary format",
+      "text_to_binary": "Text to Binary",
+      "binary_to_text": "Binary to Text",
+      "text_input_label": "Text Input",
+      "text_input_placeholder": "Enter text to convert to binary...",
+      "binary_input_label": "Binary Input",
+      "binary_input_placeholder": "Enter binary (e.g., 01001000 01100101 01101100 01101100 01101111)...",
+      "convert_to_binary": "Convert to Binary",
+      "convert_to_text": "Convert to Text"
+    },
+    "result": {
+      "title": "Conversion Result",
+      "hex_result": "Hexadecimal Result",
+      "text_result": "Text Result",
+      "binary_result": "Binary Result"
+    },
+    "examples": {
+      "title": "Conversion Examples",
+      "hello_world": "Hello World",
+      "chinese_text": "你好世界",
+      "numbers": "123456",
+      "special_chars": "!@#$%^&*()",
+      "original": "Original",
+      "hex": "Hex",
+      "binary": "Binary"
+    },
+    "instructions": {
+      "title": "Conversion Instructions",
+      "text_to_hex": "Text to Hex: ",
+      "text_to_hex_desc": "Each character is converted to its ASCII/Unicode hexadecimal representation.",
+      "hex_to_text": "Hex to Text: ",
+      "hex_to_text_desc": "Hexadecimal values are converted back to their corresponding characters.",
+      "binary": "Binary: ",
+      "binary_desc": "Each character is converted to its 8-bit binary representation.",
+      "format": "Format: ",
+      "format_desc": "Hex values can be separated by spaces or colons for better readability.",
+      "use_cases": "Use Cases: ",
+      "use_cases_desc": "Data analysis, debugging, low-level programming, network protocols."
+    },
+    "errors": {
+      "empty_input": "Please enter content to convert",
+      "invalid_hex": "Invalid hexadecimal format",
+      "invalid_binary": "Invalid binary format",
+      "conversion_failed": "Conversion failed"
+    },
+    "success": {
+      "converted": "Conversion completed",
+      "copied": "Copied to clipboard"
+    },
+    "common": {
+      "clear": "Clear",
+      "copy": "Copy",
+      "download": "Download"
+    },
+    "meta": {
+      "title": "Hex Converter - Text to Hexadecimal Online Tool",
+      "description": "Convert between text and hexadecimal format. Support for binary conversion and various encoding formats.",
+      "keywords": "hex converter, text to hex, hexadecimal, binary converter, encoding tools"
+    }
+  },
+  "json": {
+    "title": "JSON Formatter",
+    "description": "Format, validate and beautify JSON data",
+    "features": {
+      "formatting": "Formatting",
+      "validation": "Validation",
+      "compression": "Compression"
+    },
+    "tabs": {
+      "format": "Format",
+      "validate": "Validate",
+      "compress": "Compress"
+    },
+    "format": {
+      "title": "JSON Formatting",
+      "description": "Format JSON data with proper indentation",
+      "input_label": "JSON Input",
+      "input_placeholder": "Enter JSON data to format...",
+      "indent_label": "Indentation",
+      "button": "Format JSON"
+    },
+    "validate": {
+      "title": "JSON Validation",
+      "description": "Validate JSON syntax and structure",
+      "input_label": "JSON Input",
+      "input_placeholder": "Enter JSON data to validate...",
+      "button": "Validate JSON"
+    },
+    "compress": {
+      "title": "JSON Compression",
+      "description": "Remove unnecessary whitespace from JSON",
+      "input_label": "JSON Input",
+      "input_placeholder": "Enter JSON data to compress...",
+      "button": "Compress JSON"
+    },
+    "result": {
+      "title": "Result",
+      "formatted": "Formatted JSON",
+      "validation_result": "Validation Result",
+      "compressed": "Compressed JSON",
+      "error_details": "Error Details"
+    },
+    "examples": {
+      "title": "JSON Examples",
+      "simple_object": "Simple Object",
+      "nested_object": "Nested Object",
+      "array_example": "Array Example",
+      "complex_data": "Complex Data",
+      "load_example": "Load Example"
+    },
+    "instructions": {
+      "title": "JSON Description",
+      "formatting": "Formatting: ",
+      "formatting_desc": "Add proper indentation and line breaks to make JSON readable.",
+      "validation": "Validation: ",
+      "validation_desc": "Check if JSON syntax is correct and structure is valid.",
+      "compression": "Compression: ",
+      "compression_desc": "Remove all unnecessary whitespace to reduce file size.",
+      "syntax": "Syntax Rules: ",
+      "syntax_desc": "Keys must be strings, values can be strings, numbers, booleans, null, objects, or arrays.",
+      "use_cases": "Use Cases: ",
+      "use_cases_desc": "API development, data exchange, configuration files, web applications."
+    },
+    "errors": {
+      "empty_input": "Please enter JSON data",
+      "invalid_json": "Invalid JSON format",
+      "parse_error": "JSON parsing error",
+      "format_failed": "Formatting failed"
+    },
+    "success": {
+      "formatted": "JSON formatted successfully",
+      "valid": "JSON is valid",
+      "compressed": "JSON compressed successfully",
+      "copied": "Copied to clipboard"
+    },
+    "common": {
+      "clear": "Clear",
+      "copy": "Copy",
+      "download": "Download",
+      "upload": "Upload File"
+    },
+    "meta": {
+      "title": "JSON Formatter - Format and Validate JSON Online",
+      "description": "Format, validate and compress JSON data. Support for syntax highlighting and error detection.",
+      "keywords": "json formatter, json validator, json beautifier, json compression, json tools"
+    }
+  },
+  "image": {
+    "title": "Image Encoder",
+    "description": "Convert images to Base64 and other formats",
+    "features": {
+      "base64_encoding": "Base64 Encoding",
+      "multiple_formats": "Multiple Formats",
+      "file_upload": "File Upload"
+    },
+    "upload": {
+      "title": "Upload Image",
+      "description": "Upload an image to convert to Base64 format",
+      "drag_drop": "Drag and drop image here, or click to select",
+      "supported_formats": "Supported formats: JPG, PNG, GIF, WebP, SVG",
+      "max_size": "Maximum file size: 5MB",
+      "select_file": "Select Image File"
+    },
+    "result": {
+      "title": "Conversion Result",
+      "image_preview": "Image Preview",
+      "base64_code": "Base64 Code",
+      "file_info": "File Information",
+      "file_name": "File Name",
+      "file_size": "File Size",
+      "file_type": "File Type",
+      "dimensions": "Dimensions"
+    },
+    "options": {
+      "title": "Conversion Options",
+      "format_label": "Output Format",
+      "quality_label": "Quality",
+      "include_data_url": "Include Data URL Prefix",
+      "copy_html": "Copy as HTML",
+      "copy_css": "Copy as CSS"
+    },
+    "instructions": {
+      "title": "Usage Instructions",
+      "upload_image": "Upload Image: ",
+      "upload_image_desc": "Click the upload area or drag and drop an image file.",
+      "conversion": "Conversion: ",
+      "conversion_desc": "The image will be automatically converted to Base64 format.",
+      "usage": "Usage: ",
+      "usage_desc": "Base64 encoded images can be used in HTML, CSS, and other web technologies.",
+      "advantages": "Advantages: ",
+      "advantages_desc": "No external file dependencies, faster loading for small images.",
+      "disadvantages": "Disadvantages: ",
+      "disadvantages_desc": "Larger file size, not suitable for large images."
+    },
+    "errors": {
+      "no_file": "Please select an image file",
+      "invalid_format": "Unsupported image format",
+      "file_too_large": "File size exceeds 5MB limit",
+      "conversion_failed": "Image conversion failed"
+    },
+    "success": {
+      "converted": "Image converted successfully",
+      "copied": "Copied to clipboard"
+    },
+    "common": {
+      "clear": "Clear",
+      "copy": "Copy",
+      "download": "Download",
+      "preview": "Preview"
+    },
+    "meta": {
+      "title": "Image Encoder - Convert Images to Base64 Online",
+      "description": "Convert images to Base64 format. Support for multiple image formats and various output options.",
+      "keywords": "image encoder, base64 image, image to base64, image conversion, web development"
+    }
+  },
+  "qr": {
+    "title": "QR Code Generator",
+    "description": "Generate QR codes for URLs, text, WiFi, phone numbers and more",
+    "features": {
+      "multiple_types": "Multiple Types",
+      "customizable": "Customizable",
+      "download": "Download"
+    },
+    "input": {
+      "title": "QR Code Content",
+      "description": "Enter content to generate QR code",
+      "content_label": "Content",
+      "content_placeholder": "Enter text, URL, or other content...",
+      "type_label": "QR Code Type",
+      "generate_button": "Generate QR Code"
+    },
+    "options": {
+      "title": "QR Code Options",
+      "size_label": "Size",
+      "error_correction_label": "Error Correction Level",
+      "foreground_color": "Foreground Color",
+      "background_color": "Background Color",
+      "margin_label": "Margin"
+    },
+    "result": {
+      "title": "Generated QR Code",
+      "download_png": "Download PNG",
+      "download_svg": "Download SVG",
+      "copy_image": "Copy Image"
+    },
+    "types": {
+      "text": "Text",
+      "url": "URL",
+      "wifi": "WiFi",
+      "phone": "Phone Number",
+      "email": "Email",
+      "sms": "SMS",
+      "vcard": "vCard",
+      "geo": "Geolocation"
+    },
+    "wifi_form": {
+      "title": "WiFi Configuration",
+      "ssid_label": "Network Name (SSID)",
+      "password_label": "Password",
+      "encryption_label": "Encryption Type",
+      "hidden_label": "Hidden Network"
+    },
+    "phone_form": {
+      "title": "Phone Number",
+      "number_label": "Phone Number",
+      "number_placeholder": "+1-234-567-8900"
+    },
+    "email_form": {
+      "title": "Email",
+      "email_label": "Email Address",
+      "subject_label": "Subject (Optional)",
+      "body_label": "Message Body (Optional)"
+    },
+    "instructions": {
+      "title": "QR Code Instructions",
+      "content": "Content: ",
+      "content_desc": "Enter the text, URL, or data you want to encode in the QR code.",
+      "size": "Size: ",
+      "size_desc": "Larger sizes are easier to scan but take up more space.",
+      "error_correction": "Error Correction: ",
+      "error_correction_desc": "Higher levels allow the QR code to work even if partially damaged.",
+      "types": "Types: ",
+      "types_desc": "Different content types have specific formats for better compatibility."
+    },
+    "errors": {
+      "empty_content": "Please enter content for the QR code",
+      "invalid_url": "Invalid URL format",
+      "invalid_email": "Invalid email format",
+      "invalid_phone": "Invalid phone number format",
+      "generation_failed": "QR code generation failed"
+    },
+    "success": {
+      "generated": "QR code generated successfully",
+      "copied": "Image copied to clipboard"
+    },
+    "common": {
+      "clear": "Clear",
+      "reset": "Reset",
+      "preview": "Preview"
+    },
+    "meta": {
+      "title": "QR Code Generator - Create QR Codes Online",
+      "description": "Generate QR codes for URLs, text, WiFi, phone numbers, emails and more. Customizable size and error correction.",
+      "keywords": "qr code generator, qr code creator, qr code scanner, qr code maker, barcode"
+    }
+  }
+} 

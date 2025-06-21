@@ -1,0 +1,665 @@
+{
+  "title": "编解码工具",
+  "description": "专业的编码和解码工具集",
+  "features": {
+    "title": "功能特性",
+    "encoding": {
+      "title": "编码工具"
+    },
+    "security": {
+      "title": "安全工具"
+    }
+  },
+  "tools": {
+    "base64": {
+      "name": "Base64",
+      "description": "Base64编码和解码工具"
+    },
+    "url": {
+      "name": "URL编码",
+      "description": "URL编码和解码工具"
+    },
+    "hash": {
+      "name": "哈希计算",
+      "description": "MD5、SHA1、SHA256等哈希算法"
+    },
+    "jwt": {
+      "name": "JWT工具",
+      "description": "JWT令牌解码和验证"
+    },
+    "qr": {
+      "name": "二维码",
+      "description": "二维码生成和解码"
+    },
+    "hex": {
+      "name": "十六进制",
+      "description": "十六进制编码转换"
+    },
+    "json": {
+      "name": "JSON格式化",
+      "description": "JSON格式化和压缩"
+    },
+    "image": {
+      "name": "图片编码",
+      "description": "图片Base64编码转换"
+    }
+  },
+  "meta": {
+    "title": "编解码工具 - 专业的编码和解码工具集",
+    "description": "免费的在线编码和解码工具，包括Base64、URL编码、哈希计算、JWT工具、二维码生成等。",
+    "keywords": "编解码,编码,解码,base64,url编码,哈希,jwt,二维码,十六进制转换器,json格式化,图片编码"
+  },
+  "base64": {
+    "title": "Base64 编码/解码",
+    "description": "将文本转换为Base64格式或从Base64格式解码",
+    "features": {
+      "text_encoding": "文本编码",
+      "file_support": "文件支持",
+      "chinese_support": "中文支持"
+    },
+    "tabs": {
+      "encode": "编码",
+      "decode": "解码"
+    },
+    "encode": {
+      "title": "文本编码",
+      "description": "将普通文本转换为Base64格式",
+      "input_label": "输入文本",
+      "input_placeholder": "请输入要编码的文本...",
+      "button": "编码"
+    },
+    "decode": {
+      "title": "Base64解码",
+      "description": "将Base64格式转换回普通文本",
+      "input_label": "Base64文本",
+      "input_placeholder": "请输入Base64编码的文本...",
+      "button": "解码"
+    },
+    "result": {
+      "title": "结果"
+    },
+    "instructions": {
+      "title": "使用说明",
+      "encode_mode": "编码模式：",
+      "encode_desc": "将普通文本转换为Base64格式，支持中文和特殊字符。",
+      "decode_mode": "解码模式：",
+      "decode_desc": "将Base64格式转换回原始文本。",
+      "file_support": "文件支持：",
+      "file_desc": "可以上传文件进行Base64编码。",
+      "notes": "注意事项：",
+      "notes_desc": "Base64编码会增加约33%的数据大小。"
+    },
+    "errors": {
+      "encode_failed": "编码失败：输入包含无效字符",
+      "decode_failed": "解码失败：输入不是有效的Base64格式",
+      "empty_input": "请输入要转换的内容",
+      "conversion_failed": "转换失败"
+    },
+    "success": {
+      "encoded": "编码成功",
+      "decoded": "解码成功",
+      "copied": "已复制到剪贴板"
+    },
+    "common": {
+      "clear": "清空",
+      "upload_file": "上传文件",
+      "copy": "复制",
+      "download": "下载"
+    },
+    "meta": {
+      "title": "Base64编码/解码器 - 免费在线工具",
+      "description": "将文本转换为Base64格式或从Base64解码回文本。支持中文字符和文件上传。",
+      "keywords": "base64,编码器,解码器,文本编码,文件编码,中文字符"
+    }
+  },
+  "url": {
+    "title": "URL 编码/解码",
+    "description": "将文本转换为URL编码格式或从URL编码格式解码",
+    "features": {
+      "url_safe": "URL安全",
+      "chinese_support": "中文支持",
+      "parameter_encoding": "参数编码"
+    },
+    "tabs": {
+      "encode": "编码",
+      "decode": "解码"
+    },
+    "encode": {
+      "title": "URL编码",
+      "description": "将文本转换为URL安全的编码格式",
+      "input_label": "输入文本",
+      "input_placeholder": "请输入要编码的文本...",
+      "button": "编码"
+    },
+    "decode": {
+      "title": "URL解码",
+      "description": "将URL编码格式转换回原始文本",
+      "input_label": "URL编码文本",
+      "input_placeholder": "请输入URL编码的文本...",
+      "button": "解码"
+    },
+    "result": {
+      "title": "结果"
+    },
+    "examples": {
+      "title": "编码示例",
+      "chinese_text": "中文文本",
+      "special_chars": "特殊字符",
+      "url_params": "URL参数",
+      "original_text": "原始文本",
+      "encoded_result": "编码结果",
+      "encode": "编码",
+      "decode": "解码"
+    },
+    "instructions": {
+      "title": "使用说明",
+      "url_encoding": "URL编码：",
+      "url_encoding_desc": "将特殊字符转换为%XX格式，确保URL的安全性。",
+      "common_encoding": "常见编码：",
+      "common_encoding_desc": "空格→%20，中文→%XX%XX%XX，特殊符号→%XX。",
+      "use_cases": "应用场景：",
+      "use_cases_desc": "URL参数、表单提交、API调用等。",
+      "notes": "注意事项：",
+      "notes_desc": "某些字符在URL中有特殊含义，需要编码。"
+    },
+    "errors": {
+      "empty_input": "请输入要转换的内容",
+      "conversion_failed": "转换失败",
+      "invalid_url": "这不是一个完整的URL"
+    },
+    "success": {
+      "encoded": "编码成功",
+      "decoded": "解码成功",
+      "copied": "已复制到剪贴板"
+    },
+    "common": {
+      "clear": "清空",
+      "copy": "复制",
+      "test_link": "测试链接"
+    },
+    "meta": {
+      "title": "URL编码/解码器 - 免费在线工具",
+      "description": "编码和解码URL参数。支持中文字符和特殊符号。",
+      "keywords": "url编码,url解码,百分号编码,url参数,web开发"
+    }
+  },
+  "hash": {
+    "title": "哈希计算器",
+    "description": "计算文本的多种哈希值，支持MD5、SHA1、SHA256等算法",
+    "features": {
+      "multiple_algorithms": "多种算法",
+      "salt_encryption": "盐值加密",
+      "file_support": "文件支持"
+    },
+    "input": {
+      "title": "输入内容",
+      "description": "输入要计算哈希的文本内容",
+      "text_label": "文本内容",
+      "text_placeholder": "请输入要计算哈希的文本...",
+      "salt_label": "盐值（可选）",
+      "salt_placeholder": "输入盐值以增加安全性...",
+      "calculate_button": "计算哈希",
+      "calculating": "计算中...",
+      "clear": "清空",
+      "upload_file": "上传文件"
+    },
+    "result": {
+      "title": "计算结果",
+      "download_results": "下载结果",
+      "algorithm": "算法",
+      "hash": "哈希值",
+      "length": "长度",
+      "copy": "复制"
+    },
+    "examples": {
+      "title": "快速示例",
+      "hello_world": "Hello World",
+      "password": "password",
+      "admin": "admin",
+      "test_text": "测试文本"
+    },
+    "instructions": {
+      "title": "算法说明",
+      "md5": "MD5：",
+      "md5_desc": "128位哈希算法，速度快但安全性较低，主要用于数据完整性校验。",
+      "sha1": "SHA1：",
+      "sha1_desc": "160位哈希算法，比MD5更安全，但仍存在碰撞风险。",
+      "sha256": "SHA256：",
+      "sha256_desc": "256位哈希算法，目前广泛使用的安全哈希算法。",
+      "sha512": "SHA512：",
+      "sha512_desc": "512位哈希算法，提供最高级别的安全性。",
+      "salt": "盐值：",
+      "salt_desc": "在哈希计算前添加随机字符串，提高安全性。"
+    },
+    "errors": {
+      "empty_input": "请输入要计算哈希的内容",
+      "calculation_failed": "哈希计算失败"
+    },
+    "success": {
+      "calculation_complete": "哈希计算完成",
+      "copied": "已复制到剪贴板"
+    },
+    "meta": {
+      "title": "哈希计算器 - MD5、SHA1、SHA256在线工具",
+      "description": "使用各种算法计算哈希值，包括MD5、SHA1、SHA256、SHA512。支持盐值和文件上传。",
+      "keywords": "哈希计算器,md5,sha1,sha256,sha512,密码学,密码哈希"
+    }
+  },
+  "jwt": {
+    "title": "JWT 工具",
+    "description": "JWT令牌的解码、验证和生成工具",
+    "features": {
+      "token_decoding": "令牌解码",
+      "signature_validation": "签名验证",
+      "token_generation": "令牌生成"
+    },
+    "tabs": {
+      "decode": "解码验证",
+      "generate": "生成令牌"
+    },
+    "decode": {
+      "title": "JWT解码",
+      "description": "解码JWT令牌并验证其签名",
+      "token_label": "JWT令牌",
+      "token_placeholder": "请输入JWT令牌...",
+      "secret_label": "密钥（可选，用于验证签名）",
+      "secret_placeholder": "输入密钥以验证签名...",
+      "button": "解码令牌"
+    },
+    "generate": {
+      "title": "生成JWT令牌",
+      "description": "使用自定义载荷和密钥生成JWT令牌",
+      "payload_label": "载荷数据 (JSON格式)",
+      "payload_placeholder": "{\"sub\": \"1234567890\", \"name\": \"John Doe\", \"iat\": 1516239022}",
+      "secret_label": "密钥",
+      "secret_placeholder": "输入密钥...",
+      "algorithm_label": "算法",
+      "button": "生成令牌",
+      "load_example": "加载示例"
+    },
+    "result": {
+      "title": "解码结果",
+      "header_info": "头部信息",
+      "payload_info": "载荷信息",
+      "expiration_time": "过期时间",
+      "expired": "(已过期)",
+      "signature_validation": "签名验证",
+      "signature_valid": "✅ 签名验证通过",
+      "signature_invalid": "❌ 签名验证失败",
+      "signature": "签名",
+      "generated_token": "生成的令牌"
+    },
+    "instructions": {
+      "title": "JWT说明",
+      "structure": "JWT结构：",
+      "structure_desc": "由三部分组成：头部(Header)、载荷(Payload)、签名(Signature)。",
+      "header": "头部：",
+      "header_desc": "包含令牌类型和签名算法信息。",
+      "payload": "载荷：",
+      "payload_desc": "包含声明信息，如用户ID、权限、过期时间等。",
+      "signature": "签名：",
+      "signature_desc": "用于验证令牌的完整性和真实性。",
+      "common_fields": "常见字段：",
+      "common_fields_desc": "sub(主题)、iat(签发时间)、exp(过期时间)、iss(签发者)。"
+    },
+    "errors": {
+      "empty_token": "请输入JWT令牌",
+      "empty_payload": "请输入载荷数据",
+      "empty_secret": "请输入密钥",
+      "token_parse_failed": "令牌解析失败",
+      "token_generation_failed": "令牌生成失败"
+    },
+    "success": {
+      "token_parsed": "令牌解析成功",
+      "token_generated": "JWT令牌生成成功",
+      "copied": "已复制到剪贴板"
+    },
+    "common": {
+      "clear": "清空",
+      "copy": "复制",
+      "show": "显示",
+      "hide": "隐藏"
+    },
+    "meta": {
+      "title": "JWT工具 - 解码和验证JWT令牌",
+      "description": "解码JWT令牌、验证签名并生成新令牌。支持各种算法。",
+      "keywords": "jwt,json web token,令牌解码,jwt验证,jwt生成器"
+    }
+  },
+  "hex": {
+    "title": "十六进制转换器",
+    "description": "文本与十六进制格式之间的转换",
+    "features": {
+      "text_to_hex": "文本转十六进制",
+      "hex_to_text": "十六进制转文本",
+      "binary_support": "二进制支持"
+    },
+    "tabs": {
+      "text_to_hex": "文本 → 十六进制",
+      "hex_to_text": "十六进制 → 文本",
+      "binary": "二进制"
+    },
+    "text_to_hex": {
+      "title": "文本转十六进制",
+      "description": "将文本转换为十六进制格式",
+      "input_label": "输入文本",
+      "input_placeholder": "请输入要转换为十六进制的文本...",
+      "button": "转换为十六进制"
+    },
+    "hex_to_text": {
+      "title": "十六进制转文本",
+      "description": "将十六进制格式转换回文本",
+      "input_label": "十六进制文本",
+      "input_placeholder": "请输入十六进制文本（如：48656C6C6F）...",
+      "button": "转换为文本"
+    },
+    "binary": {
+      "title": "二进制转换器",
+      "description": "文本与二进制格式之间的转换",
+      "text_to_binary": "文本转二进制",
+      "binary_to_text": "二进制转文本",
+      "text_input_label": "文本输入",
+      "text_input_placeholder": "请输入要转换为二进制的文本...",
+      "binary_input_label": "二进制输入",
+      "binary_input_placeholder": "请输入二进制（如：01001000 01100101 01101100 01101100 01101111）...",
+      "convert_to_binary": "转换为二进制",
+      "convert_to_text": "转换为文本"
+    },
+    "result": {
+      "title": "转换结果",
+      "hex_result": "十六进制结果",
+      "text_result": "文本结果",
+      "binary_result": "二进制结果"
+    },
+    "examples": {
+      "title": "转换示例",
+      "hello_world": "Hello World",
+      "chinese_text": "你好世界",
+      "numbers": "123456",
+      "special_chars": "!@#$%^&*()",
+      "original": "原始",
+      "hex": "十六进制",
+      "binary": "二进制"
+    },
+    "instructions": {
+      "title": "转换说明",
+      "text_to_hex": "文本转十六进制：",
+      "text_to_hex_desc": "每个字符转换为对应的ASCII/Unicode十六进制表示。",
+      "hex_to_text": "十六进制转文本：",
+      "hex_to_text_desc": "十六进制值转换回对应的字符。",
+      "binary": "二进制：",
+      "binary_desc": "每个字符转换为8位二进制表示。",
+      "format": "格式：",
+      "format_desc": "十六进制值可以用空格或冒号分隔，提高可读性。",
+      "use_cases": "应用场景：",
+      "use_cases_desc": "数据分析、调试、底层编程、网络协议。"
+    },
+    "errors": {
+      "empty_input": "请输入要转换的内容",
+      "invalid_hex": "无效的十六进制格式",
+      "invalid_binary": "无效的二进制格式",
+      "conversion_failed": "转换失败"
+    },
+    "success": {
+      "converted": "转换完成",
+      "copied": "已复制到剪贴板"
+    },
+    "common": {
+      "clear": "清空",
+      "copy": "复制",
+      "download": "下载"
+    },
+    "meta": {
+      "title": "十六进制转换器 - 文本转十六进制在线工具",
+      "description": "文本与十六进制格式之间的转换。支持二进制转换和各种编码格式。",
+      "keywords": "十六进制转换器,文本转十六进制,十六进制,二进制转换器,编码工具"
+    }
+  },
+  "json": {
+    "title": "JSON 格式化器",
+    "description": "格式化、验证和美化JSON数据",
+    "features": {
+      "formatting": "格式化",
+      "validation": "验证",
+      "compression": "压缩"
+    },
+    "tabs": {
+      "format": "格式化",
+      "validate": "验证",
+      "compress": "压缩"
+    },
+    "format": {
+      "title": "JSON格式化",
+      "description": "使用适当的缩进格式化JSON数据",
+      "input_label": "JSON输入",
+      "input_placeholder": "请输入要格式化的JSON数据...",
+      "indent_label": "缩进",
+      "button": "格式化JSON"
+    },
+    "validate": {
+      "title": "JSON验证",
+      "description": "验证JSON语法和结构",
+      "input_label": "JSON输入",
+      "input_placeholder": "请输入要验证的JSON数据...",
+      "button": "验证JSON"
+    },
+    "compress": {
+      "title": "JSON压缩",
+      "description": "移除JSON中不必要的空白字符",
+      "input_label": "JSON输入",
+      "input_placeholder": "请输入要压缩的JSON数据...",
+      "button": "压缩JSON"
+    },
+    "result": {
+      "title": "结果",
+      "formatted": "格式化后的JSON",
+      "validation_result": "验证结果",
+      "compressed": "压缩后的JSON",
+      "error_details": "错误详情"
+    },
+    "examples": {
+      "title": "JSON示例",
+      "simple_object": "简单对象",
+      "nested_object": "嵌套对象",
+      "array_example": "数组示例",
+      "complex_data": "复杂数据",
+      "load_example": "加载示例"
+    },
+    "instructions": {
+      "title": "JSON说明",
+      "formatting": "格式化：",
+      "formatting_desc": "添加适当的缩进和换行，使JSON更易读。",
+      "validation": "验证：",
+      "validation_desc": "检查JSON语法是否正确，结构是否有效。",
+      "compression": "压缩：",
+      "compression_desc": "移除所有不必要的空白字符，减少文件大小。",
+      "syntax": "语法规则：",
+      "syntax_desc": "键必须是字符串，值可以是字符串、数字、布尔值、null、对象或数组。",
+      "use_cases": "应用场景：",
+      "use_cases_desc": "API开发、数据交换、配置文件、Web应用程序。"
+    },
+    "errors": {
+      "empty_input": "请输入JSON数据",
+      "invalid_json": "无效的JSON格式",
+      "parse_error": "JSON解析错误",
+      "format_failed": "格式化失败"
+    },
+    "success": {
+      "formatted": "JSON格式化成功",
+      "valid": "JSON格式有效",
+      "compressed": "JSON压缩成功",
+      "copied": "已复制到剪贴板"
+    },
+    "common": {
+      "clear": "清空",
+      "copy": "复制",
+      "download": "下载",
+      "upload": "上传文件"
+    },
+    "meta": {
+      "title": "JSON格式化器 - 在线格式化和验证JSON",
+      "description": "格式化、验证和压缩JSON数据。支持语法高亮和错误检测。",
+      "keywords": "json格式化器,json验证器,json美化器,json压缩,json工具"
+    }
+  },
+  "image": {
+    "title": "图片编码器",
+    "description": "将图片转换为Base64和其他格式",
+    "features": {
+      "base64_encoding": "Base64编码",
+      "multiple_formats": "多种格式",
+      "file_upload": "文件上传"
+    },
+    "upload": {
+      "title": "上传图片",
+      "description": "上传图片转换为Base64格式",
+      "drag_drop": "拖拽图片到此处，或点击选择",
+      "supported_formats": "支持的格式：JPG、PNG、GIF、WebP、SVG",
+      "max_size": "最大文件大小：5MB",
+      "select_file": "选择图片文件"
+    },
+    "result": {
+      "title": "转换结果",
+      "image_preview": "图片预览",
+      "base64_code": "Base64代码",
+      "file_info": "文件信息",
+      "file_name": "文件名",
+      "file_size": "文件大小",
+      "file_type": "文件类型",
+      "dimensions": "尺寸"
+    },
+    "options": {
+      "title": "转换选项",
+      "format_label": "输出格式",
+      "quality_label": "质量",
+      "include_data_url": "包含Data URL前缀",
+      "copy_html": "复制为HTML",
+      "copy_css": "复制为CSS"
+    },
+    "instructions": {
+      "title": "使用说明",
+      "upload_image": "上传图片：",
+      "upload_image_desc": "点击上传区域或拖拽图片文件。",
+      "conversion": "转换：",
+      "conversion_desc": "图片将自动转换为Base64格式。",
+      "usage": "使用：",
+      "usage_desc": "Base64编码的图片可用于HTML、CSS和其他Web技术。",
+      "advantages": "优点：",
+      "advantages_desc": "无外部文件依赖，小图片加载更快。",
+      "disadvantages": "缺点：",
+      "disadvantages_desc": "文件大小增加，不适合大图片。"
+    },
+    "errors": {
+      "no_file": "请选择图片文件",
+      "invalid_format": "不支持的图片格式",
+      "file_too_large": "文件大小超过5MB限制",
+      "conversion_failed": "图片转换失败"
+    },
+    "success": {
+      "converted": "图片转换成功",
+      "copied": "已复制到剪贴板"
+    },
+    "common": {
+      "clear": "清空",
+      "copy": "复制",
+      "download": "下载",
+      "preview": "预览"
+    },
+    "meta": {
+      "title": "图片编码器 - 在线将图片转换为Base64",
+      "description": "将图片转换为Base64格式。支持多种图片格式和各种输出选项。",
+      "keywords": "图片编码器,base64图片,图片转base64,图片转换,web开发"
+    }
+  },
+  "qr": {
+    "title": "二维码生成器",
+    "description": "为网址、文本、WiFi、电话号码等生成二维码",
+    "features": {
+      "multiple_types": "多种类型",
+      "customizable": "可自定义",
+      "download": "下载"
+    },
+    "input": {
+      "title": "二维码内容",
+      "description": "输入要生成二维码的内容",
+      "content_label": "内容",
+      "content_placeholder": "输入文本、网址或其他内容...",
+      "type_label": "二维码类型",
+      "generate_button": "生成二维码"
+    },
+    "options": {
+      "title": "二维码选项",
+      "size_label": "大小",
+      "error_correction_label": "纠错级别",
+      "foreground_color": "前景色",
+      "background_color": "背景色",
+      "margin_label": "边距"
+    },
+    "result": {
+      "title": "生成的二维码",
+      "download_png": "下载PNG",
+      "download_svg": "下载SVG",
+      "copy_image": "复制图片"
+    },
+    "types": {
+      "text": "文本",
+      "url": "网址",
+      "wifi": "WiFi",
+      "phone": "电话号码",
+      "email": "邮箱",
+      "sms": "短信",
+      "vcard": "名片",
+      "geo": "地理位置"
+    },
+    "wifi_form": {
+      "title": "WiFi配置",
+      "ssid_label": "网络名称(SSID)",
+      "password_label": "密码",
+      "encryption_label": "加密类型",
+      "hidden_label": "隐藏网络"
+    },
+    "phone_form": {
+      "title": "电话号码",
+      "number_label": "电话号码",
+      "number_placeholder": "+86-138-0013-8000"
+    },
+    "email_form": {
+      "title": "邮箱",
+      "email_label": "邮箱地址",
+      "subject_label": "主题（可选）",
+      "body_label": "邮件内容（可选）"
+    },
+    "instructions": {
+      "title": "二维码说明",
+      "content": "内容：",
+      "content_desc": "输入要编码到二维码中的文本、网址或数据。",
+      "size": "大小：",
+      "size_desc": "更大的尺寸更容易扫描但占用更多空间。",
+      "error_correction": "纠错：",
+      "error_correction_desc": "更高的级别允许二维码在部分损坏时仍能正常工作。",
+      "types": "类型：",
+      "types_desc": "不同的内容类型有特定的格式以获得更好的兼容性。"
+    },
+    "errors": {
+      "empty_content": "请输入二维码内容",
+      "invalid_url": "无效的网址格式",
+      "invalid_email": "无效的邮箱格式",
+      "invalid_phone": "无效的电话号码格式",
+      "generation_failed": "二维码生成失败"
+    },
+    "success": {
+      "generated": "二维码生成成功",
+      "copied": "图片已复制到剪贴板"
+    },
+    "common": {
+      "clear": "清空",
+      "reset": "重置",
+      "preview": "预览"
+    },
+    "meta": {
+      "title": "二维码生成器 - 在线创建二维码",
+      "description": "为网址、文本、WiFi、电话号码、邮箱等生成二维码。可自定义大小和纠错级别。",
+      "keywords": "二维码生成器,二维码创建器,二维码扫描器,二维码制作器,条形码"
+    }
+  }
+} 

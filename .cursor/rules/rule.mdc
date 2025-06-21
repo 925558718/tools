@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+每生成一个页面都要符合结构，页面的title要用PageTitle组件
+
+每个页面都要有自己的layout用于生成metadata

@@ -119,7 +119,6 @@ export default async function RootLayout({
 
 	// 根据当前路径加载对应的翻译
 	const dictionary = await loadDictionaryByRoute(pathname, locale);
-
 	// 动态生成结构化数据
 	const appName = dictionary.structured_data_app_name || "Developer Tools";
 	const appDescription = dictionary.structured_data_description || "Free online developer tools for software development";

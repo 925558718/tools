@@ -14,7 +14,7 @@ if (typeof window !== "undefined") {
 	console.log("Bugsnag initialized");
 }
 
-const ErrorBoundary = Bugsnag?.getPlugin("react")?.createErrorBoundary(React);
+const ErrorBoundary = typeof window !== "undefined" ? Bugsnag?.getPlugin("react")?.createErrorBoundary(React) : null;
 
 const BugsnagErrorBoundary = ({ children }: { children: React.ReactNode }) => {
 	// 如果ErrorBoundary未定义，直接返回children

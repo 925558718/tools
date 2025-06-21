@@ -3,5 +3,22 @@
   "nav_home": "Home",
   "nav_tools": "Tools",
   "nav_about": "About",
-  "gradient_generator_desc": "Create beautiful CSS gradients with live preview"
+  "nav_coder": "Codec",
+  "gradient_generator_desc": "Create beautiful CSS gradients with live preview",
+  "nav_base64": "Base64",
+  "nav_base64_desc": "Base64 encoding and decoding tool",
+  "nav_url_encoding": "URL Encoding",
+  "nav_url_encoding_desc": "URL encoding and decoding tool",
+  "nav_hash_calculator": "Hash Calculator",
+  "nav_hash_calculator_desc": "MD5, SHA1, SHA256 and other hash algorithms",
+  "nav_jwt_tools": "JWT Tools",
+  "nav_jwt_tools_desc": "JWT token decoding and validation",
+  "nav_qr_code": "QR Code",
+  "nav_qr_code_desc": "QR code generation and decoding",
+  "nav_hex_converter": "Hex Converter",
+  "nav_hex_converter_desc": "Hexadecimal encoding conversion",
+  "nav_json_formatter": "JSON Formatter",
+  "nav_json_formatter_desc": "JSON formatting and compression",
+  "nav_image_encoding": "Image Encoding",
+  "nav_image_encoding_desc": "Image Base64 encoding conversion"
 } 

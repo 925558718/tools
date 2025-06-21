@@ -3,5 +3,22 @@
   "nav_home": "首页",
   "nav_tools": "工具",
   "nav_about": "关于",
-  "gradient_generator_desc": "创建美丽的CSS渐变效果，支持实时预览"
+  "nav_coder": "编解码",
+  "gradient_generator_desc": "创建美丽的CSS渐变效果，支持实时预览",
+  "nav_base64": "Base64",
+  "nav_base64_desc": "Base64编码和解码工具",
+  "nav_url_encoding": "URL编码",
+  "nav_url_encoding_desc": "URL编码和解码工具",
+  "nav_hash_calculator": "哈希计算",
+  "nav_hash_calculator_desc": "MD5、SHA1、SHA256等哈希算法",
+  "nav_jwt_tools": "JWT工具",
+  "nav_jwt_tools_desc": "JWT令牌解码和验证",
+  "nav_qr_code": "二维码",
+  "nav_qr_code_desc": "二维码生成和解码",
+  "nav_hex_converter": "十六进制",
+  "nav_hex_converter_desc": "十六进制编码转换",
+  "nav_json_formatter": "JSON格式化",
+  "nav_json_formatter_desc": "JSON格式化和压缩",
+  "nav_image_encoding": "图片编码",
+  "nav_image_encoding_desc": "图片Base64编码转换"
 } 
