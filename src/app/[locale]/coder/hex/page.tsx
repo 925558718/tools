@@ -186,7 +186,7 @@ export default function HexPage() {
                 <Button onClick={handleConvert}>{t('text_to_hex.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('clear')}
                 </Button>
               </div>
             </CardContent>
@@ -216,7 +216,7 @@ export default function HexPage() {
                 <Button onClick={handleConvert}>{t('hex_to_text.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('clear')}
                 </Button>
               </div>
             </CardContent>
@@ -246,7 +246,7 @@ export default function HexPage() {
                 <Button onClick={handleConvert}>{t('binary.convert_to_binary')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('clear')}
                 </Button>
               </div>
             </CardContent>
@@ -276,7 +276,7 @@ export default function HexPage() {
                 <Button onClick={handleConvert}>{t('binary.convert_to_text')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('clear')}
                 </Button>
               </div>
             </CardContent>
@@ -292,11 +292,11 @@ export default function HexPage() {
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={handleCopy}>
                   <Copy className="w-4 h-4 mr-2" />
-                  {t('common.copy')}
+                  {t('copy')}
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleSwap}>
                   <ArrowRight className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('clear')}
                 </Button>
               </div>
             </div>

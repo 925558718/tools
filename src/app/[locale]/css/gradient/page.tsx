@@ -69,7 +69,7 @@ const GradientGenerator = () => {
       stops: [...prev.stops, newStop]
     }));
     
-    toast.success(t('messages.added_color_stop', { percentage: clampedPercentage }));
+    toast.success(t('gradient.messages.added_color_stop', { percentage: clampedPercentage }));
   };
 
   // Handle drag start
@@ -175,7 +175,7 @@ const GradientGenerator = () => {
   // Copy to clipboard
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success(t('messages.copied'));
+    toast.success(t('gradient.messages.copied'));
   };
 
   // Reset to default
@@ -194,7 +194,7 @@ const GradientGenerator = () => {
     setConfig(simplifiedConfig);
     
     if (config.stops.length <= 3) {
-      toast.success(t('messages.positions_adjusted'));
+      toast.success(t('gradient.messages.positions_adjusted'));
     } else {
       const sortedStops = [...config.stops].sort((a, b) => a.position - b.position);
       const firstStop = sortedStops[0];
@@ -202,7 +202,7 @@ const GradientGenerator = () => {
       const middleIndex = Math.floor(sortedStops.length / 2);
       const middleStop = sortedStops[middleIndex];
       const colors = `${firstStop.color}, ${middleStop.color}, ${lastStop.color}`;
-      toast.success(t('messages.simplified_to_3', { colors }));
+      toast.success(t('gradient.messages.simplified_to_3', { colors }));
     }
   };
 
@@ -215,12 +215,12 @@ const GradientGenerator = () => {
         <main className="relative z-10 container mx-auto px-4 py-12 max-w-7xl">
           {/* 使用通用标题组件 */}
           <PageTitle
-            titleKey="title"
-            subtitleKey="subtitle"
+            titleKey="gradient.title"
+            subtitleKey="gradient.subtitle"
             features={[
-              { key: 'features.live_preview', color: 'purple' },
-              { key: 'features.css_tailwind', color: 'blue' },
-              { key: 'features.interactive_editor', color: 'pink' }
+              { key: 'gradient.features.live_preview', color: 'purple' },
+              { key: 'gradient.features.css_tailwind', color: 'blue' },
+              { key: 'gradient.features.interactive_editor', color: 'pink' }
             ]}
           />
 
@@ -229,8 +229,8 @@ const GradientGenerator = () => {
             {/* Live Preview at top - Now rectangular */}
             <Card className="mb-6">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg">{t('preview.title')}</CardTitle>
-                <CardDescription>{t('preview.description')}</CardDescription>
+                <CardTitle className="text-lg">{t('gradient.preview.title')}</CardTitle>
+                <CardDescription>{t('gradient.preview.description')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div 
@@ -240,7 +240,7 @@ const GradientGenerator = () => {
                 
                 {/* Interactive Gradient Bar */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">{t('preview.interactive_bar')}</Label>
+                  <Label className="text-sm font-medium">{t('gradient.preview.interactive_bar')}</Label>
                   {/* biome-ignore lint/a11y/useFocusableInteractive: <explanation> */}
 <div 
                     ref={gradientBarRef}
@@ -260,7 +260,7 @@ const GradientGenerator = () => {
                       }
                     }}
                     className="relative w-full h-12 rounded-lg border-2 border-border cursor-pointer transition-all duration-200 hover:border-primary hover:shadow-sm"
-                    aria-label={t('preview.interactive_bar')}
+                    aria-label={t('gradient.preview.interactive_bar')}
                     style={{ background: cssGradient }}
                     // biome-ignore lint/a11y/useSemanticElements: <explanation>
                     role="button"
@@ -324,13 +324,13 @@ const GradientGenerator = () => {
                         <PopoverContent className="w-72 p-4" side="left" align="center" sideOffset={8}>
                           <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                              <h4 className="font-medium text-sm">{t('color_stop.edit')}</h4>
+                              <h4 className="font-medium text-sm">{t('gradient.color_stop.edit')}</h4>
                               <span className="text-xs text-muted-foreground">#{config.stops.findIndex(s => s.id === stop.id) + 1}</span>
                             </div>
                             
                             <div className="space-y-3">
                               <div className="space-y-2">
-                                <Label className="text-sm font-medium">{t('color_stop.color')}</Label>
+                                <Label className="text-sm font-medium">{t('gradient.color_stop.color')}</Label>
                                 <div className="flex gap-2">
                                   <Input
                                     type="color"
@@ -357,7 +357,7 @@ const GradientGenerator = () => {
                               
                               <div className="grid grid-cols-2 gap-3">
                                 <div className="space-y-2">
-                                  <Label className="text-sm font-medium">{t('color_stop.position')}</Label>
+                                  <Label className="text-sm font-medium">{t('gradient.color_stop.position')}</Label>
                                   <Input
                                     type="number"
                                     min="0"
@@ -370,7 +370,7 @@ const GradientGenerator = () => {
                                   />
                                 </div>
                                 <div className="space-y-2">
-                                  <Label className="text-sm font-medium">{t('color_stop.opacity')}</Label>
+                                  <Label className="text-sm font-medium">{t('gradient.color_stop.opacity')}</Label>
                                   <Input
                                     type="number"
                                     min="0"
@@ -396,7 +396,7 @@ const GradientGenerator = () => {
                     ))}
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    {t('preview.tip')}
+                    {t('gradient.preview.tip')}
                   </p>
                 </div>
               </CardContent>
@@ -407,23 +407,23 @@ const GradientGenerator = () => {
               <div className="space-y-4">
                 <Card>
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-lg">{t('settings.title')}</CardTitle>
+                    <CardTitle className="text-lg">{t('gradient.settings.title')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {/* Gradient Type */}
                     <div className="space-y-2">
-                      <Label>{t('settings.type')}</Label>
+                      <Label>{t('gradient.settings.type')}</Label>
                       <Tabs value={config.type} onValueChange={(value: string) => setConfig(prev => ({ ...prev, type: value as "linear" | "radial" }))}>
                         <TabsList className="grid w-full grid-cols-2">
-                          <TabsTrigger value="linear">{t('settings.linear')}</TabsTrigger>
-                          <TabsTrigger value="radial">{t('settings.radial')}</TabsTrigger>
+                          <TabsTrigger value="linear">{t('gradient.settings.linear')}</TabsTrigger>
+                          <TabsTrigger value="radial">{t('gradient.settings.radial')}</TabsTrigger>
                         </TabsList>
                       </Tabs>
                     </div>
 
                     {/* Direction/Shape */}
                     <div className="space-y-2">
-                      <Label>{config.type === "linear" ? t('settings.direction') : t('settings.shape')}</Label>
+                      <Label>{config.type === "linear" ? t('gradient.settings.direction') : t('gradient.settings.shape')}</Label>
                       <Select 
                         value={config.direction} 
                         onValueChange={(value) => setConfig(prev => ({ ...prev, direction: value }))}
@@ -446,17 +446,17 @@ const GradientGenerator = () => {
                       <div className="flex gap-2">
                         <Button onClick={generateRandomGradient} variant="outline" className="flex-1">
                           <Shuffle className="w-4 h-4 mr-2" />
-                          {t('settings.random')}
+                          {t('gradient.settings.random')}
                         </Button>
                         <Button onClick={resetGradient} variant="outline" className="flex-1">
                           <RotateCcw className="w-4 h-4 mr-2" />
-                          {t('settings.reset')}
+                          {t('gradient.settings.reset')}
                         </Button>
                       </div>
                       {config.stops.length > 3 && (
                         <Button onClick={handleSimplifyGradient} variant="outline" className="w-full">
                           <Baby className="w-4 h-4 mr-2" />
-                          {t('settings.simplify')}
+                          {t('gradient.settings.simplify')}
                         </Button>
                       )}
                     </div>
@@ -468,19 +468,19 @@ const GradientGenerator = () => {
               <div className="lg:col-span-2">
                 <Card>
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-lg">{t('code.title')}</CardTitle>
-                    <CardDescription>{t('code.description')}</CardDescription>
+                    <CardTitle className="text-lg">{t('gradient.code.title')}</CardTitle>
+                    <CardDescription>{t('gradient.code.description')}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Tabs value={outputFormat} onValueChange={(value: string) => setOutputFormat(value as "css" | "tailwind")}>
                       <TabsList className="grid w-full grid-cols-2 mb-4">
-                        <TabsTrigger value="css">{t('code.css')}</TabsTrigger>
-                        <TabsTrigger value="tailwind">{t('code.tailwind')}</TabsTrigger>
+                        <TabsTrigger value="css">{t('gradient.code.css')}</TabsTrigger>
+                        <TabsTrigger value="tailwind">{t('gradient.code.tailwind')}</TabsTrigger>
                       </TabsList>
                       
                       <TabsContent value="css" className="space-y-4">
                         <div className="space-y-2">
-                          <Label>{t('code.background_property')}</Label>
+                          <Label>{t('gradient.code.background_property')}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{`background: ${cssGradient};`}</code>
@@ -496,7 +496,7 @@ const GradientGenerator = () => {
                         </div>
                         
                         <div className="space-y-2">
-                          <Label>{t('code.css_class')}</Label>
+                          <Label>{t('gradient.code.css_class')}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{`.gradient {\n  background: ${cssGradient};\n}`}</code>
@@ -515,17 +515,17 @@ const GradientGenerator = () => {
                       <TabsContent value="tailwind" className="space-y-4">
                         {/* Version Selector */}
                         <div className="space-y-2">
-                          <Label>Tailwind CSS {t('versions.version')}</Label>
+                          <Label>Tailwind CSS {t('gradient.versions.version')}</Label>
                           <Tabs value={tailwindVersion} onValueChange={(value: string) => setTailwindVersion(value as "v3" | "v4")}>
                             <TabsList className="grid w-full grid-cols-2">
-                              <TabsTrigger value="v3">{t('versions.v3')}</TabsTrigger>
-                              <TabsTrigger value="v4">{t('versions.v4')}</TabsTrigger>
+                              <TabsTrigger value="v3">{t('gradient.versions.v3')}</TabsTrigger>
+                              <TabsTrigger value="v4">{t('gradient.versions.v4')}</TabsTrigger>
                             </TabsList>
                           </Tabs>
                         </div>
 
                         <div className="space-y-2">
-                          <Label>{t('code.tailwind_classes', { version: tailwindVersion.toUpperCase() })}</Label>
+                          <Label>{t('gradient.code.tailwind_classes', { version: tailwindVersion.toUpperCase() })}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{tailwindGradient}</code>
@@ -541,7 +541,7 @@ const GradientGenerator = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <Label>{t('code.usage_example')}</Label>
+                          <Label>{t('gradient.code.usage_example')}</Label>
                           <div className="relative">
                             <pre className="p-3 bg-muted rounded text-sm overflow-x-auto border border-border">
                               <code>{`<div class="${tailwindGradient}">\n  <!-- Content -->\n</div>`}</code>
@@ -559,13 +559,13 @@ const GradientGenerator = () => {
                         {tailwindVersion === "v4" ? (
                           <div className="p-3 bg-secondary/10 border border-secondary/20 rounded">
                             <p className="text-sm text-secondary-foreground">
-                              <strong>{t('versions.v4')}:</strong> {t('versions.v4_note')}
+                              <strong>{t('gradient.versions.v4')}:</strong> {t('gradient.versions.v4_note')}
                             </p>
                           </div>
                         ) : (
                           <div className="p-3 bg-primary/10 border border-primary/20 rounded">
                             <p className="text-sm text-primary-foreground">
-                              <strong>{t('versions.v3')}:</strong> {t('versions.v3_note')}
+                              <strong>{t('gradient.versions.v3')}:</strong> {t('gradient.versions.v3_note')}
                             </p>
                           </div>
                         )}
@@ -573,14 +573,14 @@ const GradientGenerator = () => {
                         {tailwindGradient.includes("bg-[") && (
                           <div className="p-3 bg-accent/10 border border-accent/20 rounded">
                             <p className="text-sm text-accent-foreground">
-                              <strong>{t('complex_gradient.title')}:</strong> {t('complex_gradient.description')}
-                              <br />{t('complex_gradient.reason1')}
-                              <br />{t('complex_gradient.reason2')}
+                              <strong>{t('gradient.complex_gradient.title')}:</strong> {t('gradient.complex_gradient.description')}
+                              <br />{t('gradient.complex_gradient.reason1')}
+                              <br />{t('gradient.complex_gradient.reason2')}
                               <br /><br />
-                              <strong>{t('complex_gradient.note')}</strong>
-                              <br />{t('complex_gradient.position_examples')}
+                              <strong>{t('gradient.complex_gradient.note')}</strong>
+                              <br />{t('gradient.complex_gradient.position_examples')}
                               <br /><br />
-                              <strong>{t('complex_gradient.arbitrary_format')}</strong>
+                              <strong>{t('gradient.complex_gradient.arbitrary_format')}</strong>
                             </p>
                           </div>
                         )}

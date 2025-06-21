@@ -25,24 +25,24 @@ export const defaultGradientConfig: GradientConfig = {
 
 // 线性渐变方向选项
 export const getLinearDirections = (t: any) => [
-  { value: "90deg", label: t('directions.to_right') },
-  { value: "0deg", label: t('directions.to_top') },
-  { value: "180deg", label: t('directions.to_bottom') },
-  { value: "270deg", label: t('directions.to_left') },
-  { value: "45deg", label: t('directions.to_top_right') },
-  { value: "135deg", label: t('directions.to_bottom_right') },
-  { value: "225deg", label: t('directions.to_bottom_left') },
-  { value: "315deg", label: t('directions.to_top_left') }
+  { value: "90deg", label: t('gradient.directions.to_right') },
+  { value: "0deg", label: t('gradient.directions.to_top') },
+  { value: "180deg", label: t('gradient.directions.to_bottom') },
+  { value: "270deg", label: t('gradient.directions.to_left') },
+  { value: "45deg", label: t('gradient.directions.to_top_right') },
+  { value: "135deg", label: t('gradient.directions.to_bottom_right') },
+  { value: "225deg", label: t('gradient.directions.to_bottom_left') },
+  { value: "315deg", label: t('gradient.directions.to_top_left') }
 ];
 
 // 径向渐变形状选项
 export const getRadialShapes = (t: any) => [
-  { value: "circle", label: t('shapes.circle') },
-  { value: "ellipse", label: t('shapes.ellipse') },
-  { value: "circle at center", label: t('shapes.circle_center') },
-  { value: "ellipse at center", label: t('shapes.ellipse_center') },
-  { value: "circle at top", label: t('shapes.circle_top') },
-  { value: "circle at bottom", label: t('shapes.circle_bottom') }
+  { value: "circle", label: t('gradient.shapes.circle') },
+  { value: "ellipse", label: t('gradient.shapes.ellipse') },
+  { value: "circle at center", label: t('gradient.shapes.circle_center') },
+  { value: "ellipse at center", label: t('gradient.shapes.ellipse_center') },
+  { value: "circle at top", label: t('gradient.shapes.circle_top') },
+  { value: "circle at bottom", label: t('gradient.shapes.circle_bottom') }
 ];
 
 // Tailwind 颜色映射表

@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
 import { useState, useRef } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/card';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/shadcn/button';
-import { Textarea } from '@/components/shadcn/textarea';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/card';
 import { Label } from '@/components/shadcn/label';
+import { Textarea } from '@/components/shadcn/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/tabs';
-import { Copy, RotateCcw, Upload, Download, Image as ImageIcon } from 'lucide-react';
-import { toast } from 'sonner';
+import { Upload, RotateCcw, Copy, Download } from 'lucide-react';
 import PageTitle from '@/components/PageTitle';
 
 interface ImageInfo {
@@ -20,9 +20,10 @@ interface ImageInfo {
 }
 
 export default function ImagePage() {
+  const t = useTranslations();
   const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
   const [base64Input, setBase64Input] = useState('');
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,83 +32,92 @@ export default function ImagePage() {
 
     // 检查文件类型
     if (!file.type.startsWith('image/')) {
-      toast.error('请选择图片文件');
+      alert('请选择图片文件');
       return;
     }
 
-    // 检查文件大小（限制为10MB）
+    // 检查文件大小 (10MB)
     if (file.size > 10 * 1024 * 1024) {
-      toast.error('图片大小不能超过10MB');
+      alert('文件大小不能超过10MB');
       return;
     }
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      const result = e.target?.result as string;
-      
-      // 创建图片对象获取尺寸
       const img = new Image();
       img.onload = () => {
-        const info: ImageInfo = {
+        const base64 = e.target?.result as string;
+        setImageInfo({
           name: file.name,
           size: file.size,
           type: file.type,
           width: img.width,
           height: img.height,
-          base64: result
-        };
-        setImageInfo(info);
-        setPreviewUrl(result);
-        toast.success('图片上传成功');
+          base64: base64
+        });
       };
-      img.src = result;
+      img.src = e.target?.result as string;
     };
     reader.readAsDataURL(file);
   };
 
   const handleBase64Decode = () => {
     if (!base64Input.trim()) {
-      toast.error('请输入Base64编码');
+      alert('请输入Base64编码');
       return;
     }
 
     try {
       // 检查是否是有效的Base64图片
       if (!base64Input.startsWith('data:image/')) {
-        toast.error('请输入有效的图片Base64编码');
-        return;
+        // 尝试添加data URL前缀
+        const testUrl = `data:image/png;base64,${base64Input}`;
+        const img = new Image();
+        img.onload = () => {
+          setPreviewUrl(testUrl);
+        };
+        img.onerror = () => {
+          alert('无效的Base64图片编码');
+        };
+        img.src = testUrl;
+      } else {
+        const img = new Image();
+        img.onload = () => {
+          setPreviewUrl(base64Input);
+        };
+        img.onerror = () => {
+          alert('无效的Base64图片编码');
+        };
+        img.src = base64Input;
       }
-
-      setPreviewUrl(base64Input);
-      toast.success('Base64解码成功');
     } catch (error) {
-      toast.error('Base64解码失败');
+      alert('解码失败');
     }
   };
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success('已复制到剪贴板');
+    alert('已复制到剪贴板');
   };
 
   const handleClear = () => {
     setImageInfo(null);
     setBase64Input('');
-    setPreviewUrl(null);
+    setPreviewUrl('');
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
   };
 
   const handleDownload = () => {
-    if (previewUrl) {
-      const a = document.createElement('a');
-      a.href = previewUrl;
-      a.download = imageInfo?.name || 'image.png';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
+    if (!previewUrl) return;
+    
+    const link = document.createElement('a');
+    link.href = previewUrl;
+    link.download = 'decoded-image.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const formatFileSize = (bytes: number): string => {
@@ -127,43 +137,43 @@ export default function ImagePage() {
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey="图片编码工具"
-        subtitleKey="图片与Base64编码之间的相互转换工具"
+        titleKey="image.title"
+        subtitleKey="image.description"
         features={[
-          { key: '图片转Base64', color: 'blue' },
-          { key: 'Base64转图片', color: 'green' },
-          { key: '预览功能', color: 'purple' }
+          { key: 'image.features.image_to_base64', color: 'blue' },
+          { key: 'image.features.base64_to_image', color: 'green' },
+          { key: 'image.features.preview_function', color: 'purple' }
         ]}
       />
 
       <Tabs defaultValue="encode" className="space-y-4">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="encode">图片转Base64</TabsTrigger>
-          <TabsTrigger value="decode">Base64转图片</TabsTrigger>
+          <TabsTrigger value="encode">{t('image.tabs.encode')}</TabsTrigger>
+          <TabsTrigger value="decode">{t('image.tabs.decode')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="encode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>图片转Base64</CardTitle>
+              <CardTitle>{t('image.encode.title')}</CardTitle>
               <CardDescription>
-                将图片文件转换为Base64编码
+                {t('image.encode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="image-upload">选择图片</Label>
+                <Label htmlFor="image-upload">{t('image.encode.select_image')}</Label>
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
                     onClick={() => fileInputRef.current?.click()}
                   >
                     <Upload className="w-4 h-4 mr-2" />
-                    上传图片
+                    {t('image.encode.upload_image')}
                   </Button>
                   <Button variant="outline" onClick={handleClear}>
                     <RotateCcw className="w-4 h-4 mr-2" />
-                    清空
+                    {t('image.encode.clear')}
                   </Button>
                 </div>
                 <input
@@ -174,7 +184,7 @@ export default function ImagePage() {
                   accept="image/*"
                 />
                 <p className="text-sm text-gray-500">
-                  支持格式：JPG、PNG、GIF、WebP等，最大10MB
+                  {t('image.encode.supported_formats')}
                 </p>
               </div>
             </CardContent>
@@ -183,38 +193,38 @@ export default function ImagePage() {
           {imageInfo && (
             <Card>
               <CardHeader>
-                <CardTitle>图片信息</CardTitle>
+                <CardTitle>{t('image.image_info.title')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
-                    <p className="font-medium text-gray-700 dark:text-gray-300">文件名</p>
+                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('image.image_info.file_name')}</p>
                     <p className="text-gray-600 dark:text-gray-400">{imageInfo.name}</p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-700 dark:text-gray-300">文件大小</p>
+                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('image.image_info.file_size')}</p>
                     <p className="text-gray-600 dark:text-gray-400">{formatFileSize(imageInfo.size)}</p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-700 dark:text-gray-300">图片尺寸</p>
+                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('image.image_info.dimensions')}</p>
                     <p className="text-gray-600 dark:text-gray-400">{imageInfo.width} × {imageInfo.height}</p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-700 dark:text-gray-300">文件类型</p>
+                    <p className="font-medium text-gray-700 dark:text-gray-300">{t('image.image_info.file_type')}</p>
                     <p className="text-gray-600 dark:text-gray-400">{imageInfo.type}</p>
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label>Base64编码</Label>
+                    <Label>{t('image.image_info.base64_code')}</Label>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => handleCopy(imageInfo.base64)}
                     >
                       <Copy className="w-4 h-4 mr-2" />
-                      复制
+                      {t('copy')}
                     </Button>
                   </div>
                   <Textarea
@@ -232,27 +242,27 @@ export default function ImagePage() {
         <TabsContent value="decode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Base64转图片</CardTitle>
+              <CardTitle>{t('image.decode.title')}</CardTitle>
               <CardDescription>
-                将Base64编码转换回图片
+                {t('image.decode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="base64-input">Base64编码</Label>
+                <Label htmlFor="base64-input">{t('image.decode.input_label')}</Label>
                 <Textarea
                   id="base64-input"
-                  placeholder="请输入图片的Base64编码..."
+                  placeholder={t('image.decode.input_placeholder')}
                   value={base64Input}
                   onChange={(e) => setBase64Input(e.target.value)}
                   rows={6}
                 />
               </div>
               <div className="flex gap-2">
-                <Button onClick={handleBase64Decode}>解码</Button>
+                <Button onClick={handleBase64Decode}>{t('image.decode.decode_button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  清空
+                  {t('image.encode.clear')}
                 </Button>
               </div>
             </CardContent>
@@ -264,15 +274,15 @@ export default function ImagePage() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>图片预览</CardTitle>
+              <CardTitle>{t('image.preview.title')}</CardTitle>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={handleDownload}>
                   <Download className="w-4 h-4 mr-2" />
-                  下载
+                  {t('image.preview.download')}
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => handleCopy(previewUrl)}>
                   <Copy className="w-4 h-4 mr-2" />
-                  复制Base64
+                  {t('image.preview.copy_base64')}
                 </Button>
               </div>
             </div>
@@ -287,7 +297,7 @@ export default function ImagePage() {
                 />
                 {base64Input && (
                   <div className="mt-4 p-3 bg-gray-100 dark:bg-gray-800 rounded text-sm">
-                    <p>Base64大小: {formatFileSize(getBase64Size(base64Input))}</p>
+                    <p>{t('image.preview.base64_size')}: {formatFileSize(getBase64Size(base64Input))}</p>
                   </div>
                 )}
               </div>
@@ -298,14 +308,14 @@ export default function ImagePage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>使用说明</CardTitle>
+          <CardTitle>{t('image.instructions.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <p><strong>图片转Base64：</strong>上传图片文件，自动转换为Base64编码格式。</p>
-          <p><strong>Base64转图片：</strong>输入Base64编码，预览和下载对应的图片。</p>
-          <p><strong>支持格式：</strong>JPG、PNG、GIF、WebP、SVG等常见图片格式。</p>
-          <p><strong>文件限制：</strong>单个文件最大10MB，建议使用压缩后的图片。</p>
-          <p><strong>应用场景：</strong>网页内联图片、CSS背景图、邮件附件等。</p>
+          <p><strong>{t('image.instructions.image_to_base64_desc')}</strong></p>
+          <p><strong>{t('image.instructions.base64_to_image_desc')}</strong></p>
+          <p><strong>{t('image.instructions.supported_formats_desc')}</strong></p>
+          <p><strong>{t('image.instructions.file_limit_desc')}</strong></p>
+          <p><strong>{t('image.instructions.use_cases_desc')}</strong></p>
         </CardContent>
       </Card>
     </div>

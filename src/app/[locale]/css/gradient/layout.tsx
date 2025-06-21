@@ -10,7 +10,7 @@ export async function generateMetadata({
 	const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
 
 	// 用 next-intl/server 的 getTranslations 获取翻译
-	const t = await getTranslations("css.gradient");
+	const t = await getTranslations("gradient");
 
 	// 标题和描述支持多语言
 	const title = t("meta.title") || t("title") || "CSS Gradient Generator";

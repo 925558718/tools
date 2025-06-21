@@ -1,5 +1,7 @@
 {
   "placeholders": {
     "enter": "请输入..."
-  }
+  },
+  "copy": "复制",
+  "clear": "清空"
 }

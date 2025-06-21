@@ -4,7 +4,7 @@
     "subtitle": "创建美丽的渐变效果，支持实时预览和即用代码",
     "features": {
       "live_preview": "实时预览",
-      "css_tailwind": "CSS & Tailwind",
+      "css_tailwind": "CSS 和 Tailwind",
       "interactive_editor": "交互式编辑器"
     },
     "meta": {

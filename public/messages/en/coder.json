@@ -354,7 +354,6 @@
     "binary": {
       "title": "Binary Converter",
       "description": "Convert between text and binary format",
-      "text_to_binary": "Text to Binary",
       "binary_to_text": "Binary to Text",
       "text_input_label": "Text Input",
       "text_input_placeholder": "Enter text to convert to binary...",
@@ -371,13 +370,17 @@
     },
     "examples": {
       "title": "Conversion Examples",
+      "text_to_hex": "Text to Hex",
+      "hex_to_text": "Hex to Text",
+      "chinese_text": "Chinese Text",
+      "text_to_binary": "Text to Binary",
       "hello_world": "Hello World",
-      "chinese_text": "你好世界",
       "numbers": "123456",
       "special_chars": "!@#$%^&*()",
       "original": "Original",
       "hex": "Hex",
-      "binary": "Binary"
+      "binary": "Binary",
+      "load_example": "Load Example"
     },
     "instructions": {
       "title": "Conversion Instructions",
@@ -423,8 +426,9 @@
     },
     "tabs": {
       "format": "Format",
+      "minify": "Minify",
       "validate": "Validate",
-      "compress": "Compress"
+      "convert": "Convert"
     },
     "format": {
       "title": "JSON Formatting",
@@ -434,6 +438,13 @@
       "indent_label": "Indentation",
       "button": "Format JSON"
     },
+    "minify": {
+      "title": "JSON Minification",
+      "description": "Remove unnecessary whitespace from JSON",
+      "input_label": "JSON Input",
+      "input_placeholder": "Enter JSON data to minify...",
+      "button": "Minify JSON"
+    },
     "validate": {
       "title": "JSON Validation",
       "description": "Validate JSON syntax and structure",
@@ -441,12 +452,12 @@
       "input_placeholder": "Enter JSON data to validate...",
       "button": "Validate JSON"
     },
-    "compress": {
-      "title": "JSON Compression",
-      "description": "Remove unnecessary whitespace from JSON",
+    "convert": {
+      "title": "JSON to CSV",
+      "description": "Convert JSON data to CSV format",
       "input_label": "JSON Input",
-      "input_placeholder": "Enter JSON data to compress...",
-      "button": "Compress JSON"
+      "input_placeholder": "Enter JSON data to convert to CSV...",
+      "button": "Convert to CSV"
     },
     "result": {
       "title": "Result",
@@ -504,9 +515,50 @@
     "title": "Image Encoder",
     "description": "Convert images to Base64 and other formats",
     "features": {
-      "base64_encoding": "Base64 Encoding",
-      "multiple_formats": "Multiple Formats",
-      "file_upload": "File Upload"
+      "image_to_base64": "Image to Base64",
+      "base64_to_image": "Base64 to Image",
+      "preview_function": "Preview Function"
+    },
+    "tabs": {
+      "encode": "Encode",
+      "decode": "Decode"
+    },
+    "encode": {
+      "title": "Image to Base64",
+      "description": "Convert image files to Base64 format",
+      "select_image": "Select Image",
+      "upload_image": "Upload Image",
+      "clear": "Clear",
+      "supported_formats": "Supported formats: JPG, PNG, GIF, WebP, SVG"
+    },
+    "decode": {
+      "title": "Base64 to Image",
+      "description": "Convert Base64 data back to image",
+      "input_label": "Base64 Data",
+      "input_placeholder": "Enter Base64 encoded image data...",
+      "decode_button": "Decode"
+    },
+    "image_info": {
+      "title": "Image Information",
+      "file_name": "File Name",
+      "file_size": "File Size",
+      "file_type": "File Type",
+      "dimensions": "Dimensions",
+      "base64_code": "Base64 Code"
+    },
+    "preview": {
+      "title": "Image Preview",
+      "download": "Download",
+      "copy_base64": "Copy Base64",
+      "base64_size": "Base64 Size"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "image_to_base64_desc": "Upload an image file to convert it to Base64 format. The converted data can be used in HTML, CSS, or other web technologies.",
+      "base64_to_image_desc": "Paste Base64 encoded image data to convert it back to an image and preview it.",
+      "supported_formats_desc": "Supported image formats include JPG, PNG, GIF, WebP, and SVG.",
+      "file_limit_desc": "Maximum file size is 5MB for optimal performance.",
+      "use_cases_desc": "Useful for embedding images in HTML emails, CSS backgrounds, or when you need to include images without external file dependencies."
     },
     "upload": {
       "title": "Upload Image",
@@ -533,19 +585,6 @@
       "include_data_url": "Include Data URL Prefix",
       "copy_html": "Copy as HTML",
       "copy_css": "Copy as CSS"
-    },
-    "instructions": {
-      "title": "Usage Instructions",
-      "upload_image": "Upload Image: ",
-      "upload_image_desc": "Click the upload area or drag and drop an image file.",
-      "conversion": "Conversion: ",
-      "conversion_desc": "The image will be automatically converted to Base64 format.",
-      "usage": "Usage: ",
-      "usage_desc": "Base64 encoded images can be used in HTML, CSS, and other web technologies.",
-      "advantages": "Advantages: ",
-      "advantages_desc": "No external file dependencies, faster loading for small images.",
-      "disadvantages": "Disadvantages: ",
-      "disadvantages_desc": "Larger file size, not suitable for large images."
     },
     "errors": {
       "no_file": "Please select an image file",
@@ -692,5 +731,48 @@
       "description": "Generate QR codes for URLs, text, WiFi, phone numbers, emails and more. Customizable size and error correction.",
       "keywords": "qr code generator, qr code creator, qr code scanner, qr code maker, barcode"
     }
+  },
+  "text_to_hex": {
+    "title": "Text to Hexadecimal",
+    "description": "Convert text to hexadecimal format",
+    "input_label": "Input Text",
+    "input_placeholder": "Enter text to convert to hex...",
+    "button": "Convert to Hex"
+  },
+  "hex_to_text": {
+    "title": "Hexadecimal to Text",
+    "description": "Convert hexadecimal format back to text",
+    "input_label": "Hexadecimal Text",
+    "input_placeholder": "Enter hex text (e.g., 48656C6C6F)...",
+    "button": "Convert to Text"
+  },
+  "binary": {
+    "title": "Binary Converter",
+    "description": "Convert between text and binary format",
+    "binary_to_text": "Binary to Text",
+    "text_input_label": "Text Input",
+    "text_input_placeholder": "Enter text to convert to binary...",
+    "binary_input_label": "Binary Input",
+    "binary_input_placeholder": "Enter binary (e.g., 01001000 01100101 01101100 01101100 01101111)...",
+    "convert_to_binary": "Convert to Binary",
+    "convert_to_text": "Convert to Text"
+  },
+  "result": {
+    "title": "Conversion Result"
+  },
+  "tabs": {
+    "text_to_hex": "Text → Hex",
+    "hex_to_text": "Hex → Text",
+    "binary": "Binary"
+  },
+  "errors": {
+    "empty_input": "Please enter content to convert",
+    "invalid_hex": "Invalid hexadecimal format",
+    "invalid_binary": "Invalid binary format",
+    "conversion_failed": "Conversion failed"
+  },
+  "success": {
+    "converted": "Conversion completed",
+    "copied": "Copied to clipboard"
   }
 } 

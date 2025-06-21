@@ -328,7 +328,7 @@ export default function JwtPage() {
                 <div className="mt-3">
                   <Button variant="outline" size="sm" onClick={() => handleCopy(generatedToken)}>
                     <Copy className="w-4 h-4 mr-2" />
-                    {t('common.copy')}
+                    {t('copy')}
                   </Button>
                 </div>
               </CardContent>

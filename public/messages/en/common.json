@@ -1,5 +1,7 @@
 {
   "placeholders": {
     "enter": "Enter..."
-  }
+  },
+  "copy": "Copy",
+  "clear": "Clear"
 }

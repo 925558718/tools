@@ -343,25 +343,24 @@
       "title": "文本转十六进制",
       "description": "将文本转换为十六进制格式",
       "input_label": "输入文本",
-      "input_placeholder": "请输入要转换为十六进制的文本...",
+      "input_placeholder": "输入要转换为十六进制的文本...",
       "button": "转换为十六进制"
     },
     "hex_to_text": {
       "title": "十六进制转文本",
       "description": "将十六进制格式转换回文本",
       "input_label": "十六进制文本",
-      "input_placeholder": "请输入十六进制文本（如：48656C6C6F）...",
+      "input_placeholder": "输入十六进制文本（例如：48656C6C6F）...",
       "button": "转换为文本"
     },
     "binary": {
       "title": "二进制转换器",
-      "description": "文本与二进制格式之间的转换",
-      "text_to_binary": "文本转二进制",
+      "description": "在文本和二进制格式之间转换",
       "binary_to_text": "二进制转文本",
       "text_input_label": "文本输入",
-      "text_input_placeholder": "请输入要转换为二进制的文本...",
+      "text_input_placeholder": "输入要转换为二进制的文本...",
       "binary_input_label": "二进制输入",
-      "binary_input_placeholder": "请输入二进制（如：01001000 01100101 01101100 01101100 01101111）...",
+      "binary_input_placeholder": "输入二进制（例如：01001000 01100101 01101100 01101100 01101111）...",
       "convert_to_binary": "转换为二进制",
       "convert_to_text": "转换为文本"
     },
@@ -373,13 +372,17 @@
     },
     "examples": {
       "title": "转换示例",
+      "text_to_hex": "文本转十六进制",
+      "hex_to_text": "十六进制转文本",
+      "chinese_text": "中文文本",
+      "text_to_binary": "文本转二进制",
       "hello_world": "Hello World",
-      "chinese_text": "你好世界",
       "numbers": "123456",
       "special_chars": "!@#$%^&*()",
-      "original": "原始",
+      "original": "原文",
       "hex": "十六进制",
-      "binary": "二进制"
+      "binary": "二进制",
+      "load_example": "加载示例"
     },
     "instructions": {
       "title": "转换说明",
@@ -425,8 +428,9 @@
     },
     "tabs": {
       "format": "格式化",
+      "minify": "压缩",
       "validate": "验证",
-      "compress": "压缩"
+      "convert": "转换"
     },
     "format": {
       "title": "JSON格式化",
@@ -436,6 +440,13 @@
       "indent_label": "缩进",
       "button": "格式化JSON"
     },
+    "minify": {
+      "title": "JSON压缩",
+      "description": "移除JSON中不必要的空白字符",
+      "input_label": "JSON输入",
+      "input_placeholder": "请输入要压缩的JSON数据...",
+      "button": "压缩JSON"
+    },
     "validate": {
       "title": "JSON验证",
       "description": "验证JSON语法和结构",
@@ -443,12 +454,12 @@
       "input_placeholder": "请输入要验证的JSON数据...",
       "button": "验证JSON"
     },
-    "compress": {
-      "title": "JSON压缩",
-      "description": "移除JSON中不必要的空白字符",
+    "convert": {
+      "title": "JSON转CSV",
+      "description": "将JSON数据转换为CSV格式",
       "input_label": "JSON输入",
-      "input_placeholder": "请输入要压缩的JSON数据...",
-      "button": "压缩JSON"
+      "input_placeholder": "请输入要转换为CSV的JSON数据...",
+      "button": "转换为CSV"
     },
     "result": {
       "title": "结果",
@@ -506,9 +517,50 @@
     "title": "图片编码器",
     "description": "将图片转换为Base64和其他格式",
     "features": {
-      "base64_encoding": "Base64编码",
-      "multiple_formats": "多种格式",
-      "file_upload": "文件上传"
+      "image_to_base64": "图片转Base64",
+      "base64_to_image": "Base64转图片",
+      "preview_function": "预览功能"
+    },
+    "tabs": {
+      "encode": "编码",
+      "decode": "解码"
+    },
+    "encode": {
+      "title": "图片转Base64",
+      "description": "将图片文件转换为Base64格式",
+      "select_image": "选择图片",
+      "upload_image": "上传图片",
+      "clear": "清空",
+      "supported_formats": "支持的格式：JPG、PNG、GIF、WebP、SVG"
+    },
+    "decode": {
+      "title": "Base64转图片",
+      "description": "将Base64数据转换回图片",
+      "input_label": "Base64数据",
+      "input_placeholder": "输入Base64编码的图片数据...",
+      "decode_button": "解码"
+    },
+    "image_info": {
+      "title": "图片信息",
+      "file_name": "文件名",
+      "file_size": "文件大小",
+      "file_type": "文件类型",
+      "dimensions": "尺寸",
+      "base64_code": "Base64代码"
+    },
+    "preview": {
+      "title": "图片预览",
+      "download": "下载",
+      "copy_base64": "复制Base64",
+      "base64_size": "Base64大小"
+    },
+    "instructions": {
+      "title": "使用说明",
+      "image_to_base64_desc": "上传图片文件将其转换为Base64格式。转换后的数据可用于HTML、CSS或其他Web技术。",
+      "base64_to_image_desc": "粘贴Base64编码的图片数据将其转换回图片并预览。",
+      "supported_formats_desc": "支持的图片格式包括JPG、PNG、GIF、WebP和SVG。",
+      "file_limit_desc": "最大文件大小为5MB以获得最佳性能。",
+      "use_cases_desc": "适用于在HTML邮件、CSS背景中嵌入图片，或当您需要包含图片而不依赖外部文件时。"
     },
     "upload": {
       "title": "上传图片",
@@ -535,19 +587,6 @@
       "include_data_url": "包含Data URL前缀",
       "copy_html": "复制为HTML",
       "copy_css": "复制为CSS"
-    },
-    "instructions": {
-      "title": "使用说明",
-      "upload_image": "上传图片：",
-      "upload_image_desc": "点击上传区域或拖拽图片文件。",
-      "conversion": "转换：",
-      "conversion_desc": "图片将自动转换为Base64格式。",
-      "usage": "使用：",
-      "usage_desc": "Base64编码的图片可用于HTML、CSS和其他Web技术。",
-      "advantages": "优点：",
-      "advantages_desc": "无外部文件依赖，小图片加载更快。",
-      "disadvantages": "缺点：",
-      "disadvantages_desc": "文件大小增加，不适合大图片。"
     },
     "errors": {
       "no_file": "请选择图片文件",
@@ -694,5 +733,48 @@
       "description": "为网址、文本、WiFi、电话号码、邮箱等生成二维码。可自定义大小和纠错级别。",
       "keywords": "二维码生成器,二维码创建器,二维码扫描器,二维码制作器,条形码"
     }
+  },
+  "text_to_hex": {
+    "title": "文本转十六进制",
+    "description": "将文本转换为十六进制格式",
+    "input_label": "输入文本",
+    "input_placeholder": "输入要转换为十六进制的文本...",
+    "button": "转换为十六进制"
+  },
+  "hex_to_text": {
+    "title": "十六进制转文本",
+    "description": "将十六进制格式转换回文本",
+    "input_label": "十六进制文本",
+    "input_placeholder": "输入十六进制文本（例如：48656C6C6F）...",
+    "button": "转换为文本"
+  },
+  "binary": {
+    "title": "二进制转换器",
+    "description": "在文本和二进制格式之间转换",
+    "binary_to_text": "二进制转文本",
+    "text_input_label": "文本输入",
+    "text_input_placeholder": "输入要转换为二进制的文本...",
+    "binary_input_label": "二进制输入",
+    "binary_input_placeholder": "输入二进制（例如：01001000 01100101 01101100 01101100 01101111）...",
+    "convert_to_binary": "转换为二进制",
+    "convert_to_text": "转换为文本"
+  },
+  "result": {
+    "title": "转换结果"
+  },
+  "tabs": {
+    "text_to_hex": "文本 → 十六进制",
+    "hex_to_text": "十六进制 → 文本",
+    "binary": "二进制"
+  },
+  "errors": {
+    "empty_input": "请输入要转换的内容",
+    "invalid_hex": "无效的十六进制格式",
+    "invalid_binary": "无效的二进制格式",
+    "conversion_failed": "转换失败"
+  },
+  "success": {
+    "converted": "转换完成",
+    "copied": "已复制到剪贴板"
   }
 } 
