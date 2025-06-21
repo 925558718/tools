@@ -12,7 +12,7 @@ import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
 
 export default function UrlPage() {
-  const t = useTranslations('coder.url');
+  const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
@@ -21,7 +21,7 @@ export default function UrlPage() {
     try {
       return encodeURIComponent(text);
     } catch (error) {
-      throw new Error(t('errors.conversion_failed'));
+      throw new Error(t('url.errors.conversion_failed'));
     }
   };
 
@@ -29,29 +29,29 @@ export default function UrlPage() {
     try {
       return decodeURIComponent(text);
     } catch (error) {
-      throw new Error(t('errors.conversion_failed'));
+      throw new Error(t('url.errors.conversion_failed'));
     }
   };
 
   const handleConvert = () => {
     if (!input.trim()) {
-      toast.error(t('errors.empty_input'));
+      toast.error(t('url.errors.empty_input'));
       return;
     }
 
     try {
       const result = mode === 'encode' ? encodeUrl(input) : decodeUrl(input);
       setOutput(result);
-      toast.success(mode === 'encode' ? t('success.encoded') : t('success.decoded'));
+      toast.success(mode === 'encode' ? t('url.success.encoded') : t('url.success.decoded'));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : t('errors.conversion_failed'));
+      toast.error(error instanceof Error ? error.message : t('url.errors.conversion_failed'));
     }
   };
 
   const handleCopy = () => {
     if (output) {
       navigator.clipboard.writeText(output);
-      toast.success(t('success.copied'));
+      toast.success(t('url.success.copied'));
     }
   };
 
@@ -67,10 +67,10 @@ export default function UrlPage() {
         if (output.startsWith('http://') || output.startsWith('https://')) {
           window.open(output, '_blank');
         } else {
-          toast.error(t('errors.invalid_url'));
+          toast.error(t('url.errors.invalid_url'));
         }
       } catch (error) {
-        toast.error(t('errors.conversion_failed'));
+        toast.error(t('url.errors.conversion_failed'));
       }
     }
   };
@@ -87,17 +87,17 @@ export default function UrlPage() {
 
   const examples = [
     {
-      name: t('examples.chinese_text'),
+      name: t('url.examples.chinese_text'),
       original: '你好世界',
       encoded: '%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C'
     },
     {
-      name: t('examples.special_chars'),
+      name: t('url.examples.special_chars'),
       original: 'Hello World!@#$%',
       encoded: 'Hello%20World!%40%23%24%25'
     },
     {
-      name: t('examples.url_params'),
+      name: t('url.examples.url_params'),
       original: 'name=张三&age=25',
       encoded: 'name%3D%E5%BC%A0%E4%B8%89%26age%3D25'
     }
@@ -106,45 +106,45 @@ export default function UrlPage() {
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey={t('title')}
-        subtitleKey={t('description')}
+        titleKey={t('url.title')}
+        subtitleKey={t('url.description')}
         features={[
-          { key: t('features.url_safe'), color: 'blue' },
-          { key: t('features.chinese_support'), color: 'green' },
-          { key: t('features.parameter_encoding'), color: 'purple' }
+          { key: t('url.features.url_safe'), color: 'blue' },
+          { key: t('url.features.chinese_support'), color: 'green' },
+          { key: t('url.features.parameter_encoding'), color: 'purple' }
         ]}
       />
 
       <Tabs value={mode} onValueChange={(value) => setMode(value as 'encode' | 'decode')}>
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="encode">{t('tabs.encode')}</TabsTrigger>
-          <TabsTrigger value="decode">{t('tabs.decode')}</TabsTrigger>
+          <TabsTrigger value="encode">{t('url.tabs.encode')}</TabsTrigger>
+          <TabsTrigger value="decode">{t('url.tabs.decode')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="encode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('encode.title')}</CardTitle>
+              <CardTitle>{t('url.encode.title')}</CardTitle>
               <CardDescription>
-                {t('encode.description')}
+                {t('url.encode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="input">{t('encode.input_label')}</Label>
+                <Label htmlFor="input">{t('url.encode.input_label')}</Label>
                 <Textarea
                   id="input"
-                  placeholder={t('encode.input_placeholder')}
+                  placeholder={t('url.encode.input_placeholder')}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   rows={6}
                 />
               </div>
               <div className="flex gap-2">
-                <Button onClick={handleConvert}>{t('encode.button')}</Button>
+                <Button onClick={handleConvert}>{t('url.encode.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('url.common.clear')}
                 </Button>
               </div>
             </CardContent>
@@ -154,27 +154,27 @@ export default function UrlPage() {
         <TabsContent value="decode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('decode.title')}</CardTitle>
+              <CardTitle>{t('url.decode.title')}</CardTitle>
               <CardDescription>
-                {t('decode.description')}
+                {t('url.decode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="input">{t('decode.input_label')}</Label>
+                <Label htmlFor="input">{t('url.decode.input_label')}</Label>
                 <Textarea
                   id="input"
-                  placeholder={t('decode.input_placeholder')}
+                  placeholder={t('url.decode.input_placeholder')}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   rows={6}
                 />
               </div>
               <div className="flex gap-2">
-                <Button onClick={handleConvert}>{t('decode.button')}</Button>
+                <Button onClick={handleConvert}>{t('url.decode.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('url.common.clear')}
                 </Button>
               </div>
             </CardContent>
@@ -186,16 +186,16 @@ export default function UrlPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>{t('result.title')}</CardTitle>
+              <CardTitle>{t('url.result.title')}</CardTitle>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={handleCopy}>
                   <Copy className="w-4 h-4 mr-2" />
-                  {t('common.copy')}
+                  {t('url.common.copy')}
                 </Button>
                 {mode === 'decode' && (
                   <Button variant="outline" size="sm" onClick={handleTestUrl}>
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    {t('common.test_link')}
+                    {t('url.common.test_link')}
                   </Button>
                 )}
               </div>
@@ -212,64 +212,54 @@ export default function UrlPage() {
         </Card>
       )}
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('examples.title')}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('url.examples.title')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
             {examples.map((example) => (
-              <div key={example.name} className="space-y-2">
-                <div className="font-medium">{example.name}</div>
-                <div className="text-sm space-y-1">
-                  <div><span className="font-medium">{t('examples.original_text')}:</span> {example.original}</div>
-                  <div><span className="font-medium">{t('examples.encoded_result')}:</span> {example.encoded}</div>
-                </div>
-                <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={() => handleQuickEncode(example.original)}
-                  >
-                    {t('examples.encode')}
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={() => handleQuickDecode(example.encoded)}
-                  >
-                    {t('examples.decode')}
-                  </Button>
+              <div key={example.name} className="border rounded-lg p-4">
+                <h4 className="font-semibold mb-2">{example.name}</h4>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {t('url.examples.original_text')}:
+                    </span>
+                    <div className="mt-1 p-2 bg-gray-50 dark:bg-gray-800 rounded text-sm font-mono">
+                      {example.original}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {t('url.examples.encoded_result')}:
+                    </span>
+                    <div className="mt-1 p-2 bg-gray-50 dark:bg-gray-800 rounded text-sm font-mono">
+                      {example.encoded}
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => handleQuickEncode(example.original)}
+                    >
+                      {t('url.examples.encode')}
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => handleQuickDecode(example.encoded)}
+                    >
+                      {t('url.examples.decode')}
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('instructions.title')}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm">
-            <div>
-              <span className="font-medium">{t('instructions.url_encoding')}</span>
-              {t('instructions.url_encoding_desc')}
-            </div>
-            <div>
-              <span className="font-medium">{t('instructions.common_encoding')}</span>
-              {t('instructions.common_encoding_desc')}
-            </div>
-            <div>
-              <span className="font-medium">{t('instructions.use_cases')}</span>
-              {t('instructions.use_cases_desc')}
-            </div>
-            <div>
-              <span className="font-medium">{t('instructions.notes')}</span>
-              {t('instructions.notes_desc')}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 } 

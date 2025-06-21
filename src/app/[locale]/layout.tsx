@@ -10,24 +10,14 @@ import { Toaster } from "@/components/shadcn/sonner";
 import { Provider as JotaiProvider } from "jotai";
 import { NextIntlClientProvider } from "next-intl";
 import {
-	getNormalizedLocale,
-	defaultLocale,
+
 	supportedLocales,
 	loadDictionaryByRoute,
+	getNormalizedLocale,
 } from "@/i18n/langMap";
 import BugsnagErrorBoundary from "@/components/Bugsnap";
 import { headers } from "next/headers";
-// import Bugsnag from "@bugsnag/js";
-// import BugsnagPluginReact from "@bugsnag/plugin-react";
-// import BugsnagPerformance from "@bugsnag/browser-performance";
-// import React from "react";
-// Bugsnag.start({
-// 	apiKey: "841d9857e90394f3e59323ad57e3795c",
-// 	plugins: [new BugsnagPluginReact()],
-// });
-// BugsnagPerformance.start({ apiKey: "841d9857e90394f3e59323ad57e3795c" });
 
-// const ErrorBoundary = Bugsnag?.getPlugin("react")?.createErrorBoundary(React);
 
 const Opensans = Open_Sans({
 	subsets: ["latin"],
@@ -45,6 +35,7 @@ export async function generateMetadata({
 	params,
 }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
 	// 等待参数解析并标准化语言代码
+	const defaultLocale = "en";
 	const resolvedParams = await params;
 	const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
 
@@ -111,55 +102,15 @@ export default async function RootLayout({
 }>) {
 	// 等待参数解析并标准化语言代码
 	const resolvedParams = await params;
+	const defaultLocale = "en";
 	const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
 
-	// 获取当前路径
-	const headersList = await headers();
-	const pathname = headersList.get("x-pathname") || "/";
-
-	// 根据当前路径加载对应的翻译
-	const dictionary = await loadDictionaryByRoute(pathname, locale);
-	// 动态生成结构化数据
-	const appName = dictionary.structured_data_app_name || "Developer Tools";
-	const appDescription = dictionary.structured_data_description || "Free online developer tools for software development";
-	const featureList = dictionary.structured_data_features || ["CSS Tools", "Code Generators", "Development Utilities"];
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
 			<head>
 				{/* 多语言SEO优化 */}
 				<meta httpEquiv="content-language" content={locale} />
-
-				{/* 结构化数据 - WebP动画合成器 */}
-				<script type="application/ld+json">
-					{JSON.stringify({
-						"@context": "https://schema.org",
-						"@type": "WebApplication",
-						name: appName,
-						description: appDescription,
-						url: "https://tools.limgx.com",
-						applicationCategory: "MultimediaApplication",
-						operatingSystem: "Web Browser",
-						inLanguage: locale,
-						offers: {
-							"@type": "Offer",
-							price: "0",
-							priceCurrency: "USD",
-						},
-						featureList: featureList,
-						softwareVersion: "1.0",
-						author: {
-							"@type": "Organization",
-							name: "limgx.com",
-							url: "https://tools.limgx.com",
-						},
-						aggregateRating: {
-							"@type": "AggregateRating",
-							ratingValue: "4.8",
-							ratingCount: "1250",
-						},
-					})}
-				</script>
 				<script
 					src="https://analytics.ahrefs.com/analytics.js"
 					data-key="fAy0GhLZ8HwbJfkrQ3zMOw"
@@ -180,7 +131,7 @@ export default async function RootLayout({
 						disableTransitionOnChange
 						enableSystem={false}
 					>
-						<NextIntlClientProvider locale={locale} messages={dictionary}>
+						<NextIntlClientProvider>
 							<JotaiProvider>
 								<Header />
 								{/* 背景渐变层 - 使用主题色 */}

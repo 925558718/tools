@@ -12,7 +12,7 @@ import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
 
 export default function Base64Page() {
-  const t = useTranslations('coder.base64');
+  const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
@@ -21,7 +21,7 @@ export default function Base64Page() {
     try {
       return btoa(unescape(encodeURIComponent(text)));
     } catch (error) {
-      throw new Error(t('errors.encode_failed'));
+      throw new Error(t('base64.errors.encode_failed'));
     }
   };
 
@@ -29,29 +29,29 @@ export default function Base64Page() {
     try {
       return decodeURIComponent(escape(atob(text)));
     } catch (error) {
-      throw new Error(t('errors.decode_failed'));
+      throw new Error(t('base64.errors.decode_failed'));
     }
   };
 
   const handleConvert = () => {
     if (!input.trim()) {
-      toast.error(t('errors.empty_input'));
+      toast.error(t('base64.errors.empty_input'));
       return;
     }
 
     try {
       const result = mode === 'encode' ? encodeBase64(input) : decodeBase64(input);
       setOutput(result);
-      toast.success(mode === 'encode' ? t('success.encoded') : t('success.decoded'));
+      toast.success(mode === 'encode' ? t('base64.success.encoded') : t('base64.success.decoded'));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : t('errors.conversion_failed'));
+      toast.error(error instanceof Error ? error.message : t('base64.errors.conversion_failed'));
     }
   };
 
   const handleCopy = () => {
     if (output) {
       navigator.clipboard.writeText(output);
-      toast.success(t('success.copied'));
+      toast.success(t('base64.success.copied'));
     }
   };
 
@@ -95,49 +95,49 @@ export default function Base64Page() {
   return (
     <div className="space-y-6">
       <PageTitle 
-        titleKey={t('title')}
-        subtitleKey={t('description')}
+        titleKey={t('base64.title')}
+        subtitleKey={t('base64.description')}
         features={[
-          { key: t('features.text_encoding'), color: 'blue' },
-          { key: t('features.file_support'), color: 'green' },
-          { key: t('features.chinese_support'), color: 'purple' }
+          { key: t('base64.features.text_encoding'), color: 'blue' },
+          { key: t('base64.features.file_support'), color: 'green' },
+          { key: t('base64.features.chinese_support'), color: 'purple' }
         ]}
       />
 
       <Tabs value={mode} onValueChange={(value) => setMode(value as 'encode' | 'decode')}>
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="encode">{t('tabs.encode')}</TabsTrigger>
-          <TabsTrigger value="decode">{t('tabs.decode')}</TabsTrigger>
+          <TabsTrigger value="encode">{t('base64.tabs.encode')}</TabsTrigger>
+          <TabsTrigger value="decode">{t('base64.tabs.decode')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="encode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('encode.title')}</CardTitle>
+              <CardTitle>{t('base64.encode.title')}</CardTitle>
               <CardDescription>
-                {t('encode.description')}
+                {t('base64.encode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="input">{t('encode.input_label')}</Label>
+                <Label htmlFor="input">{t('base64.encode.input_label')}</Label>
                 <Textarea
                   id="input"
-                  placeholder={t('encode.input_placeholder')}
+                  placeholder={t('base64.encode.input_placeholder')}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   rows={6}
                 />
               </div>
               <div className="flex gap-2">
-                <Button onClick={handleConvert}>{t('encode.button')}</Button>
+                <Button onClick={handleConvert}>{t('base64.encode.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('base64.common.clear')}
                 </Button>
                 <Button variant="outline" onClick={() => document.getElementById('file-upload')?.click()}>
                   <Upload className="w-4 h-4 mr-2" />
-                  {t('common.upload_file')}
+                  {t('base64.common.upload_file')}
                 </Button>
                 <input
                   id="file-upload"
@@ -154,27 +154,27 @@ export default function Base64Page() {
         <TabsContent value="decode" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('decode.title')}</CardTitle>
+              <CardTitle>{t('base64.decode.title')}</CardTitle>
               <CardDescription>
-                {t('decode.description')}
+                {t('base64.decode.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="input">{t('decode.input_label')}</Label>
+                <Label htmlFor="input">{t('base64.decode.input_label')}</Label>
                 <Textarea
                   id="input"
-                  placeholder={t('decode.input_placeholder')}
+                  placeholder={t('base64.decode.input_placeholder')}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   rows={6}
                 />
               </div>
               <div className="flex gap-2">
-                <Button onClick={handleConvert}>{t('decode.button')}</Button>
+                <Button onClick={handleConvert}>{t('base64.decode.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('common.clear')}
+                  {t('base64.common.clear')}
                 </Button>
               </div>
             </CardContent>
@@ -186,15 +186,15 @@ export default function Base64Page() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>{t('result.title')}</CardTitle>
+              <CardTitle>{t('base64.result.title')}</CardTitle>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={handleCopy}>
                   <Copy className="w-4 h-4 mr-2" />
-                  {t('common.copy')}
+                  {t('base64.common.copy')}
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleDownload}>
                   <Download className="w-4 h-4 mr-2" />
-                  {t('common.download')}
+                  {t('base64.common.download')}
                 </Button>
               </div>
             </div>
@@ -203,7 +203,7 @@ export default function Base64Page() {
             <Textarea
               value={output}
               readOnly
-              rows={8}
+              rows={6}
               className="font-mono text-sm"
             />
           </CardContent>

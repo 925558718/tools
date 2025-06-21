@@ -129,7 +129,7 @@ export function getOpenGraphLocale(locale: SupportedLocale): string {
 
 /**
  * 根据路径和语言加载i18n字典
- * @param path i18n资源路径，例如 'css/gradient'
+ * @param path i18n资源路径，例如 'css' 或 'coder'
  * @param locale 语言代码
  * @returns 加载的i18n字典对象
  */
@@ -138,13 +138,13 @@ export async function loadI18nDictionary(path: string, locale: string): Promise<
   const normalizedLocale = getNormalizedLocale(locale);
   
   try {
-    // 动态导入对应路径和语言的JSON文件
-    const dictionary = await import(`public/i18n/${path}/${normalizedLocale}.json`)
+    // 动态导入对应语言和路径的JSON文件
+    const dictionary = await import(`public/i18n/${normalizedLocale}/${path}.json`)
       .then(module => module.default);
     return dictionary;
   } catch (error) {
     try {
-      const fallbackDictionary = await import(`public/i18n/${path}/${defaultLocale}.json`)
+      const fallbackDictionary = await import(`public/i18n/${defaultLocale}/${path}.json`)
         .then(module => module.default);
       return fallbackDictionary;
     } catch (fallbackError) {
@@ -164,13 +164,13 @@ export async function loadMergedDictionaries(paths: string[], locale: string): P
   const mergedDictionary: Record<string, any> = {};
   for (const path of paths) {
     try {
-      const dictionary = await import(`public/i18n/${path}/${normalizedLocale}.json`)
+      const dictionary = await import(`public/i18n/${normalizedLocale}/${path}.json`)
         .then(module => module.default);
       Object.assign(mergedDictionary, dictionary);
     } catch (error) {
       // 如果找不到指定语言的文件，尝试加载默认语言
       try {
-        const fallbackDictionary = await import(`public/i18n/${path}/${defaultLocale}.json`)
+        const fallbackDictionary = await import(`public/i18n/${defaultLocale}/${path}.json`)
           .then(module => module.default);
         Object.assign(mergedDictionary, fallbackDictionary);
       } catch (fallbackError) {
@@ -208,7 +208,17 @@ export function getDictionaryPathsFromRoute(pathname: string): string[] {
     return [...basePaths, 'home'];
   }
   
-  // 直接返回完整路径，不按层级分割
+  // 处理CSS工具路径
+  if (pathWithoutLocale.startsWith('css/')) {
+    return [...basePaths, 'css'];
+  }
+  
+  // 处理编码工具路径
+  if (pathWithoutLocale.startsWith('coder/')) {
+    return [...basePaths, 'coder'];
+  }
+  
+  // 其他路径直接返回完整路径
   return [...basePaths, pathWithoutLocale];
 }
 

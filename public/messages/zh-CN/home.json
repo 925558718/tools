@@ -1,0 +1,28 @@
+{
+  "meta_title": "开发者工具 - 免费在线开发实用工具",
+  "meta_description": "免费在线开发者工具，包括CSS渐变生成器、代码工具和Web开发助手。",
+  "meta_keywords": "开发者工具，CSS工具，渐变生成器，Web开发，免费工具，在线实用工具",
+  "structured_data_app_name": "开发者工具",
+  "structured_data_description": "免费在线开发者工具和Web开发实用工具",
+  "structured_data_features": [
+    "CSS渐变生成器",
+    "代码工具",
+    "Web开发工具",
+    "免费开发者工具"
+  ],
+  "hero_title": "免费开发者工具",
+  "hero_subtitle": "为开发者和设计师提供的专业实用工具",
+  "tools_section_title": "我们的工具",
+  "tools_section_description": "发现我们的免费在线开发者工具集合",
+  "logo_subtitle": "开发者工具",
+  "ad_label": "广告",
+  "footer_copyright": "© 2024 limgx.com. 保留所有权利。",
+  "footer_description": "免费在线开发者工具，助力软件开发",
+  "footer_services_title": "LimgX 服务生态",
+  "footer_service_main": "图片处理服务",
+  "footer_service_tools": "开发者工具集",
+  "footer_main_site": "主站",
+  "theme_light": "浅色",
+  "theme_dark": "深色",
+  "language_selector": "语言"
+} 

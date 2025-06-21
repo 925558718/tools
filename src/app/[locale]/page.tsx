@@ -1,27 +1,33 @@
+import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+import HomePageContent from "./HomePageContent";
 
-import { NextIntlClientProvider } from "next-intl";
-import {
-	getNormalizedLocale,
-	defaultLocale,
-	loadDictionaryByRoute,
-} from "@/i18n/langMap";
-import HomePageContent from './HomePageContent';
-
-export default async function HomePage({
+export async function generateMetadata({
 	params,
-}: {
-	params: Promise<{ locale: string }>;
-}) {
-	// 等待参数解析并标准化语言代码
-	const resolvedParams = await params;
-	const locale = getNormalizedLocale(resolvedParams.locale || defaultLocale);
+}: { params: { locale: string } }): Promise<Metadata> {
+	const t = await getTranslations();
+console.log(t("logo_subtitle"))
+	const appName = t("structured_data_app_name") || "Developer Tools";
+	const appDescription =
+		t("structured_data_description") ||
+		"Free online developer tools for software development";
+	const featureList = t.raw("structured_data_features") || [
+		"CSS Tools",
+		"Code Generators",
+		"Development Utilities",
+	];
 
-	// 加载首页特定的翻译
-	const dictionary = await loadDictionaryByRoute("/", locale);
+	return {
+		title: appName,
+		description: appDescription,
+		keywords: featureList.join(", "),
+	};
+}
 
+export default async function HomePage() {
 	return (
-		<NextIntlClientProvider locale={locale} messages={dictionary}>
+		<>
 			<HomePageContent />
-		</NextIntlClientProvider>
+		</>
 	);
 }
