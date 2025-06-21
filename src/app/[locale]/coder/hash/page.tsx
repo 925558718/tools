@@ -60,9 +60,9 @@ export default function HashPage() {
       });
 
       setResults(newResults);
-      toast.success(t('success.calculation_complete'));
+      toast.success(t('hash.success.calculation_complete'));
     } catch (error) {
-      toast.error(t('errors.calculation_failed'));
+      toast.error(t('hash.errors.calculation_failed'));
     } finally {
       setIsCalculating(false);
     }
@@ -70,7 +70,7 @@ export default function HashPage() {
 
   const handleCopy = (hash: string) => {
     navigator.clipboard.writeText(hash);
-    toast.success(t('success.copied'));
+    toast.success(t('hash.success.copied'));
   };
 
   const handleClear = () => {
@@ -184,10 +184,10 @@ export default function HashPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>{t('result.title')}</CardTitle>
+              <CardTitle>{t('hash.result.title')}</CardTitle>
               <Button variant="outline" size="sm" onClick={handleDownloadResults}>
                 <Download className="w-4 h-4 mr-2" />
-                {t('result.download_results')}
+                {t('hash.result.download_results')}
               </Button>
             </div>
           </CardHeader>
@@ -199,7 +199,7 @@ export default function HashPage() {
                     <div>
                       <h4 className="font-semibold">{result.algorithm}</h4>
                       <p className="text-sm text-gray-500">
-                        {t('result.length')}: {result.length}
+                        {t('hash.result.length')}: {result.length}
                       </p>
                     </div>
                     <Button 
@@ -208,7 +208,7 @@ export default function HashPage() {
                       onClick={() => handleCopy(result.hash)}
                     >
                       <Copy className="w-4 h-4 mr-2" />
-                      {t('result.copy')}
+                      {t('hash.result.copy')}
                     </Button>
                   </div>
                   <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-sm break-all">

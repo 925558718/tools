@@ -104,6 +104,10 @@
       "upload_file": "Upload File",
       "copy": "Copy",
       "download": "Download"
+    },
+    "meta": {
+      "title": "Base64 Encoder Decoder - Online Text Image Converter",
+      "description": "Free Base64 encode/decode tool for text, images, and files. Fast, secure, and easy to use for developers and daily tasks."
     }
   },
   "url": {
@@ -170,6 +174,10 @@
       "clear": "Clear",
       "copy": "Copy",
       "test_link": "Test Link"
+    },
+    "meta": {
+      "title": "URL Encoder Decoder - Online Parameter Converter",
+      "description": "Free URL encode/decode tool supporting Chinese and special characters. Perfect for web development and API parameter conversion."
     }
   },
   "hash": {
@@ -227,6 +235,10 @@
     "success": {
       "calculation_complete": "Hash calculation complete",
       "copied": "Copied to clipboard"
+    },
+    "meta": {
+      "title": "Hash Calculator - MD5 SHA256 SHA512 Online Encryption Tool",
+      "description": "Multi-algorithm hash calculator supporting MD5, SHA1, SHA256, SHA512, file and salt encryption."
     }
   },
   "jwt": {
@@ -241,59 +253,53 @@
       "decode": "Decode & Validate",
       "generate": "Generate Token"
     },
+    "generate": {
+      "title": "Generate JWT Token",
+      "description": "Generate JWT token with custom payload and secret",
+      "payload": "Payload Data",
+      "payloadPlaceholder": "Enter JSON format payload data...",
+      "algorithm": "Algorithm",
+      "secret": "Secret",
+      "secretPlaceholder": "Enter secret...",
+      "generate": "Generate Token",
+      "generating": "Generating...",
+      "generateKeys": "Generate Keys",
+      "result": "Generation Result",
+      "success": "Token generated successfully",
+      "error": "Token generation failed"
+    },
     "decode": {
       "title": "JWT Decoding",
       "description": "Decode JWT token and validate its signature",
-      "token_label": "JWT Token",
-      "secret_label": "Secret (Optional, for signature validation)",
-      "button": "Decode Token"
-    },
-    "generate": {
-      "title": "Generate JWT Token",
-      "description": "Generate JWT token using custom payload and secret",
-      "payload_label": "Payload Data (JSON format)",
-      "payload_placeholder": "Enter...",
-      "secret_label": "Secret",
-      "secret_placeholder": "Enter...",
-      "algorithm_label": "Algorithm",
-      "button": "Generate Token",
-      "load_example": "Load Example"
-    },
-    "result": {
-      "title": "Decoding Result",
-      "header_info": "Header Information",
-      "payload_info": "Payload Information",
-      "expiration_time": "Expiration Time",
-      "expired": "(Expired)",
-      "signature_validation": "Signature Validation",
-      "signature_valid": "✅ Signature validation passed",
-      "signature_invalid": "❌ Signature validation failed",
-      "signature": "Signature",
-      "generated_token": "Generated Token"
-    },
-    "instructions": {
-      "title": "JWT Description",
-      "structure": "JWT Structure: ",
-      "structure_desc": "Consists of three parts: Header, Payload, and Signature.",
-      "header": "Header: ",
-      "header_desc": "Contains token type and signature algorithm information.",
-      "payload": "Payload: ",
-      "payload_desc": "Contains claim information such as user ID, permissions, expiration time, etc.",
-      "signature": "Signature: ",
-      "signature_desc": "Used to verify the integrity and authenticity of the token.",
-      "common_fields": "Common Fields: ",
-      "common_fields_desc": "sub (subject), iat (issued at), exp (expiration time), iss (issuer)."
+      "token": "JWT Token",
+      "tokenPlaceholder": "Enter JWT token...",
+      "secret": "Secret",
+      "secretPlaceholder": "Enter secret to validate signature (optional)...",
+      "decode": "Decode Token",
+      "decoding": "Decoding...",
+      "result": "Decode Result",
+      "success": "Token decoded successfully",
+      "error": "Token decode failed"
     },
     "errors": {
+      "payloadRequired": "Please enter payload data",
+      "secretRequired": "Please enter secret",
+      "tokenRequired": "Please enter JWT token",
+      "invalidJson": "Invalid JSON format",
       "empty_token": "Please enter JWT token",
       "empty_payload": "Please enter payload data",
       "empty_secret": "Please enter secret",
+      "empty_private_key": "Please enter private key",
       "token_parse_failed": "Token parsing failed",
-      "token_generation_failed": "Token generation failed"
+      "token_generation_failed": "Token generation failed",
+      "key_generation_failed": "Key pair generation failed",
+      "unsupported_algorithm": "RSA, ECDSA and EdDSA algorithms require key pairs, currently only HMAC algorithms are supported. Please select HS256, HS384 or HS512.",
+      "unknown_algorithm": "Unsupported algorithm"
     },
     "success": {
       "token_parsed": "Token parsed successfully",
       "token_generated": "JWT token generated successfully",
+      "keys_generated": "Key pair generated successfully",
       "copied": "Copied to clipboard"
     },
     "common": {
@@ -301,6 +307,10 @@
       "copy": "Copy",
       "show": "Show",
       "hide": "Hide"
+    },
+    "meta": {
+      "title": "JWT Tools - Online Decode Validate and Generate Token",
+      "description": "Online JWT decode, signature validation, and token generation. Supports multiple algorithms for development and debugging."
     }
   },
   "hex": {
@@ -353,6 +363,7 @@
       "hex_to_text": "Hex to Text",
       "chinese_text": "Chinese Text",
       "text_to_binary": "Text to Binary",
+      "number_to_binary": "Number to Binary",
       "hello_world": "Hello World",
       "numbers": "123456",
       "special_chars": "!@#$%^&*()",
@@ -388,6 +399,10 @@
       "clear": "Clear",
       "copy": "Copy",
       "download": "Download"
+    },
+    "meta": {
+      "title": "Hex Converter - Online Text Binary Encoding Tool",
+      "description": "Convert between text, hex, and binary. Ideal for data analysis, low-level development, and protocol debugging."
     }
   },
   "json": {
@@ -401,8 +416,7 @@
     "tabs": {
       "format": "Format",
       "minify": "Minify",
-      "validate": "Validate",
-      "convert": "Convert"
+      "validate": "Validate"
     },
     "format": {
       "title": "JSON Formatting",
@@ -425,13 +439,6 @@
       "input_label": "JSON Input",
       "input_placeholder": "Enter JSON data to validate...",
       "button": "Validate JSON"
-    },
-    "convert": {
-      "title": "JSON to CSV",
-      "description": "Convert JSON data to CSV format",
-      "input_label": "JSON Input",
-      "input_placeholder": "Enter JSON data to convert to CSV...",
-      "button": "Convert to CSV"
     },
     "result": {
       "title": "Result",
@@ -478,6 +485,10 @@
       "copy": "Copy",
       "download": "Download",
       "upload": "Upload File"
+    },
+    "meta": {
+      "title": "JSON Formatter - Online Beautify Compress and Validate",
+      "description": "Format, beautify, compress, and validate JSON data. Syntax highlighting and error detection for API development and data processing."
     }
   },
   "image": {
@@ -558,8 +569,11 @@
     "errors": {
       "no_file": "Please select an image file",
       "invalid_format": "Unsupported image format",
-      "file_too_large": "File size exceeds 5MB limit",
-      "conversion_failed": "Image conversion failed"
+      "file_too_large": "File size cannot exceed 10MB",
+      "conversion_failed": "Image conversion failed",
+      "empty_input": "Please enter Base64 encoding",
+      "invalid_base64": "Invalid Base64 image encoding",
+      "decode_failed": "Decode failed"
     },
     "success": {
       "converted": "Image converted successfully",
@@ -570,6 +584,10 @@
       "copy": "Copy",
       "download": "Download",
       "preview": "Preview"
+    },
+    "meta": {
+      "title": "Image Base64 Encoder - Online Image Format Converter",
+      "description": "Convert images to Base64 encoding. Supports multiple formats and output options for web development."
     }
   },
   "qr": {
@@ -689,6 +707,10 @@
       "copy": "Copy",
       "reset": "Reset",
       "preview": "Preview"
+    },
+    "meta": {
+      "title": "QR Code Generator - Online Text URL WiFi QR Maker",
+      "description": "Generate QR codes for text, URL, WiFi, phone, and more. Custom size, color, and error correction for various scenarios."
     }
   },
   "text_to_hex": {

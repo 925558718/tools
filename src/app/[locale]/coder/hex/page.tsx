@@ -18,7 +18,9 @@ export default function HexPage() {
   const [mode, setMode] = useState<'text-to-hex' | 'hex-to-text' | 'text-to-binary' | 'binary-to-text'>('text-to-hex');
 
   const textToHex = (text: string) => {
-    return Array.from(text).map(char => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+    const encoder = new TextEncoder();
+    const bytes = encoder.encode(text);
+    return Array.from(bytes).map(byte => byte.toString(16).padStart(2, '0')).join('');
   };
 
   const hexToText = (hex: string) => {
@@ -27,22 +29,37 @@ export default function HexPage() {
       if (cleanHex.length % 2 !== 0) {
         throw new Error(t('errors.invalid_hex'));
       }
-      const bytes = [];
+      const bytes = new Uint8Array(cleanHex.length / 2);
       for (let i = 0; i < cleanHex.length; i += 2) {
         const byte = Number.parseInt(cleanHex.substr(i, 2), 16);
         if (Number.isNaN(byte)) {
           throw new Error(t('errors.invalid_hex'));
         }
-        bytes.push(byte);
+        bytes[i / 2] = byte;
       }
-      return String.fromCharCode(...bytes);
+      const decoder = new TextDecoder('utf-8');
+      return decoder.decode(bytes);
     } catch (error) {
       throw new Error(error instanceof Error ? error.message : t('errors.conversion_failed'));
     }
   };
 
   const textToBinary = (text: string) => {
-    return Array.from(text).map(char => char.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
+    // 检查是否是纯数字（包括小数）
+    const numberRegex = /^-?\d+(\.\d+)?$/;
+    if (numberRegex.test(text.trim())) {
+      // 如果是数字，转换为数字的二进制
+      const num = Number(text);
+      if (Number.isInteger(num)) {
+        return num.toString(2);
+      }
+      // 对于小数，显示整数部分的二进制
+      return Math.floor(num).toString(2);
+    }
+    // 如果是文本，转换为ASCII码的二进制
+    const encoder = new TextEncoder();
+    const bytes = encoder.encode(text);
+    return Array.from(bytes).map(byte => byte.toString(2).padStart(8, '0')).join(' ');
   };
 
   const binaryToText = (binary: string) => {
@@ -51,15 +68,16 @@ export default function HexPage() {
       if (cleanBinary.length % 8 !== 0) {
         throw new Error(t('errors.invalid_binary'));
       }
-      const bytes = [];
+      const bytes = new Uint8Array(cleanBinary.length / 8);
       for (let i = 0; i < cleanBinary.length; i += 8) {
         const byte = Number.parseInt(cleanBinary.substr(i, 8), 2);
         if (Number.isNaN(byte)) {
           throw new Error(t('errors.invalid_binary'));
         }
-        bytes.push(byte);
+        bytes[i / 8] = byte;
       }
-      return String.fromCharCode(...bytes);
+      const decoder = new TextDecoder('utf-8');
+      return decoder.decode(bytes);
     } catch (error) {
       throw new Error(error instanceof Error ? error.message : t('errors.conversion_failed'));
     }
@@ -133,6 +151,12 @@ export default function HexPage() {
       name: t('hex.examples.text_to_binary'),
       input: 'ABC',
       output: '01000001 01000010 01000011',
+      mode: 'text-to-binary' as const
+    },
+    {
+      name: t('hex.examples.number_to_binary'),
+      input: '42',
+      output: '101010',
       mode: 'text-to-binary' as const
     }
   ];

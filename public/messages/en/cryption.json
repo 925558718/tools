@@ -1,0 +1,22 @@
+{
+  "keygen": {
+    "title": "Key Pair Generator",
+    "description": "Generate secure cryptographic key pairs for RSA, ECDSA, and EdDSA algorithms",
+    "algorithm": "Algorithm",
+    "keySize": "Key Size",
+    "curve": "Curve",
+    "format": "Format",
+    "passphrase": "Passphrase (Optional)",
+    "passphrasePlaceholder": "Enter passphrase to encrypt private key",
+    "generate": "Generate Key Pair",
+    "generating": "Generating...",
+    "success": "Key pair generated successfully!",
+    "error": "Failed to generate key pair",
+    "privateKey": "Private Key",
+    "publicKey": "Public Key",
+    "metadata": {
+      "title": "Key Pair Generator - Generate RSA, ECDSA, EdDSA Keys",
+      "description": "Free online tool to generate secure cryptographic key pairs. Support RSA, ECDSA, and EdDSA algorithms with multiple output formats."
+    }
+  }
+} 

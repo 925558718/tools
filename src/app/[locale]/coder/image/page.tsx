@@ -8,6 +8,7 @@ import { Label } from '@/components/shadcn/label';
 import { Textarea } from '@/components/shadcn/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/tabs';
 import { Upload, RotateCcw, Copy, Download } from 'lucide-react';
+import { toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 
 interface ImageInfo {
@@ -30,15 +31,9 @@ export default function ImagePage() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // 检查文件类型
-    if (!file.type.startsWith('image/')) {
-      alert('请选择图片文件');
-      return;
-    }
-
     // 检查文件大小 (10MB)
     if (file.size > 10 * 1024 * 1024) {
-      alert('文件大小不能超过10MB');
+      toast.error(t('image.errors.file_too_large'));
       return;
     }
 
@@ -63,7 +58,7 @@ export default function ImagePage() {
 
   const handleBase64Decode = () => {
     if (!base64Input.trim()) {
-      alert('请输入Base64编码');
+      toast.error(t('image.errors.empty_input'));
       return;
     }
 
@@ -77,7 +72,7 @@ export default function ImagePage() {
           setPreviewUrl(testUrl);
         };
         img.onerror = () => {
-          alert('无效的Base64图片编码');
+          toast.error(t('image.errors.invalid_base64'));
         };
         img.src = testUrl;
       } else {
@@ -86,18 +81,18 @@ export default function ImagePage() {
           setPreviewUrl(base64Input);
         };
         img.onerror = () => {
-          alert('无效的Base64图片编码');
+          toast.error(t('image.errors.invalid_base64'));
         };
         img.src = base64Input;
       }
     } catch (error) {
-      alert('解码失败');
+      toast.error(t('image.errors.decode_failed'));
     }
   };
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    alert('已复制到剪贴板');
+    toast.success(t('image.success.copied'));
   };
 
   const handleClear = () => {

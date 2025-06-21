@@ -241,61 +241,53 @@
       "decode": "解码验证",
       "generate": "生成令牌"
     },
-    "decode": {
-      "title": "JWT解码",
-      "description": "解码JWT令牌并验证其签名",
-      "token_label": "JWT令牌",
-      "token_placeholder": "请输入JWT令牌...",
-      "secret_label": "密钥（可选，用于验证签名）",
-      "secret_placeholder": "输入密钥以验证签名...",
-      "button": "解码令牌"
-    },
     "generate": {
       "title": "生成JWT令牌",
       "description": "使用自定义载荷和密钥生成JWT令牌",
-      "payload_label": "载荷数据 (JSON格式)",
-      "payload_placeholder": "请输入...",
-      "secret_label": "密钥",
-      "secret_placeholder": "请输入...",
-      "algorithm_label": "算法",
-      "button": "生成令牌",
-      "load_example": "加载示例"
+      "payload": "载荷数据",
+      "payloadPlaceholder": "请输入JSON格式的载荷数据...",
+      "algorithm": "算法",
+      "secret": "密钥",
+      "secretPlaceholder": "请输入密钥...",
+      "generate": "生成令牌",
+      "generating": "生成中...",
+      "generateKeys": "生成密钥",
+      "result": "生成结果",
+      "success": "令牌生成成功",
+      "error": "令牌生成失败"
     },
-    "result": {
-      "title": "解码结果",
-      "header_info": "头部信息",
-      "payload_info": "载荷信息",
-      "expiration_time": "过期时间",
-      "expired": "(已过期)",
-      "signature_validation": "签名验证",
-      "signature_valid": "✅ 签名验证通过",
-      "signature_invalid": "❌ 签名验证失败",
-      "signature": "签名",
-      "generated_token": "生成的令牌"
-    },
-    "instructions": {
-      "title": "JWT说明",
-      "structure": "JWT结构：",
-      "structure_desc": "由三部分组成：头部(Header)、载荷(Payload)、签名(Signature)。",
-      "header": "头部：",
-      "header_desc": "包含令牌类型和签名算法信息。",
-      "payload": "载荷：",
-      "payload_desc": "包含声明信息，如用户ID、权限、过期时间等。",
-      "signature": "签名：",
-      "signature_desc": "用于验证令牌的完整性和真实性。",
-      "common_fields": "常见字段：",
-      "common_fields_desc": "sub(主题)、iat(签发时间)、exp(过期时间)、iss(签发者)。"
+    "decode": {
+      "title": "JWT解码",
+      "description": "解码JWT令牌并验证其签名",
+      "token": "JWT令牌",
+      "tokenPlaceholder": "请输入JWT令牌...",
+      "secret": "密钥",
+      "secretPlaceholder": "输入密钥以验证签名（可选）...",
+      "decode": "解码令牌",
+      "decoding": "解码中...",
+      "result": "解码结果",
+      "success": "令牌解码成功",
+      "error": "令牌解码失败"
     },
     "errors": {
+      "payloadRequired": "请输入载荷数据",
+      "secretRequired": "请输入密钥",
+      "tokenRequired": "请输入JWT令牌",
+      "invalidJson": "无效的JSON格式",
       "empty_token": "请输入JWT令牌",
       "empty_payload": "请输入载荷数据",
       "empty_secret": "请输入密钥",
+      "empty_private_key": "请输入私钥",
       "token_parse_failed": "令牌解析失败",
-      "token_generation_failed": "令牌生成失败"
+      "token_generation_failed": "令牌生成失败",
+      "key_generation_failed": "密钥对生成失败",
+      "unsupported_algorithm": "RSA、ECDSA和EdDSA算法需要密钥对，目前仅支持HMAC算法。请选择HS256、HS384或HS512。",
+      "unknown_algorithm": "不支持的算法"
     },
     "success": {
       "token_parsed": "令牌解析成功",
       "token_generated": "JWT令牌生成成功",
+      "keys_generated": "密钥对生成成功",
       "copied": "已复制到剪贴板"
     },
     "common": {
@@ -355,6 +347,7 @@
       "hex_to_text": "十六进制转文本",
       "chinese_text": "中文文本",
       "text_to_binary": "文本转二进制",
+      "number_to_binary": "数字转二进制",
       "hello_world": "Hello World",
       "numbers": "123456",
       "special_chars": "!@#$%^&*()",
@@ -403,8 +396,7 @@
     "tabs": {
       "format": "格式化",
       "minify": "压缩",
-      "validate": "验证",
-      "convert": "转换"
+      "validate": "验证"
     },
     "format": {
       "title": "JSON格式化",
@@ -427,13 +419,6 @@
       "input_label": "JSON输入",
       "input_placeholder": "请输入要验证的JSON数据...",
       "button": "验证JSON"
-    },
-    "convert": {
-      "title": "JSON转CSV",
-      "description": "将JSON数据转换为CSV格式",
-      "input_label": "JSON输入",
-      "input_placeholder": "请输入要转换为CSV的JSON数据...",
-      "button": "转换为CSV"
     },
     "result": {
       "title": "结果",
@@ -560,8 +545,11 @@
     "errors": {
       "no_file": "请选择图片文件",
       "invalid_format": "不支持的图片格式",
-      "file_too_large": "文件大小超过5MB限制",
-      "conversion_failed": "图片转换失败"
+      "file_too_large": "文件大小不能超过10MB",
+      "conversion_failed": "图片转换失败",
+      "empty_input": "请输入Base64编码",
+      "invalid_base64": "无效的Base64图片编码",
+      "decode_failed": "解码失败"
     },
     "success": {
       "converted": "图片转换成功",

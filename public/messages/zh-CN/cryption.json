@@ -1,0 +1,22 @@
+{
+  "keygen": {
+    "title": "密钥对生成器",
+    "description": "生成安全的加密密钥对，支持 RSA、ECDSA 和 EdDSA 算法",
+    "algorithm": "算法",
+    "keySize": "密钥长度",
+    "curve": "曲线",
+    "format": "格式",
+    "passphrase": "密码短语（可选）",
+    "passphrasePlaceholder": "输入密码短语以加密私钥",
+    "generate": "生成密钥对",
+    "generating": "生成中...",
+    "success": "密钥对生成成功！",
+    "error": "密钥对生成失败",
+    "privateKey": "私钥",
+    "publicKey": "公钥",
+    "metadata": {
+      "title": "密钥对生成器 - 生成 RSA、ECDSA、EdDSA 密钥",
+      "description": "免费在线工具，用于生成安全的加密密钥对。支持 RSA、ECDSA 和 EdDSA 算法，多种输出格式。"
+    }
+  }
+} 

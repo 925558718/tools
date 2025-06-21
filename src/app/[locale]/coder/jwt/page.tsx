@@ -7,363 +7,269 @@ import { Textarea } from '@/components/shadcn/textarea';
 import { Label } from '@/components/shadcn/label';
 import { Input } from '@/components/shadcn/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/tabs';
-import { Copy, RotateCcw, Eye, EyeOff, Clock, User, Shield } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/shadcn/select';
+import { Copy, RotateCcw, Clock, User, Shield, Download, Upload, Key } from 'lucide-react';
 import { toast } from 'sonner';
-import jwt from 'jsonwebtoken';
 import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { 
+  decodeJWT, 
+  generateJWT, 
+  generateJWTWithPrivateKey,
+  verifyJWTWithPublicKey,
+  isTokenExpired,
+  formatTimestamp,
+  type DecodedToken
+} from '@/lib/jwt';
+import { getSupportedAlgorithms, getAlgorithmInfo } from '@/lib/keygen';
 
-interface DecodedToken {
-  header: any;
-  payload: any;
-  signature: string;
-  isValid: boolean;
-  error?: string;
-}
-
-export default function JwtPage() {
-  const t = useTranslations();
-  const [token, setToken] = useState('');
-  const [decodedToken, setDecodedToken] = useState<DecodedToken | null>(null);
-  const [secret, setSecret] = useState('');
-  const [showSecret, setShowSecret] = useState(false);
+export default function JWTPage() {
+  const t = useTranslations('jwt');
+  const params = useParams();
+  const locale = params.locale as string;
+  const [activeTab, setActiveTab] = useState('generate');
   
-  // 生成JWT相关状态
-  const [payload, setPayload] = useState('');
-  const [generatedToken, setGeneratedToken] = useState('');
-  const [algorithm, setAlgorithm] = useState('HS256');
+  // 生成token状态
+  const [generatePayload, setGeneratePayload] = useState('{\n  "sub": "1234567890",\n  "name": "John Doe",\n  "iat": 1516239022\n}');
+  const [generateSecret, setGenerateSecret] = useState('');
+  const [generateAlgorithm, setGenerateAlgorithm] = useState('HS256');
+  const [generateTokenResult, setGenerateTokenResult] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  
+  // 解码token状态
+  const [decodeTokenInput, setDecodeTokenInput] = useState('');
+  const [decodeSecret, setDecodeSecret] = useState('');
+  const [decodeResult, setDecodeResult] = useState('');
+  const [isDecoding, setIsDecoding] = useState(false);
 
-  const decodeToken = () => {
-    if (!token.trim()) {
-      toast.error(t('jwt.errors.empty_token'));
+  const algorithms = getSupportedAlgorithms();
+  const allAlgorithms = [...algorithms.RSA, ...algorithms.ECDSA, ...algorithms.EdDSA];
+
+  const handleGenerateToken = async () => {
+    if (!generatePayload.trim()) {
+      toast.error(t('errors.payloadRequired'));
+      return;
+    }
+    if (!generateSecret.trim()) {
+      toast.error(t('errors.secretRequired'));
       return;
     }
 
+    setIsGenerating(true);
     try {
-      const parts = token.split('.');
-      if (parts.length !== 3) {
-        throw new Error('无效的JWT格式');
+      const result = await generateJWT(generatePayload, generateSecret, generateAlgorithm);
+      
+      if (result.success) {
+        setGenerateTokenResult(result.token);
+        toast.success(t('generate.success'));
+      } else {
+        toast.error(result.error || t('generate.error'));
       }
-
-      const header = JSON.parse(atob(parts[0]));
-      const payload = JSON.parse(atob(parts[1]));
-      const signature = parts[2];
-
-      let isValid = false;
-      let error = '';
-
-      if (secret) {
-        try {
-          jwt.verify(token, secret);
-          isValid = true;
-        } catch (verifyError) {
-          isValid = false;
-          error = t('jwt.result.signature_invalid');
-        }
-      }
-
-      setDecodedToken({
-        header,
-        payload,
-        signature,
-        isValid,
-        error
-      });
-
-      toast.success(t('jwt.success.token_parsed'));
     } catch (error) {
-      toast.error(t('jwt.errors.token_parse_failed'));
+      toast.error(t('generate.error'));
+    } finally {
+      setIsGenerating(false);
     }
   };
 
-  const generateToken = () => {
-    if (!payload.trim()) {
-      toast.error(t('jwt.errors.empty_payload'));
+  const handleDecodeToken = async () => {
+    if (!decodeTokenInput.trim()) {
+      toast.error(t('errors.tokenRequired'));
       return;
     }
 
-    if (!secret.trim()) {
-      toast.error(t('jwt.errors.empty_secret'));
-      return;
-    }
-
+    setIsDecoding(true);
     try {
-      const payloadObj = JSON.parse(payload);
-      const token = jwt.sign(payloadObj, secret, { algorithm: algorithm as any });
-      setGeneratedToken(token);
-      toast.success(t('jwt.success.token_generated'));
+      const result = decodeJWT(decodeTokenInput, decodeSecret);
+      setDecodeResult(JSON.stringify(result, null, 2));
+      toast.success(t('decode.success'));
     } catch (error) {
-      toast.error(t('jwt.errors.token_generation_failed'));
+      toast.error(t('decode.error'));
+    } finally {
+      setIsDecoding(false);
     }
   };
 
-  const handleCopy = (text: string) => {
+  const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success(t('jwt.success.copied'));
+    toast.success(t('common.copied'));
   };
 
-  const handleClear = () => {
-    setToken('');
-    setDecodedToken(null);
-    setSecret('');
-    setPayload('');
-    setGeneratedToken('');
-  };
-
-  const formatDate = (timestamp: number) => {
-    return new Date(timestamp * 1000).toLocaleString();
-  };
-
-  const isExpired = (exp: number) => {
-    return Date.now() / 1000 > exp;
-  };
-
-  const examplePayload = {
-    "sub": "1234567890",
-    "name": "John Doe",
-    "iat": Math.floor(Date.now() / 1000),
-    "exp": Math.floor(Date.now() / 1000) + 3600
-  };
-
-  const loadExample = () => {
-    setPayload(JSON.stringify(examplePayload, null, 2));
+  const getAlgorithmDescription = (algorithm: string) => {
+    const info = getAlgorithmInfo(algorithm);
+    if (!info) return '';
+    
+    if (algorithm.startsWith('RS')) {
+      return `${info.name} (${info.keySize}位, 安全性: ${info.security})`;
+    }if (algorithm.startsWith('ES')) {
+      return `${info.name} (${info.curve}, 安全性: ${info.security})`;
+    }
+      return `${info.name} (${info.curve}, 安全性: ${info.security})`;
   };
 
   return (
-    <div className="space-y-6">
-      <PageTitle 
-        titleKey="jwt.title"
-        subtitleKey="jwt.description"
-        features={[
-          { key: 'jwt.features.token_decoding', color: 'blue' },
-          { key: 'jwt.features.signature_validation', color: 'green' },
-          { key: 'jwt.features.token_generation', color: 'purple' }
-        ]}
-      />
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl font-bold">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('description')}</p>
+      </div>
 
-      <Tabs defaultValue="decode" className="space-y-4">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="decode">{t('jwt.tabs.decode')}</TabsTrigger>
-          <TabsTrigger value="generate">{t('jwt.tabs.generate')}</TabsTrigger>
+          <TabsTrigger value="generate">{t('generate.title')}</TabsTrigger>
+          <TabsTrigger value="decode">{t('decode.title')}</TabsTrigger>
         </TabsList>
-
-        <TabsContent value="decode" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('jwt.decode.title')}</CardTitle>
-              <CardDescription>
-                {t('jwt.decode.description')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="token">{t('jwt.decode.token_label')}</Label>
-                <Textarea
-                  id="token"
-                  placeholder={t('placeholders.enter')}
-                  value={token}
-                  onChange={(e) => setToken(e.target.value)}
-                  rows={4}
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="secret">{t('jwt.decode.secret_label')}</Label>
-                <div className="relative">
-                  <Input
-                    id="secret"
-                    type={showSecret ? "text" : "password"}
-                    placeholder={t('placeholders.enter')}
-                    value={secret}
-                    onChange={(e) => setSecret(e.target.value)}
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowSecret(!showSecret)}
-                  >
-                    {showSecret ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <Button onClick={decodeToken}>{t('jwt.decode.button')}</Button>
-                <Button variant="outline" onClick={handleClear}>
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('jwt.common.clear')}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {decodedToken && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('jwt.result.title')}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div>
-                    <h4 className="font-semibold mb-2 flex items-center">
-                      <Shield className="w-4 h-4 mr-2" />
-                      {t('jwt.result.header_info')}
-                    </h4>
-                    <pre className="bg-gray-100 dark:bg-gray-800 p-3 rounded text-sm overflow-auto">
-                      {JSON.stringify(decodedToken.header, null, 2)}
-                    </pre>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold mb-2 flex items-center">
-                      <User className="w-4 h-4 mr-2" />
-                      {t('jwt.result.payload_info')}
-                    </h4>
-                    <pre className="bg-gray-100 dark:bg-gray-800 p-3 rounded text-sm overflow-auto">
-                      {JSON.stringify(decodedToken.payload, null, 2)}
-                    </pre>
-                  </div>
-                </div>
-
-                {decodedToken.payload.exp && (
-                  <div className="flex items-center text-sm">
-                    <Clock className="w-4 h-4 mr-2" />
-                    <span className="font-medium">{t('jwt.result.expiration_time')}:</span>
-                    <span className={`ml-2 ${isExpired(decodedToken.payload.exp) ? 'text-red-500' : 'text-green-500'}`}>
-                      {formatDate(decodedToken.payload.exp)}
-                      {isExpired(decodedToken.payload.exp) && ` ${t('jwt.result.expired')}`}
-                    </span>
-                  </div>
-                )}
-
-                {secret && (
-                  <div>
-                    <h4 className="font-semibold mb-2">{t('jwt.result.signature_validation')}</h4>
-                    <div className={`flex items-center ${decodedToken.isValid ? 'text-green-600' : 'text-red-600'}`}>
-                      {decodedToken.isValid ? t('jwt.result.signature_valid') : t('jwt.result.signature_invalid')}
-                    </div>
-                  </div>
-                )}
-
-                <div>
-                  <h4 className="font-semibold mb-2">{t('jwt.result.signature')}</h4>
-                  <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-sm break-all">
-                    {decodedToken.signature}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
 
         <TabsContent value="generate" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('jwt.generate.title')}</CardTitle>
-              <CardDescription>
-                {t('jwt.generate.description')}
-              </CardDescription>
+              <CardTitle>{t('generate.title')}</CardTitle>
+              <CardDescription>{t('generate.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="payload">{t('jwt.generate.payload_label')}</Label>
+                <Label htmlFor="payload">{t('generate.payload')}</Label>
                 <Textarea
                   id="payload"
-                  placeholder={t('placeholders.enter')}
-                  value={payload}
-                  onChange={(e) => setPayload(e.target.value)}
+                  value={generatePayload}
+                  onChange={(e) => setGeneratePayload(e.target.value)}
+                  placeholder={t('generate.payloadPlaceholder')}
                   rows={6}
                 />
-                <Button variant="outline" size="sm" onClick={loadExample}>
-                  {t('jwt.generate.load_example')}
-                </Button>
               </div>
-              
+
               <div className="space-y-2">
-                <Label htmlFor="generate-secret">{t('jwt.generate.secret_label')}</Label>
+                <Label htmlFor="algorithm">{t('generate.algorithm')}</Label>
+                <Select value={generateAlgorithm} onValueChange={setGenerateAlgorithm}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {allAlgorithms.map((alg) => (
+                      <SelectItem key={alg} value={alg}>
+                        {alg} - {getAlgorithmDescription(alg)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="secret">{t('generate.secret')}</Label>
                 <Input
-                  id="generate-secret"
-                  type="password"
-                  placeholder={t('placeholders.enter')}
-                  value={secret}
-                  onChange={(e) => setSecret(e.target.value)}
+                  id="secret"
+                  type="text"
+                  value={generateSecret}
+                  onChange={(e) => setGenerateSecret(e.target.value)}
+                  placeholder={t('generate.secretPlaceholder')}
+                />
+              </div>
+
+              <div className="flex space-x-2">
+                <Button 
+                  onClick={handleGenerateToken} 
+                  disabled={isGenerating}
+                  className="flex-1"
+                >
+                  {isGenerating ? t('generate.generating') : t('generate.generate')}
+                </Button>
+                <Link href={`/${locale}/cryption/keygen`}>
+                  <Button variant="outline" className="flex items-center space-x-2">
+                    <Key className="h-4 w-4" />
+                    <span>{t('generate.generateKeys')}</span>
+                  </Button>
+                </Link>
+              </div>
+
+              {generateTokenResult && (
+                <div className="space-y-2">
+                  <Label>{t('generate.result')}</Label>
+                  <div className="relative">
+                    <Textarea
+                      value={generateTokenResult}
+                      readOnly
+                      rows={8}
+                      className="pr-12"
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="absolute top-2 right-2"
+                      onClick={() => copyToClipboard(generateTokenResult)}
+                    >
+                      {t('common.copy')}
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="decode" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('decode.title')}</CardTitle>
+              <CardDescription>{t('decode.description')}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="token">{t('decode.token')}</Label>
+                <Textarea
+                  id="token"
+                  value={decodeTokenInput}
+                  onChange={(e) => setDecodeTokenInput(e.target.value)}
+                  placeholder={t('decode.tokenPlaceholder')}
+                  rows={4}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="algorithm">{t('jwt.generate.algorithm_label')}</Label>
-                <select
-                  id="algorithm"
-                  value={algorithm}
-                  onChange={(e) => setAlgorithm(e.target.value)}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option value="HS256">HS256</option>
-                  <option value="HS384">HS384</option>
-                  <option value="HS512">HS512</option>
-                </select>
+                <Label htmlFor="decode-secret">{t('decode.secret')}</Label>
+                <Input
+                  id="decode-secret"
+                  type="text"
+                  value={decodeSecret}
+                  onChange={(e) => setDecodeSecret(e.target.value)}
+                  placeholder={t('decode.secretPlaceholder')}
+                />
               </div>
 
-              <div className="flex gap-2">
-                <Button onClick={generateToken}>{t('jwt.generate.button')}</Button>
-                <Button variant="outline" onClick={handleClear}>
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('jwt.common.clear')}
-                </Button>
-              </div>
+              <Button 
+                onClick={handleDecodeToken} 
+                disabled={isDecoding}
+                className="w-full"
+              >
+                {isDecoding ? t('decode.decoding') : t('decode.decode')}
+              </Button>
+
+              {decodeResult && (
+                <div className="space-y-2">
+                  <Label>{t('decode.result')}</Label>
+                  <div className="relative">
+                    <Textarea
+                      value={decodeResult}
+                      readOnly
+                      rows={8}
+                      className="pr-12"
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="absolute top-2 right-2"
+                      onClick={() => copyToClipboard(decodeResult)}
+                    >
+                      {t('common.copy')}
+                    </Button>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
-
-          {generatedToken && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('jwt.result.generated_token')}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-sm break-all">
-                  {generatedToken}
-                </div>
-                <div className="mt-3">
-                  <Button variant="outline" size="sm" onClick={() => handleCopy(generatedToken)}>
-                    <Copy className="w-4 h-4 mr-2" />
-                    {t('copy')}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </TabsContent>
       </Tabs>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('jwt.instructions.title')}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 text-sm">
-          <div>
-            <span className="font-medium">{t('jwt.instructions.structure')}</span>
-            {t('jwt.instructions.structure_desc')}
-          </div>
-          <div>
-            <span className="font-medium">{t('jwt.instructions.header')}</span>
-            {t('jwt.instructions.header_desc')}
-          </div>
-          <div>
-            <span className="font-medium">{t('jwt.instructions.payload')}</span>
-            {t('jwt.instructions.payload_desc')}
-          </div>
-          <div>
-            <span className="font-medium">{t('jwt.instructions.signature')}</span>
-            {t('jwt.instructions.signature_desc')}
-          </div>
-          <div>
-            <span className="font-medium">{t('jwt.instructions.common_fields')}</span>
-            {t('jwt.instructions.common_fields_desc')}
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 } 

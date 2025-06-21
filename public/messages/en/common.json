@@ -3,5 +3,6 @@
     "enter": "Enter..."
   },
   "copy": "Copy",
+  "copied": "Copied to clipboard",
   "clear": "Clear"
 }

@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/ta
 import { Copy, RotateCcw, Download, Upload, QrCode, Camera } from 'lucide-react';
 import { toast } from 'sonner';
 import QRCode from 'qrcode';
+import jsQR from 'jsqr';
 import PageTitle from '@/components/PageTitle';
 
 interface QRCodeOptions {
@@ -76,10 +77,28 @@ export default function QRPage() {
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        // 这里应该使用真实的二维码解码库
-        // 由于浏览器限制，我们只能显示图片
-        setDecodedText(t('qr.decode.placeholder'));
-        toast.info(t('qr.decode.info'));
+        // 创建canvas来获取图像数据
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          toast.error('无法处理图像');
+          return;
+        }
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+        if (code) {
+          setDecodedText(code.data);
+          toast.success('QR码解码成功');
+        } else {
+          setDecodedText('无法识别QR码，请确保图片清晰且包含有效的QR码');
+          toast.error('无法识别QR码');
+        }
       };
       img.src = e.target?.result as string;
     };

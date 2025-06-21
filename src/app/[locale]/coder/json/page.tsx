@@ -15,7 +15,7 @@ export default function JsonPage() {
   const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [mode, setMode] = useState<'format' | 'minify' | 'validate' | 'convert'>('format');
+  const [mode, setMode] = useState<'format' | 'minify' | 'validate'>('format');
   const [indentSize, setIndentSize] = useState(2);
 
   const formatJSON = (json: string, indent = 2): string => {
@@ -23,6 +23,9 @@ export default function JsonPage() {
       const parsed = JSON.parse(json);
       return JSON.stringify(parsed, null, indent);
     } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`JSON parsing error: ${error.message}`);
+      }
       throw new Error('Invalid JSON format');
     }
   };
@@ -32,6 +35,9 @@ export default function JsonPage() {
       const parsed = JSON.parse(json);
       return JSON.stringify(parsed);
     } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`JSON parsing error: ${error.message}`);
+      }
       throw new Error('Invalid JSON format');
     }
   };
@@ -47,34 +53,6 @@ export default function JsonPage() {
         error: error instanceof Error ? error.message : 'Unknown error',
         size: 0
       };
-    }
-  };
-
-  const convertToCSV = (json: string): string => {
-    try {
-      const data = JSON.parse(json);
-      if (!Array.isArray(data) || data.length === 0) {
-        throw new Error('Input must be a non-empty JSON array');
-      }
-
-      const headers = Object.keys(data[0]);
-      const csvRows = [headers.join(',')];
-
-      for (const row of data) {
-        const values = headers.map(header => {
-          const value = row[header];
-          // 处理包含逗号、引号或换行的值
-          if (typeof value === 'string' && (value.includes(',') || value.includes('"') || value.includes('\n'))) {
-            return `"${value.replace(/"/g, '""')}"`;
-          }
-          return value;
-        });
-        csvRows.push(values.join(','));
-      }
-
-      return csvRows.join('\n');
-    } catch (error) {
-      throw new Error('Invalid JSON array format');
     }
   };
 
@@ -104,14 +82,11 @@ export default function JsonPage() {
           }
           break;
         }
-        case 'convert': {
-          result = convertToCSV(input);
-          break;
-        }
       }
       setOutput(result);
     } catch (error) {
-      setOutput(`❌ ${t('json.errors.parse_error')}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      setOutput(`❌ ${t('json.errors.parse_error')}: ${errorMessage}`);
     }
   };
 
@@ -181,11 +156,10 @@ export default function JsonPage() {
       />
 
       <Tabs value={mode} onValueChange={(value) => setMode(value as typeof mode)}>
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="format">{t('json.tabs.format')}</TabsTrigger>
           <TabsTrigger value="minify">{t('json.tabs.minify')}</TabsTrigger>
           <TabsTrigger value="validate">{t('json.tabs.validate')}</TabsTrigger>
-          <TabsTrigger value="convert">{t('json.tabs.convert')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="format" className="space-y-4">
@@ -302,36 +276,6 @@ export default function JsonPage() {
               </div>
               <div className="flex gap-2">
                 <Button onClick={handleProcess}>{t('json.validate.button')}</Button>
-                <Button variant="outline" onClick={handleClear}>
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  {t('json.common.clear')}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="convert" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('json.convert.title')}</CardTitle>
-              <CardDescription>
-                {t('json.convert.description')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="input">{t('json.convert.input_label')}</Label>
-                <Textarea
-                  id="input"
-                  placeholder={t('json.convert.input_placeholder')}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  rows={8}
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button onClick={handleProcess}>{t('json.convert.button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
                   {t('json.common.clear')}

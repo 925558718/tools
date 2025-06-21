@@ -4,6 +4,7 @@
   "nav_tools": "Tools",
   "nav_about": "About",
   "nav_coder": "Codec",
+  "nav_cryption": "Cryption",
   "gradient_generator_desc": "Create beautiful CSS gradients with live preview",
   "nav_base64": "Base64",
   "nav_base64_desc": "Base64 encoding and decoding tool",
@@ -20,5 +21,7 @@
   "nav_json_formatter": "JSON Formatter",
   "nav_json_formatter_desc": "JSON formatting and compression",
   "nav_image_encoding": "Image Encoding",
-  "nav_image_encoding_desc": "Image Base64 encoding conversion"
+  "nav_image_encoding_desc": "Image Base64 encoding conversion",
+  "nav_keygen": "Key Generator",
+  "nav_keygen_desc": "Generate RSA, ECDSA, and EdDSA key pairs"
 } 
