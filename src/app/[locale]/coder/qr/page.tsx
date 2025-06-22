@@ -10,19 +10,8 @@ import { Input } from '@/components/shadcn/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/tabs';
 import { Copy, RotateCcw, Download, Upload, QrCode, Camera } from 'lucide-react';
 import { toast } from 'sonner';
-import QRCode from 'qrcode';
-import jsQR from 'jsqr';
 import PageTitle from '@/components/PageTitle';
-
-interface QRCodeOptions {
-  width: number;
-  margin: number;
-  color: {
-    dark: string;
-    light: string;
-  };
-  errorCorrectionLevel: 'L' | 'M' | 'Q' | 'H';
-}
+import { generateQRCode, decodeQRCode, QRCodeOptions } from '@/lib/coder';
 
 export default function QRPage() {
   const t = useTranslations();
@@ -40,31 +29,27 @@ export default function QRPage() {
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const generateQRCode = async () => {
+  const handleGenerateQRCode = async () => {
     if (!input.trim()) {
       toast.error(t('qr.errors.empty_content'));
       return;
     }
 
     try {
-      const url = await QRCode.toDataURL(input, {
-        width: options.width,
-        margin: options.margin,
-        color: {
-          dark: options.color.dark,
-          light: options.color.light
-        },
-        errorCorrectionLevel: options.errorCorrectionLevel
-      });
+      const result = await generateQRCode(input, options);
       
-      setQrCodeUrl(url);
-      toast.success(t('qr.success.generated'));
+      if (result.success && result.dataUrl) {
+        setQrCodeUrl(result.dataUrl);
+        toast.success(t('qr.success.generated'));
+      } else {
+        toast.error(result.error || t('qr.errors.generation_failed'));
+      }
     } catch (error) {
       toast.error(t('qr.errors.generation_failed'));
     }
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -73,36 +58,19 @@ export default function QRPage() {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        // 创建canvas来获取图像数据
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-          toast.error('无法处理图像');
-          return;
-        }
-
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-        if (code) {
-          setDecodedText(code.data);
-          toast.success('QR码解码成功');
-        } else {
-          setDecodedText('无法识别QR码，请确保图片清晰且包含有效的QR码');
-          toast.error('无法识别QR码');
-        }
-      };
-      img.src = e.target?.result as string;
-    };
-    reader.readAsDataURL(file);
+    try {
+      const result = await decodeQRCode(file);
+      
+      if (result.success && result.text) {
+        setDecodedText(result.text);
+        toast.success('QR码解码成功');
+      } else {
+        setDecodedText('无法识别QR码，请确保图片清晰且包含有效的QR码');
+        toast.error(result.error || '无法识别QR码');
+      }
+    } catch (error) {
+      toast.error(t('qr.errors.decode_failed'));
+    }
   };
 
   const handleCopy = (text: string) => {
@@ -257,7 +225,7 @@ export default function QRPage() {
               </div>
 
               <div className="flex gap-2">
-                <Button onClick={generateQRCode}>{t('qr.input.generate_button')}</Button>
+                <Button onClick={handleGenerateQRCode}>{t('qr.input.generate_button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
                   <RotateCcw className="w-4 h-4 mr-2" />
                   {t('qr.common.clear')}

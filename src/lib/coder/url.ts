@@ -18,7 +18,7 @@ export function encodeUrl(text: string): UrlResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '编码失败' 
+      error: error instanceof Error ? error.message : 'Encoding failed' 
     };
   }
 }
@@ -33,7 +33,7 @@ export function decodeUrl(text: string): UrlResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '解码失败' 
+      error: error instanceof Error ? error.message : 'Decoding failed' 
     };
   }
 }

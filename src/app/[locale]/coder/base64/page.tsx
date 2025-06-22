@@ -10,28 +10,13 @@ import { Copy, Download, Upload, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
+import { encodeBase64, decodeBase64, fileToBase64 } from '@/lib/coder';
 
 export default function Base64Page() {
   const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
-
-  const encodeBase64 = (text: string) => {
-    try {
-      return btoa(unescape(encodeURIComponent(text)));
-    } catch (error) {
-      throw new Error(t('base64.errors.encode_failed'));
-    }
-  };
-
-  const decodeBase64 = (text: string) => {
-    try {
-      return decodeURIComponent(escape(atob(text)));
-    } catch (error) {
-      throw new Error(t('base64.errors.decode_failed'));
-    }
-  };
 
   const handleConvert = () => {
     if (!input.trim()) {
@@ -41,8 +26,13 @@ export default function Base64Page() {
 
     try {
       const result = mode === 'encode' ? encodeBase64(input) : decodeBase64(input);
-      setOutput(result);
-      toast.success(mode === 'encode' ? t('base64.success.encoded') : t('base64.success.decoded'));
+      
+      if (result.success && result.data) {
+        setOutput(result.data);
+        toast.success(mode === 'encode' ? t('base64.success.encoded') : t('base64.success.decoded'));
+      } else {
+        toast.error(result.error || t('base64.errors.conversion_failed'));
+      }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : t('base64.errors.conversion_failed'));
     }
@@ -60,21 +50,15 @@ export default function Base64Page() {
     setOutput('');
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        if (mode === 'encode') {
-          // 移除 data:image/...;base64, 前缀
-          const base64 = result.split(',')[1];
-          setInput(base64);
-        } else {
-          setInput(result);
-        }
-      };
-      reader.readAsDataURL(file);
+      const result = await fileToBase64(file);
+      if (result.success && result.data) {
+        setInput(result.data);
+      } else {
+        toast.error(result.error || t('base64.errors.file_upload_failed'));
+      }
     }
   };
 

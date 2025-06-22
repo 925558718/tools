@@ -3,7 +3,7 @@ import * as jose from 'jose';
 /**
  * 生成RSA密钥对
  */
-export const generateRSAKeyPair = async (keySize: number = 2048) => {
+export const generateRSAKeyPair = async (keySize = 2048) => {
   const keyPair = await jose.generateKeyPair('RS256', {
     modulusLength: keySize,
     extractable: true
@@ -14,7 +14,7 @@ export const generateRSAKeyPair = async (keySize: number = 2048) => {
 /**
  * 生成ECDSA密钥对
  */
-export const generateECDSAKeyPair = async (curve: string = 'P-256') => {
+export const generateECDSAKeyPair = async (curve = 'P-256') => {
   const keyPair = await jose.generateKeyPair('ES256', {
     crv: curve,
     extractable: true
@@ -53,6 +53,6 @@ export const generateKeyPairByAlgorithm = async (algorithm: string, options: any
       return await generateEdDSAKeyPair();
     
     default:
-      throw new Error(`不支持的算法: ${algorithm}`);
+      throw new Error(`Unsupported algorithm: ${algorithm}`);
   }
 }; 

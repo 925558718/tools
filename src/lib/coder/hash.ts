@@ -84,7 +84,7 @@ export function fileToText(file: File): Promise<{ success: boolean; data?: strin
       resolve({ success: true, data: result });
     };
     reader.onerror = () => {
-      resolve({ success: false, error: '文件读取失败' });
+      resolve({ success: false, error: 'File reading failed' });
     };
     reader.readAsText(file);
   });

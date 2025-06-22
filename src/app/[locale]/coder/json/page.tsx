@@ -10,51 +10,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/ta
 import { Copy, RotateCcw, Download, Upload, Minus, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
+import { processJSON, fileToJSON, JsonMode } from '@/lib/coder';
 
 export default function JsonPage() {
   const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [mode, setMode] = useState<'format' | 'minify' | 'validate'>('format');
+  const [mode, setMode] = useState<JsonMode>('format');
   const [indentSize, setIndentSize] = useState(2);
-
-  const formatJSON = (json: string, indent = 2): string => {
-    try {
-      const parsed = JSON.parse(json);
-      return JSON.stringify(parsed, null, indent);
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`JSON parsing error: ${error.message}`);
-      }
-      throw new Error('Invalid JSON format');
-    }
-  };
-
-  const minifyJSON = (json: string): string => {
-    try {
-      const parsed = JSON.parse(json);
-      return JSON.stringify(parsed);
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`JSON parsing error: ${error.message}`);
-      }
-      throw new Error('Invalid JSON format');
-    }
-  };
-
-  const validateJSON = (json: string): { isValid: boolean; error?: string; size: number } => {
-    try {
-      const parsed = JSON.parse(json);
-      const size = JSON.stringify(parsed).length;
-      return { isValid: true, size };
-    } catch (error) {
-      return { 
-        isValid: false, 
-        error: error instanceof Error ? error.message : 'Unknown error',
-        size: 0
-      };
-    }
-  };
 
   const handleProcess = () => {
     if (!input.trim()) {
@@ -63,27 +26,13 @@ export default function JsonPage() {
     }
 
     try {
-      let result = '';
-      switch (mode) {
-        case 'format': {
-          result = formatJSON(input, indentSize);
-          break;
-        }
-        case 'minify': {
-          result = minifyJSON(input);
-          break;
-        }
-        case 'validate': {
-          const validation = validateJSON(input);
-          if (validation.isValid) {
-            result = `✅ ${t('json.success.valid')}\n${t('json.result.validation_result')}: ${validation.size} characters`;
-          } else {
-            result = `❌ ${t('json.errors.invalid_json')}\n${t('json.result.error_details')}: ${validation.error}`;
-          }
-          break;
-        }
+      const result = processJSON(input, mode, indentSize);
+      
+      if (result.success && result.data) {
+        setOutput(result.data);
+      } else {
+        setOutput(result.error || t('json.errors.parse_error'));
       }
-      setOutput(result);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       setOutput(`❌ ${t('json.errors.parse_error')}: ${errorMessage}`);
@@ -102,16 +51,16 @@ export default function JsonPage() {
     setOutput('');
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const content = e.target?.result as string;
-      setInput(content);
-    };
-    reader.readAsText(file);
+    const result = await fileToJSON(file);
+    if (result.success && result.data) {
+      setInput(result.data);
+    } else {
+      toast.error(result.error || t('json.errors.file_upload_failed'));
+    }
   };
 
   const handleDownload = () => {

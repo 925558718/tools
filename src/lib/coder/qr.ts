@@ -37,40 +37,24 @@ export async function generateQRCode(
   }
 ): Promise<QRCodeResult> {
   try {
-    // 注意：这里需要在实际使用时导入 QRCode
-    // import QRCode from 'qrcode';
+    // 动态导入QRCode库
+    const QRCode = (await import('qrcode')).default;
     
-    // 模拟QR码生成
-    const canvas = document.createElement('canvas');
-    canvas.width = options.width;
-    canvas.height = options.width;
-    const ctx = canvas.getContext('2d');
+    const dataUrl = await QRCode.toDataURL(content, {
+      width: options.width,
+      margin: options.margin,
+      color: {
+        dark: options.color.dark,
+        light: options.color.light
+      },
+      errorCorrectionLevel: options.errorCorrectionLevel
+    });
     
-    if (!ctx) {
-      return { success: false, error: '无法创建canvas上下文' };
-    }
-    
-    // 绘制背景
-    ctx.fillStyle = options.color.light;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // 绘制简单的QR码图案（这里只是示例）
-    ctx.fillStyle = options.color.dark;
-    const cellSize = options.width / 25;
-    for (let i = 0; i < 25; i++) {
-      for (let j = 0; j < 25; j++) {
-        if (Math.random() > 0.5) {
-          ctx.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
-        }
-      }
-    }
-    
-    const dataUrl = canvas.toDataURL('image/png');
     return { success: true, dataUrl };
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : 'QR码生成失败' 
+      error: error instanceof Error ? error.message : 'QR code generation failed' 
     };
   }
 }
@@ -80,8 +64,8 @@ export async function generateQRCode(
  */
 export async function decodeQRCode(file: File): Promise<QRDecodeResult> {
   try {
-    // 注意：这里需要在实际使用时导入 jsQR
-    // import jsQR from 'jsqr';
+    // 动态导入jsQR库
+    const jsQR = (await import('jsqr')).default;
     
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -91,7 +75,7 @@ export async function decodeQRCode(file: File): Promise<QRDecodeResult> {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
           if (!ctx) {
-            resolve({ success: false, error: '无法处理图像' });
+            resolve({ success: false, error: 'Unable to process image' });
             return;
           }
 
@@ -100,28 +84,28 @@ export async function decodeQRCode(file: File): Promise<QRDecodeResult> {
           ctx.drawImage(img, 0, 0);
 
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(imageData.data, imageData.width, imageData.height);
           
-          // 模拟QR码解码
-          // const code = jsQR(imageData.data, imageData.width, imageData.height);
-          
-          // 这里只是示例，实际应该使用jsQR库
-          const mockText = '模拟的QR码内容';
-          resolve({ success: true, text: mockText });
+          if (code) {
+            resolve({ success: true, text: code.data });
+          } else {
+            resolve({ success: false, error: 'Unable to recognize QR code' });
+          }
         };
         img.onerror = () => {
-          resolve({ success: false, error: '图像加载失败' });
+          resolve({ success: false, error: 'Image loading failed' });
         };
         img.src = e.target?.result as string;
       };
       reader.onerror = () => {
-        resolve({ success: false, error: '文件读取失败' });
+        resolve({ success: false, error: 'File reading failed' });
       };
       reader.readAsDataURL(file);
     });
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : 'QR码解码失败' 
+      error: error instanceof Error ? error.message : 'QR code decoding failed' 
     };
   }
 }

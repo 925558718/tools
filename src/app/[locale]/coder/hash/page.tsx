@@ -11,12 +11,7 @@ import { toast } from 'sonner';
 import CryptoJS from 'crypto-js';
 import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
-
-interface HashResult {
-  algorithm: string;
-  hash: string;
-  length: number;
-}
+import { calculateMultipleHashes, fileToText, HashResult, HashAlgorithm } from '@/lib/coder';
 
 export default function HashPage() {
   const t = useTranslations();
@@ -25,7 +20,7 @@ export default function HashPage() {
   const [results, setResults] = useState<HashResult[]>([]);
   const [isCalculating, setIsCalculating] = useState(false);
 
-  const algorithms = [
+  const algorithms: HashAlgorithm[] = [
     { name: 'MD5', func: CryptoJS.MD5, description: '128位哈希值' },
     { name: 'SHA1', func: CryptoJS.SHA1, description: '160位哈希值' },
     { name: 'SHA256', func: CryptoJS.SHA256, description: '256位哈希值' },
@@ -43,22 +38,8 @@ export default function HashPage() {
     setIsCalculating(true);
     
     try {
-      const newResults: HashResult[] = algorithms.map(({ name, func }) => {
-        let hash: CryptoJS.lib.WordArray;
-        if (salt) {
-          // 使用盐值
-          hash = func(input + salt);
-        } else {
-          hash = func(input);
-        }
-        
-        return {
-          algorithm: name,
-          hash: hash.toString(),
-          length: hash.toString().length
-        };
-      });
-
+      const options = salt ? { salt } : {};
+      const newResults = calculateMultipleHashes(input, algorithms, options);
       setResults(newResults);
       toast.success(t('hash.success.calculation_complete'));
     } catch (error) {
@@ -79,15 +60,15 @@ export default function HashPage() {
     setResults([]);
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setInput(result);
-      };
-      reader.readAsText(file);
+      const result = await fileToText(file);
+      if (result.success && result.data) {
+        setInput(result.data);
+      } else {
+        toast.error(result.error || t('hash.errors.file_upload_failed'));
+      }
     }
   };
 

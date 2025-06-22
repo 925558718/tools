@@ -8,20 +8,19 @@ import { Label } from '@/components/shadcn/label';
 import { Input } from '@/components/shadcn/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/shadcn/select';
-import { Copy, RotateCcw, Clock, User, Shield, Download, Upload, Key } from 'lucide-react';
+import { Key } from 'lucide-react';
 import { toast } from 'sonner';
-import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { 
   decodeJWT, 
-  generateJWT, 
-  generateJWTWithPrivateKey,
-  verifyJWTWithPublicKey,
+  generateJWT,
+  verifyJWT,
   isTokenExpired,
   formatTimestamp,
-  type DecodedToken
+  type JWTResult,
+  type JWTAlgorithm
 } from '@/lib/jwt';
 import { getSupportedAlgorithms, getAlgorithmInfo } from '@/lib/keygen';
 
@@ -34,41 +33,66 @@ export default function JWTPage() {
   // 生成token状态
   const [generatePayload, setGeneratePayload] = useState('{\n  "sub": "1234567890",\n  "name": "John Doe",\n  "iat": 1516239022\n}');
   const [generateSecret, setGenerateSecret] = useState('');
-  const [generateAlgorithm, setGenerateAlgorithm] = useState('HS256');
+  const [generatePrivateKey, setGeneratePrivateKey] = useState('');
+  const [generateAlgorithm, setGenerateAlgorithm] = useState<JWTAlgorithm>('HS256');
   const [generateTokenResult, setGenerateTokenResult] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   
   // 解码token状态
   const [decodeTokenInput, setDecodeTokenInput] = useState('');
   const [decodeSecret, setDecodeSecret] = useState('');
+  const [decodePublicKey, setDecodePublicKey] = useState('');
   const [decodeResult, setDecodeResult] = useState('');
+  const [showRawResult, setShowRawResult] = useState(false);
   const [isDecoding, setIsDecoding] = useState(false);
+  const [detectedAlgorithm, setDetectedAlgorithm] = useState<string>('');
 
   const algorithms = getSupportedAlgorithms();
-  const allAlgorithms = [...algorithms.RSA, ...algorithms.ECDSA, ...algorithms.EdDSA];
+  const allAlgorithms = [...algorithms.HMAC, ...algorithms.RSA, ...algorithms.ECDSA, ...algorithms.EdDSA] as JWTAlgorithm[];
 
   const handleGenerateToken = async () => {
     if (!generatePayload.trim()) {
       toast.error(t('errors.payloadRequired'));
       return;
     }
-    if (!generateSecret.trim()) {
-      toast.error(t('errors.secretRequired'));
+
+    let payloadObj: any;
+    try {
+      payloadObj = JSON.parse(generatePayload);
+    } catch (error) {
+      toast.error(t('errors.invalidPayload'));
       return;
+    }
+
+    if (generateAlgorithm.startsWith('HS')) {
+      if (!generateSecret.trim()) {
+        toast.error(t('errors.secretRequired'));
+        return;
+      }
+    } else {
+      if (!generatePrivateKey.trim()) {
+        toast.error(t('errors.privateKeyRequired'));
+        return;
+      }
     }
 
     setIsGenerating(true);
     try {
-      const result = await generateJWT(generatePayload, generateSecret, generateAlgorithm);
+      const options = {
+        algorithm: generateAlgorithm,
+        payload: payloadObj,
+        ...(generateAlgorithm.startsWith('HS') 
+          ? { secret: generateSecret }
+          : { privateKey: generatePrivateKey }
+        )
+      };
       
-      if (result.success) {
-        setGenerateTokenResult(result.token);
-        toast.success(t('generate.success'));
-      } else {
-        toast.error(result.error || t('generate.error'));
-      }
+      const token = await generateJWT(options);
+      setGenerateTokenResult(token);
+      toast.success(t('generate.success'));
     } catch (error) {
-      toast.error(t('generate.error'));
+      const errorMessage = error instanceof Error ? error.message : t('generate.error');
+      toast.error(errorMessage);
     } finally {
       setIsGenerating(false);
     }
@@ -82,14 +106,84 @@ export default function JWTPage() {
 
     setIsDecoding(true);
     try {
-      const result = decodeJWT(decodeTokenInput, decodeSecret);
-      setDecodeResult(JSON.stringify(result, null, 2));
+      let result: JWTResult;
+      
+      // 首先解码JWT以获取算法信息
+      const decodedToken = decodeJWT(decodeTokenInput);
+      const algorithm = decodedToken.header.alg;
+      setDetectedAlgorithm(algorithm);
+      
+      if (decodeSecret.trim() || decodePublicKey.trim()) {
+        // 验证模式
+        const options: any = {
+          token: decodeTokenInput
+        };
+
+        if (algorithm.startsWith('HS')) {
+          // HMAC算法使用密钥
+          if (decodeSecret.trim()) {
+            options.secret = decodeSecret;
+            options.algorithms = [algorithm as JWTAlgorithm];
+          } else {
+            throw new Error('HMAC算法需要提供密钥');
+          }
+        } else {
+          // 非对称算法使用公钥
+          if (decodePublicKey.trim()) {
+            options.publicKey = decodePublicKey;
+            options.algorithms = [algorithm as JWTAlgorithm];
+          } else {
+            throw new Error('非对称算法需要提供公钥');
+          }
+        }
+        
+        result = await verifyJWT(options);
+      } else {
+        // 仅解码模式
+        result = decodedToken;
+      }
+      
+      // 格式化结果
+      const formattedResult = showRawResult 
+        ? JSON.stringify(result, null, 2)
+        : formatDecodeResult(result);
+      
+      setDecodeResult(formattedResult);
       toast.success(t('decode.success'));
     } catch (error) {
-      toast.error(t('decode.error'));
+      const errorMessage = error instanceof Error ? error.message : t('decode.error');
+      toast.error(errorMessage);
     } finally {
       setIsDecoding(false);
     }
+  };
+
+  const formatDecodeResult = (result: JWTResult): string => {
+    const { header, payload, signature } = result;
+    
+    // 检查是否是嵌套JWT
+    if (payload && typeof payload === 'object' && '_nestedJWT' in payload) {
+      const nested = payload as any;
+      return JSON.stringify({
+        header,
+        payload: {
+          // 显示实际的payload内容
+          ...Object.fromEntries(
+            Object.entries(nested).filter(([key]) => !key.startsWith('_'))
+          ),
+          // 显示嵌套JWT信息
+          _nestedJWTInfo: {
+            outerHeader: nested._outerHeader,
+            outerSignature: nested._outerSignature,
+            outerIsValid: nested._outerIsValid,
+            outerError: nested._outerError
+          }
+        },
+        signature
+      }, null, 2);
+    }
+    
+    return JSON.stringify(result, null, 2);
   };
 
   const copyToClipboard = (text: string) => {
@@ -101,12 +195,16 @@ export default function JWTPage() {
     const info = getAlgorithmInfo(algorithm);
     if (!info) return '';
     
+    if (algorithm.startsWith('HS')) {
+      return `${info.name} (${info.keySize}位, 安全性: ${info.security})`;
+    }
     if (algorithm.startsWith('RS')) {
       return `${info.name} (${info.keySize}位, 安全性: ${info.security})`;
-    }if (algorithm.startsWith('ES')) {
+    }
+    if (algorithm.startsWith('ES')) {
       return `${info.name} (${info.curve}, 安全性: ${info.security})`;
     }
-      return `${info.name} (${info.curve}, 安全性: ${info.security})`;
+    return `${info.name} (${info.curve}, 安全性: ${info.security})`;
   };
 
   return (
@@ -142,7 +240,7 @@ export default function JWTPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="algorithm">{t('generate.algorithm')}</Label>
-                <Select value={generateAlgorithm} onValueChange={setGenerateAlgorithm}>
+                <Select value={generateAlgorithm} onValueChange={(value: string) => setGenerateAlgorithm(value as JWTAlgorithm)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -156,16 +254,29 @@ export default function JWTPage() {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="secret">{t('generate.secret')}</Label>
-                <Input
-                  id="secret"
-                  type="text"
-                  value={generateSecret}
-                  onChange={(e) => setGenerateSecret(e.target.value)}
-                  placeholder={t('generate.secretPlaceholder')}
-                />
-              </div>
+              {generateAlgorithm.startsWith('HS') ? (
+                <div className="space-y-2">
+                  <Label htmlFor="secret">{t('generate.secret')}</Label>
+                  <Input
+                    id="secret"
+                    type="text"
+                    value={generateSecret}
+                    onChange={(e) => setGenerateSecret(e.target.value)}
+                    placeholder={t('generate.secretPlaceholder')}
+                  />
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Label htmlFor="privateKey">{t('generate.privateKey')}</Label>
+                  <Textarea
+                    id="privateKey"
+                    value={generatePrivateKey}
+                    onChange={(e) => setGeneratePrivateKey(e.target.value)}
+                    placeholder={t('generate.privateKeyPlaceholder')}
+                    rows={4}
+                  />
+                </div>
+              )}
 
               <div className="flex space-x-2">
                 <Button 
@@ -226,16 +337,48 @@ export default function JWTPage() {
                 />
               </div>
 
+              {detectedAlgorithm && (
+                <div className="p-3 bg-muted rounded-md">
+                  <div className="text-sm font-medium">检测到的算法: {detectedAlgorithm}</div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    {detectedAlgorithm?.startsWith('HS') 
+                      ? 'HMAC算法，请提供密钥进行验证'
+                      : '非对称算法，请提供公钥进行验证'
+                    }
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-2">
-                <Label htmlFor="decode-secret">{t('decode.secret')}</Label>
-                <Input
-                  id="decode-secret"
-                  type="text"
-                  value={decodeSecret}
-                  onChange={(e) => setDecodeSecret(e.target.value)}
-                  placeholder={t('decode.secretPlaceholder')}
-                />
+                <Label>{t('decode.verification')}</Label>
+                <div className="text-sm text-muted-foreground mb-2">
+                  {t('decode.verificationDescription')}
+                </div>
               </div>
+
+              {detectedAlgorithm?.startsWith('HS') ? (
+                <div className="space-y-2">
+                  <Label htmlFor="secret">{t('decode.secret')}</Label>
+                  <Input
+                    id="secret"
+                    type="text"
+                    value={decodeSecret}
+                    onChange={(e) => setDecodeSecret(e.target.value)}
+                    placeholder={t('decode.secretPlaceholder')}
+                  />
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Label htmlFor="publicKey">{t('decode.publicKey')}</Label>
+                  <Textarea
+                    id="publicKey"
+                    value={decodePublicKey}
+                    onChange={(e) => setDecodePublicKey(e.target.value)}
+                    placeholder={t('decode.publicKeyPlaceholder')}
+                    rows={4}
+                  />
+                </div>
+              )}
 
               <Button 
                 onClick={handleDecodeToken} 
@@ -247,7 +390,16 @@ export default function JWTPage() {
 
               {decodeResult && (
                 <div className="space-y-2">
-                  <Label>{t('decode.result')}</Label>
+                  <div className="flex items-center justify-between">
+                    <Label>{t('decode.result')}</Label>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setShowRawResult(!showRawResult)}
+                    >
+                      {showRawResult ? t('decode.showFormatted') : t('decode.showRaw')}
+                    </Button>
+                  </div>
                   <div className="relative">
                     <Textarea
                       value={decodeResult}

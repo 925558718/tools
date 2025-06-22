@@ -10,102 +10,29 @@ import { Copy, RotateCcw, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
+import { convertText, ConversionMode } from '@/lib/coder';
 
 export default function HexPage() {
   const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [mode, setMode] = useState<'text-to-hex' | 'hex-to-text' | 'text-to-binary' | 'binary-to-text'>('text-to-hex');
-
-  const textToHex = (text: string) => {
-    const encoder = new TextEncoder();
-    const bytes = encoder.encode(text);
-    return Array.from(bytes).map(byte => byte.toString(16).padStart(2, '0')).join('');
-  };
-
-  const hexToText = (hex: string) => {
-    try {
-      const cleanHex = hex.replace(/[^0-9a-fA-F]/g, '');
-      if (cleanHex.length % 2 !== 0) {
-        throw new Error(t('errors.invalid_hex'));
-      }
-      const bytes = new Uint8Array(cleanHex.length / 2);
-      for (let i = 0; i < cleanHex.length; i += 2) {
-        const byte = Number.parseInt(cleanHex.substr(i, 2), 16);
-        if (Number.isNaN(byte)) {
-          throw new Error(t('errors.invalid_hex'));
-        }
-        bytes[i / 2] = byte;
-      }
-      const decoder = new TextDecoder('utf-8');
-      return decoder.decode(bytes);
-    } catch (error) {
-      throw new Error(error instanceof Error ? error.message : t('errors.conversion_failed'));
-    }
-  };
-
-  const textToBinary = (text: string) => {
-    // 检查是否是纯数字（包括小数）
-    const numberRegex = /^-?\d+(\.\d+)?$/;
-    if (numberRegex.test(text.trim())) {
-      // 如果是数字，转换为数字的二进制
-      const num = Number(text);
-      if (Number.isInteger(num)) {
-        return num.toString(2);
-      }
-      // 对于小数，显示整数部分的二进制
-      return Math.floor(num).toString(2);
-    }
-    // 如果是文本，转换为ASCII码的二进制
-    const encoder = new TextEncoder();
-    const bytes = encoder.encode(text);
-    return Array.from(bytes).map(byte => byte.toString(2).padStart(8, '0')).join(' ');
-  };
-
-  const binaryToText = (binary: string) => {
-    try {
-      const cleanBinary = binary.replace(/[^01]/g, '');
-      if (cleanBinary.length % 8 !== 0) {
-        throw new Error(t('errors.invalid_binary'));
-      }
-      const bytes = new Uint8Array(cleanBinary.length / 8);
-      for (let i = 0; i < cleanBinary.length; i += 8) {
-        const byte = Number.parseInt(cleanBinary.substr(i, 8), 2);
-        if (Number.isNaN(byte)) {
-          throw new Error(t('errors.invalid_binary'));
-        }
-        bytes[i / 8] = byte;
-      }
-      const decoder = new TextDecoder('utf-8');
-      return decoder.decode(bytes);
-    } catch (error) {
-      throw new Error(error instanceof Error ? error.message : t('errors.conversion_failed'));
-    }
-  };
+  const [mode, setMode] = useState<ConversionMode>('text-to-hex');
 
   const handleConvert = () => {
     if (!input.trim()) {
       toast.error(t('errors.empty_input'));
       return;
     }
+    
     try {
-      let result = '';
-      switch (mode) {
-        case 'text-to-hex':
-          result = textToHex(input);
-          break;
-        case 'hex-to-text':
-          result = hexToText(input);
-          break;
-        case 'text-to-binary':
-          result = textToBinary(input);
-          break;
-        case 'binary-to-text':
-          result = binaryToText(input);
-          break;
+      const result = convertText(input, mode);
+      
+      if (result.success && result.data) {
+        setOutput(result.data);
+        toast.success(t('success.converted'));
+      } else {
+        toast.error(result.error || t('errors.conversion_failed'));
       }
-      setOutput(result);
-      toast.success(t('success.converted'));
     } catch (error) {
       toast.error(error instanceof Error ? error.message : t('errors.conversion_failed'));
     }

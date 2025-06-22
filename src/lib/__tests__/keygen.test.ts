@@ -103,7 +103,7 @@ describe('KeyGen Library', () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe('不支持的算法');
+      expect(result.error).toBe('Unsupported algorithm');
     });
   });
 

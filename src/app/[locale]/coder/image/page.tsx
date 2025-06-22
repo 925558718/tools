@@ -10,15 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/ta
 import { Upload, RotateCcw, Copy, Download } from 'lucide-react';
 import { toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
-
-interface ImageInfo {
-  name: string;
-  size: number;
-  type: string;
-  width: number;
-  height: number;
-  base64: string;
-}
+import { imageToBase64, base64ToImage, formatFileSize, getBase64Size, ImageInfo } from '@/lib/coder';
 
 export default function ImagePage() {
   const t = useTranslations();
@@ -27,63 +19,30 @@ export default function ImagePage() {
   const [previewUrl, setPreviewUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // 检查文件大小 (10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error(t('image.errors.file_too_large'));
-      return;
+    const result = await imageToBase64(file);
+    if (result.success && result.data) {
+      setImageInfo(result.data);
+    } else {
+      toast.error(result.error || t('image.errors.upload_failed'));
     }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        const base64 = e.target?.result as string;
-        setImageInfo({
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          width: img.width,
-          height: img.height,
-          base64: base64
-        });
-      };
-      img.src = e.target?.result as string;
-    };
-    reader.readAsDataURL(file);
   };
 
-  const handleBase64Decode = () => {
+  const handleBase64Decode = async () => {
     if (!base64Input.trim()) {
       toast.error(t('image.errors.empty_input'));
       return;
     }
 
     try {
-      // 检查是否是有效的Base64图片
-      if (!base64Input.startsWith('data:image/')) {
-        // 尝试添加data URL前缀
-        const testUrl = `data:image/png;base64,${base64Input}`;
-        const img = new Image();
-        img.onload = () => {
-          setPreviewUrl(testUrl);
-        };
-        img.onerror = () => {
-          toast.error(t('image.errors.invalid_base64'));
-        };
-        img.src = testUrl;
+      const result = await base64ToImage(base64Input);
+      if (result.success && result.dataUrl) {
+        setPreviewUrl(result.dataUrl);
       } else {
-        const img = new Image();
-        img.onload = () => {
-          setPreviewUrl(base64Input);
-        };
-        img.onerror = () => {
-          toast.error(t('image.errors.invalid_base64'));
-        };
-        img.src = base64Input;
+        toast.error(result.error || t('image.errors.invalid_base64'));
       }
     } catch (error) {
       toast.error(t('image.errors.decode_failed'));
@@ -113,20 +72,6 @@ export default function ImagePage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return `${Number.parseFloat((bytes / (k ** i)).toFixed(2))} ${sizes[i]}`;
-  };
-
-  const getBase64Size = (base64: string): number => {
-    // 移除data:image/...;base64,前缀
-    const base64Data = base64.split(',')[1];
-    return Math.ceil((base64Data.length * 3) / 4);
   };
 
   return (

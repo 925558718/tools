@@ -22,7 +22,7 @@ export function textToHex(text: string): HexResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '转换失败' 
+      error: error instanceof Error ? error.message : 'Conversion failed' 
     };
   }
 }
@@ -34,14 +34,14 @@ export function hexToText(hex: string): HexResult {
   try {
     const cleanHex = hex.replace(/[^0-9a-fA-F]/g, '');
     if (cleanHex.length % 2 !== 0) {
-      return { success: false, error: '无效的十六进制格式' };
+      return { success: false, error: 'Invalid hexadecimal format' };
     }
     
     const bytes = new Uint8Array(cleanHex.length / 2);
     for (let i = 0; i < cleanHex.length; i += 2) {
       const byte = Number.parseInt(cleanHex.substr(i, 2), 16);
       if (Number.isNaN(byte)) {
-        return { success: false, error: '无效的十六进制格式' };
+        return { success: false, error: 'Invalid hexadecimal format' };
       }
       bytes[i / 2] = byte;
     }
@@ -52,7 +52,7 @@ export function hexToText(hex: string): HexResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '转换失败' 
+      error: error instanceof Error ? error.message : 'Conversion failed' 
     };
   }
 }
@@ -82,7 +82,7 @@ export function textToBinary(text: string): HexResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '转换失败' 
+      error: error instanceof Error ? error.message : 'Conversion failed' 
     };
   }
 }
@@ -94,14 +94,14 @@ export function binaryToText(binary: string): HexResult {
   try {
     const cleanBinary = binary.replace(/[^01]/g, '');
     if (cleanBinary.length % 8 !== 0) {
-      return { success: false, error: '无效的二进制格式' };
+      return { success: false, error: 'Invalid binary format' };
     }
     
     const bytes = new Uint8Array(cleanBinary.length / 8);
     for (let i = 0; i < cleanBinary.length; i += 8) {
       const byte = Number.parseInt(cleanBinary.substr(i, 8), 2);
       if (Number.isNaN(byte)) {
-        return { success: false, error: '无效的二进制格式' };
+        return { success: false, error: 'Invalid binary format' };
       }
       bytes[i / 8] = byte;
     }
@@ -112,7 +112,7 @@ export function binaryToText(binary: string): HexResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '转换失败' 
+      error: error instanceof Error ? error.message : 'Conversion failed' 
     };
   }
 }
@@ -131,7 +131,7 @@ export function convertText(input: string, mode: ConversionMode): HexResult {
     case 'binary-to-text':
       return binaryToText(input);
     default:
-      return { success: false, error: '不支持的转换模式' };
+      return { success: false, error: 'Unsupported conversion mode' };
   }
 }
 

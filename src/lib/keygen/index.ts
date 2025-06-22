@@ -106,6 +106,7 @@ export const testKeyPairFunctionality = async (keyPair: KeyPair): Promise<boolea
  */
 export const getSupportedAlgorithms = () => {
   return {
+    HMAC: ['HS256', 'HS384', 'HS512'],
     RSA: ['RS256', 'RS384', 'RS512'],
     ECDSA: ['ES256', 'ES384', 'ES512'],
     EdDSA: ['EdDSA']
@@ -117,13 +118,16 @@ export const getSupportedAlgorithms = () => {
  */
 export const getAlgorithmInfo = (algorithm: string) => {
   const info: Record<string, any> = {
-    RS256: { name: 'RSA SHA-256', keySize: 2048, security: 'High' },
-    RS384: { name: 'RSA SHA-384', keySize: 2048, security: 'High' },
-    RS512: { name: 'RSA SHA-512', keySize: 2048, security: 'High' },
-    ES256: { name: 'ECDSA SHA-256', curve: 'P-256', security: 'High' },
-    ES384: { name: 'ECDSA SHA-384', curve: 'P-384', security: 'High' },
-    ES512: { name: 'ECDSA SHA-512', curve: 'P-521', security: 'High' },
-    EdDSA: { name: 'Edwards-curve Digital Signature', curve: 'Ed25519', security: 'High' }
+    HS256: { name: 'HMAC SHA-256', keySize: 256, security: '中' },
+    HS384: { name: 'HMAC SHA-384', keySize: 384, security: '中' },
+    HS512: { name: 'HMAC SHA-512', keySize: 512, security: '中' },
+    RS256: { name: 'RSA SHA-256', keySize: 2048, security: '高' },
+    RS384: { name: 'RSA SHA-384', keySize: 2048, security: '高' },
+    RS512: { name: 'RSA SHA-512', keySize: 2048, security: '高' },
+    ES256: { name: 'ECDSA SHA-256', curve: 'P-256', security: '高' },
+    ES384: { name: 'ECDSA SHA-384', curve: 'P-384', security: '高' },
+    ES512: { name: 'ECDSA SHA-512', curve: 'P-521', security: '高' },
+    EdDSA: { name: 'Edwards-curve Digital Signature', curve: 'Ed25519', security: '高' }
   };
   
   return info[algorithm] || null;

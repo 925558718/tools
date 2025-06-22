@@ -1,5 +1,5 @@
 /**
- * 图像编码解码工具
+ * Image encoding/decoding tools
  */
 
 export interface ImageInfo {
@@ -24,13 +24,13 @@ export interface Base64ImageResult {
 }
 
 /**
- * 图像转Base64
+ * Convert image to Base64
  */
 export function imageToBase64(file: File): Promise<ImageResult> {
   return new Promise((resolve) => {
-    // 检查文件大小 (10MB)
+    // Check file size (10MB)
     if (file.size > 10 * 1024 * 1024) {
-      resolve({ success: false, error: '文件过大，请选择小于10MB的图片' });
+      resolve({ success: false, error: 'File too large, please select an image smaller than 10MB' });
       return;
     }
 
@@ -50,33 +50,33 @@ export function imageToBase64(file: File): Promise<ImageResult> {
         resolve({ success: true, data: imageInfo });
       };
       img.onerror = () => {
-        resolve({ success: false, error: '图像加载失败' });
+        resolve({ success: false, error: 'Image loading failed' });
       };
       img.src = e.target?.result as string;
     };
     reader.onerror = () => {
-      resolve({ success: false, error: '文件读取失败' });
+      resolve({ success: false, error: 'File reading failed' });
     };
     reader.readAsDataURL(file);
   });
 }
 
 /**
- * Base64转图像
+ * Convert Base64 to image
  */
 export function base64ToImage(base64: string): Promise<Base64ImageResult> {
   return new Promise((resolve) => {
     try {
-      // 检查是否是有效的Base64图片
+      // Check if it's a valid Base64 image
       if (!base64.startsWith('data:image/')) {
-        // 尝试添加data URL前缀
+        // Try adding data URL prefix
         const testUrl = `data:image/png;base64,${base64}`;
         const img = new Image();
         img.onload = () => {
           resolve({ success: true, dataUrl: testUrl });
         };
         img.onerror = () => {
-          resolve({ success: false, error: '无效的Base64格式' });
+          resolve({ success: false, error: 'Invalid Base64 format' });
         };
         img.src = testUrl;
       } else {
@@ -85,18 +85,18 @@ export function base64ToImage(base64: string): Promise<Base64ImageResult> {
           resolve({ success: true, dataUrl: base64 });
         };
         img.onerror = () => {
-          resolve({ success: false, error: '无效的Base64格式' });
+          resolve({ success: false, error: 'Invalid Base64 format' });
         };
         img.src = base64;
       }
     } catch (error) {
-      resolve({ success: false, error: 'Base64解码失败' });
+      resolve({ success: false, error: 'Base64 decoding failed' });
     }
   });
 }
 
 /**
- * 格式化文件大小
+ * Format file size
  */
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
@@ -107,24 +107,24 @@ export function formatFileSize(bytes: number): string {
 }
 
 /**
- * 计算Base64大小
+ * Calculate Base64 size
  */
 export function getBase64Size(base64: string): number {
-  // 移除data:image/...;base64,前缀
+  // Remove data:image/...;base64, prefix
   const base64Data = base64.split(',')[1];
   return Math.ceil((base64Data.length * 3) / 4);
 }
 
 /**
- * 验证图像文件
+ * Validate image file
  */
 export function validateImageFile(file: File): boolean {
-  // 检查文件类型
+  // Check file type
   if (!file.type.startsWith('image/')) {
     return false;
   }
   
-  // 检查文件大小 (10MB)
+  // Check file size (10MB)
   if (file.size > 10 * 1024 * 1024) {
     return false;
   }
@@ -133,16 +133,16 @@ export function validateImageFile(file: File): boolean {
 }
 
 /**
- * 验证Base64图像格式
+ * Validate Base64 image format
  */
 export function isValidBase64Image(base64: string): boolean {
   try {
-    // 检查是否是data URL格式
+    // Check if it's data URL format
     if (base64.startsWith('data:image/')) {
       return true;
     }
     
-    // 检查是否是纯Base64
+    // Check if it's pure Base64
     const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
     return base64Regex.test(base64);
   } catch {
@@ -151,7 +151,7 @@ export function isValidBase64Image(base64: string): boolean {
 }
 
 /**
- * 压缩图像
+ * Compress image
  */
 export function compressImage(
   file: File, 
@@ -167,11 +167,11 @@ export function compressImage(
         const ctx = canvas.getContext('2d');
         
         if (!ctx) {
-          resolve({ success: false, error: '无法创建canvas上下文' });
+          resolve({ success: false, error: 'Unable to create canvas context' });
           return;
         }
         
-        // 计算新的尺寸
+        // Calculate new dimensions
         let { width, height } = img;
         if (width > maxWidth) {
           height = (height * maxWidth) / width;
@@ -181,10 +181,10 @@ export function compressImage(
         canvas.width = width;
         canvas.height = height;
         
-        // 绘制图像
+        // Draw image
         ctx.drawImage(img, 0, 0, width, height);
         
-        // 转换为Base64
+        // Convert to Base64
         const compressedBase64 = canvas.toDataURL(file.type, quality);
         
         const imageInfo: ImageInfo = {
@@ -199,12 +199,12 @@ export function compressImage(
         resolve({ success: true, data: imageInfo });
       };
       img.onerror = () => {
-        resolve({ success: false, error: '图像加载失败' });
+        resolve({ success: false, error: 'Image loading failed' });
       };
       img.src = e.target?.result as string;
     };
     reader.onerror = () => {
-      resolve({ success: false, error: '文件读取失败' });
+      resolve({ success: false, error: 'File reading failed' });
     };
     reader.readAsDataURL(file);
   });

@@ -10,28 +10,13 @@ import { Copy, RotateCcw, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
+import { encodeUrl, decodeUrl, isCompleteUrl } from '@/lib/coder';
 
 export default function UrlPage() {
   const t = useTranslations();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
-
-  const encodeUrl = (text: string) => {
-    try {
-      return encodeURIComponent(text);
-    } catch (error) {
-      throw new Error(t('url.errors.conversion_failed'));
-    }
-  };
-
-  const decodeUrl = (text: string) => {
-    try {
-      return decodeURIComponent(text);
-    } catch (error) {
-      throw new Error(t('url.errors.conversion_failed'));
-    }
-  };
 
   const handleConvert = () => {
     if (!input.trim()) {
@@ -41,8 +26,13 @@ export default function UrlPage() {
 
     try {
       const result = mode === 'encode' ? encodeUrl(input) : decodeUrl(input);
-      setOutput(result);
-      toast.success(mode === 'encode' ? t('url.success.encoded') : t('url.success.decoded'));
+      
+      if (result.success && result.data) {
+        setOutput(result.data);
+        toast.success(mode === 'encode' ? t('url.success.encoded') : t('url.success.decoded'));
+      } else {
+        toast.error(result.error || t('url.errors.conversion_failed'));
+      }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : t('url.errors.conversion_failed'));
     }
@@ -63,8 +53,7 @@ export default function UrlPage() {
   const handleTestUrl = () => {
     if (output) {
       try {
-        // 检查是否是完整的URL
-        if (output.startsWith('http://') || output.startsWith('https://')) {
+        if (isCompleteUrl(output)) {
           window.open(output, '_blank');
         } else {
           toast.error(t('url.errors.invalid_url'));

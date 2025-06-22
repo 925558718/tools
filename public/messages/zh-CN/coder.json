@@ -51,6 +51,10 @@
   "base64": {
     "title": "Base64 编码/解码",
     "description": "将文本转换为Base64格式或从Base64格式解码",
+    "meta": {
+      "title": "Base64 编码/解码 - 在线Base64转换工具",
+      "description": "免费Base64编码解码工具，支持文本和文件转换，完美支持中文和特殊字符。"
+    },
     "features": {
       "text_encoding": "文本编码",
       "file_support": "文件支持",
@@ -109,6 +113,10 @@
   "url": {
     "title": "URL 编码/解码",
     "description": "将文本转换为URL编码格式或从URL编码格式解码",
+    "meta": {
+      "title": "URL 编码/解码 - 在线URL转换工具",
+      "description": "免费URL编码解码工具，支持中文和特殊字符转换，适用于URL参数和API调用。"
+    },
     "features": {
       "url_safe": "URL安全",
       "chinese_support": "中文支持",
@@ -175,6 +183,10 @@
   "hash": {
     "title": "哈希计算器",
     "description": "计算文本的多种哈希值，支持MD5、SHA1、SHA256等算法",
+    "meta": {
+      "title": "哈希计算器 - 在线哈希值计算工具",
+      "description": "免费哈希计算工具，支持MD5、SHA1、SHA256、SHA512等多种算法，支持盐值加密。"
+    },
     "features": {
       "multiple_algorithms": "多种算法",
       "salt_encryption": "盐值加密",
@@ -232,6 +244,10 @@
   "jwt": {
     "title": "JWT 工具",
     "description": "JWT令牌的解码、验证和生成工具",
+    "meta": {
+      "title": "JWT 工具 - 在线JWT令牌处理工具",
+      "description": "免费JWT工具，支持令牌解码、验证和生成，支持多种算法，适用于API开发和调试。"
+    },
     "features": {
       "token_decoding": "令牌解码",
       "signature_validation": "签名验证",
@@ -248,7 +264,9 @@
       "payloadPlaceholder": "请输入JSON格式的载荷数据...",
       "algorithm": "算法",
       "secret": "密钥",
-      "secretPlaceholder": "请输入密钥...",
+      "secretPlaceholder": "HMAC算法输入密钥...",
+      "privateKey": "私钥",
+      "privateKeyPlaceholder": "RSA/ECDSA/EdDSA算法输入私钥（JWK或PEM格式）...",
       "generate": "生成令牌",
       "generating": "生成中...",
       "generateKeys": "生成密钥",
@@ -261,18 +279,26 @@
       "description": "解码JWT令牌并验证其签名",
       "token": "JWT令牌",
       "tokenPlaceholder": "请输入JWT令牌...",
+      "verification": "验证选项",
+      "verificationDescription": "留空仅解码，填写密钥或公钥进行验证",
       "secret": "密钥",
-      "secretPlaceholder": "输入密钥以验证签名（可选）...",
+      "secretPlaceholder": "HMAC算法输入密钥...",
+      "publicKey": "公钥",
+      "publicKeyPlaceholder": "RSA/ECDSA/EdDSA算法输入公钥（JWK或PEM格式）...",
       "decode": "解码令牌",
       "decoding": "解码中...",
       "result": "解码结果",
+      "showRaw": "显示原始",
+      "showFormatted": "显示格式化",
       "success": "令牌解码成功",
       "error": "令牌解码失败"
     },
     "errors": {
       "payloadRequired": "请输入载荷数据",
       "secretRequired": "请输入密钥",
+      "privateKeyRequired": "请输入私钥",
       "tokenRequired": "请输入JWT令牌",
+      "invalidPayload": "无效的载荷格式",
       "invalidJson": "无效的JSON格式",
       "empty_token": "请输入JWT令牌",
       "empty_payload": "请输入载荷数据",
@@ -281,7 +307,7 @@
       "token_parse_failed": "令牌解析失败",
       "token_generation_failed": "令牌生成失败",
       "key_generation_failed": "密钥对生成失败",
-      "unsupported_algorithm": "RSA、ECDSA和EdDSA算法需要密钥对，目前仅支持HMAC算法。请选择HS256、HS384或HS512。",
+      "unsupported_algorithm": "不支持的算法，请使用HMAC、RSA、ECDSA或EdDSA算法",
       "unknown_algorithm": "不支持的算法"
     },
     "success": {
@@ -300,6 +326,10 @@
   "hex": {
     "title": "十六进制转换器",
     "description": "文本与十六进制格式之间的转换",
+    "meta": {
+      "title": "十六进制转换器 - 在线十六进制转换工具",
+      "description": "免费十六进制转换工具，支持文本、十六进制、二进制之间的相互转换，适用于编程和数据分析。"
+    },
     "features": {
       "text_to_hex": "文本转十六进制",
       "hex_to_text": "十六进制转文本",
@@ -388,6 +418,10 @@
   "json": {
     "title": "JSON 格式化器",
     "description": "格式化、验证和美化JSON数据",
+    "meta": {
+      "title": "JSON 格式化器 - 在线JSON工具",
+      "description": "免费JSON格式化、验证和压缩工具，支持JSON语法检查、美化格式和文件压缩。"
+    },
     "features": {
       "formatting": "格式化",
       "validation": "验证",
@@ -470,6 +504,10 @@
   "image": {
     "title": "图片编码器",
     "description": "将图片转换为Base64和其他格式",
+    "meta": {
+      "title": "图片编码器 - 在线图片Base64转换工具",
+      "description": "免费图片编码工具，支持图片转Base64、Base64转图片，提供图片预览和信息显示功能。"
+    },
     "features": {
       "image_to_base64": "图片转Base64",
       "base64_to_image": "Base64转图片",
@@ -565,6 +603,10 @@
   "qr": {
     "title": "二维码生成器",
     "description": "为网址、文本、WiFi、电话号码等生成二维码",
+    "meta": {
+      "title": "二维码生成器 - 在线二维码制作工具",
+      "description": "免费二维码生成和解码工具，支持文本、URL、WiFi、联系人等多种格式，可自定义样式和纠错级别。"
+    },
     "features": {
       "multiple_types": "多种类型",
       "customizable": "可自定义",

@@ -18,7 +18,7 @@ export function encodeBase64(text: string): Base64Result {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '编码失败' 
+      error: error instanceof Error ? error.message : 'Encoding failed' 
     };
   }
 }
@@ -33,7 +33,7 @@ export function decodeBase64(text: string): Base64Result {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : '解码失败' 
+      error: error instanceof Error ? error.message : 'Decoding failed' 
     };
   }
 }
@@ -66,7 +66,7 @@ export function fileToBase64(file: File): Promise<Base64Result> {
       resolve({ success: true, data: base64 });
     };
     reader.onerror = () => {
-      resolve({ success: false, error: '文件读取失败' });
+      resolve({ success: false, error: 'File reading failed' });
     };
     reader.readAsDataURL(file);
   });

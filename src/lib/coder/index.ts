@@ -21,7 +21,4 @@ export * from './json';
 export * from './qr';
 
 // 图像编码解码
-export * from './image';
-
-// JWT 工具 (从现有的 jwt.ts 导入)
-export * from '../jwt'; 
+export * from './image'; 

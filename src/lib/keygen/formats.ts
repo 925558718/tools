@@ -7,6 +7,7 @@ export const exportToPEM = async (keyPair: any, passphrase?: string) => {
   const privateKey = await jose.exportPKCS8(keyPair.privateKey);
   const publicKey = await jose.exportSPKI(keyPair.publicKey);
   
+  // jose.exportPKCS8 和 jose.exportSPKI 已经返回完整的PEM格式，无需再添加头尾
   return {
     privateKey,
     publicKey
@@ -43,8 +44,8 @@ export const exportToDER = async (keyPair: any) => {
  * 从PEM格式导入密钥
  */
 export const importFromPEM = async (privateKeyPEM: string, publicKeyPEM: string, passphrase?: string) => {
-  const privateKey = await jose.importPKCS8(privateKeyPEM);
-  const publicKey = await jose.importSPKI(publicKeyPEM);
+  const privateKey = await jose.importPKCS8(privateKeyPEM, 'RS256');
+  const publicKey = await jose.importSPKI(publicKeyPEM, 'RS256');
   
   return { privateKey, publicKey };
 };

@@ -27,7 +27,7 @@ export function formatJSON(json: string, indent = 2): JsonResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? `JSON解析错误: ${error.message}` : '无效的JSON格式' 
+      error: error instanceof Error ? `JSON parsing error: ${error.message}` : 'Invalid JSON format' 
     };
   }
 }
@@ -43,7 +43,7 @@ export function minifyJSON(json: string): JsonResult {
   } catch (error) {
     return { 
       success: false, 
-      error: error instanceof Error ? `JSON解析错误: ${error.message}` : '无效的JSON格式' 
+      error: error instanceof Error ? `JSON parsing error: ${error.message}` : 'Invalid JSON format' 
     };
   }
 }
@@ -59,7 +59,7 @@ export function validateJSON(json: string): JsonValidationResult {
   } catch (error) {
     return { 
       isValid: false, 
-      error: error instanceof Error ? error.message : '未知错误',
+      error: error instanceof Error ? error.message : 'Unknown error',
       size: 0
     };
   }
@@ -79,16 +79,16 @@ export function processJSON(json: string, mode: JsonMode, indent = 2): JsonResul
       if (validation.isValid) {
         return { 
           success: true, 
-          data: `✅ JSON格式有效\n字符数: ${validation.size}` 
+          data: `✅ JSON format is valid\nCharacter count: ${validation.size}` 
         };
       }
       return { 
         success: false, 
-        error: `❌ JSON格式无效\n错误详情: ${validation.error}` 
+        error: `❌ Invalid JSON format\nError details: ${validation.error}` 
       };
     }
     default:
-      return { success: false, error: '不支持的JSON处理模式' };
+      return { success: false, error: 'Unsupported JSON processing mode' };
   }
 }
 
@@ -133,7 +133,7 @@ export function fileToJSON(file: File): Promise<JsonResult> {
       resolve({ success: true, data: content });
     };
     reader.onerror = () => {
-      resolve({ success: false, error: '文件读取失败' });
+      resolve({ success: false, error: 'File reading failed' });
     };
     reader.readAsText(file);
   });
