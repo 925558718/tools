@@ -72,7 +72,7 @@ export const testKeyPair = async (keyPair: KeyPair): Promise<boolean> => {
     const testData = new TextEncoder().encode('test message');
     
     // 使用私钥签名
-    const signature = await jose.SignJWT({ test: 'data' })
+    const signature = await new jose.SignJWT({ test: 'data' })
       .setProtectedHeader({ alg: keyPair.algorithm })
       .sign(importedKeys.privateKey);
 
@@ -91,15 +91,17 @@ export const testKeyPair = async (keyPair: KeyPair): Promise<boolean> => {
 const importKeyPair = async (keyPair: KeyPair) => {
   try {
     switch (keyPair.format) {
-      case 'PEM':
-        const privateKey = await jose.importPKCS8(keyPair.privateKey);
-        const publicKey = await jose.importSPKI(keyPair.publicKey);
+      case 'PEM': {
+        const privateKey = await jose.importPKCS8(keyPair.privateKey, keyPair.algorithm);
+        const publicKey = await jose.importSPKI(keyPair.publicKey, keyPair.algorithm);
         return { privateKey, publicKey };
+      }
       
-      case 'JWK':
-        const privateJWK = await jose.importJWK(JSON.parse(keyPair.privateKey));
-        const publicJWK = await jose.importJWK(JSON.parse(keyPair.publicKey));
+      case 'JWK': {
+        const privateJWK = await jose.importJWK(JSON.parse(keyPair.privateKey), keyPair.algorithm);
+        const publicJWK = await jose.importJWK(JSON.parse(keyPair.publicKey), keyPair.algorithm);
         return { privateKey: privateJWK, publicKey: publicJWK };
+      }
       
       default:
         return null;

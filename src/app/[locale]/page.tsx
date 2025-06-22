@@ -4,7 +4,8 @@ import HomePageContent from "./HomePageContent";
 
 export async function generateMetadata({
 	params,
-}: { params: { locale: string } }): Promise<Metadata> {
+}: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+	const { locale } = await params;
 	const t = await getTranslations();
 console.log(t("logo_subtitle"))
 	const appName = t("structured_data_app_name") || "Developer Tools";
