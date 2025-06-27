@@ -18,6 +18,8 @@ export default function QRPage() {
   const [input, setInput] = useState('');
   const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
   const [decodedText, setDecodedText] = useState<string | null>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [options, setOptions] = useState<QRCodeOptions>({
     width: 256,
     margin: 4,
@@ -28,6 +30,34 @@ export default function QRPage() {
     errorCorrectionLevel: 'M'
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+
+  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('请选择图片文件');
+      return;
+    }
+
+    setLogoFile(file);
+    
+    // 创建预览
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setLogoPreview(e.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveLogo = () => {
+    setLogoFile(null);
+    setLogoPreview(null);
+    if (logoInputRef.current) {
+      logoInputRef.current.value = '';
+    }
+  };
 
   const handleGenerateQRCode = async () => {
     if (!input.trim()) {
@@ -36,7 +66,21 @@ export default function QRPage() {
     }
 
     try {
-      const result = await generateQRCode(input, options);
+      // 准备选项
+      const qrOptions = { ...options };
+      
+      // 如果有Logo，添加到选项中
+      if (logoFile && logoPreview) {
+        qrOptions.logo = {
+          src: logoPreview,
+          width: 48, // 默认Logo尺寸
+          height: 48
+        };
+        // 使用Logo时建议使用高纠错级别
+        qrOptions.errorCorrectionLevel = 'H';
+      }
+
+      const result = await generateQRCode(input, qrOptions);
       
       if (result.success && result.dataUrl) {
         setQrCodeUrl(result.dataUrl);
@@ -82,8 +126,13 @@ export default function QRPage() {
     setInput('');
     setQrCodeUrl(null);
     setDecodedText(null);
+    setLogoFile(null);
+    setLogoPreview(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
+    }
+    if (logoInputRef.current) {
+      logoInputRef.current.value = '';
     }
   };
 
@@ -224,6 +273,53 @@ export default function QRPage() {
                 </select>
               </div>
 
+              <div className="space-y-2">
+                <Label htmlFor="logo-upload">Logo设置（可选）</Label>
+                <div className="flex gap-2 items-center">
+                  <Button
+                    variant="outline"
+                    onClick={() => logoInputRef.current?.click()}
+                    type="button"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    上传Logo
+                  </Button>
+                  {logoFile && (
+                    <Button
+                      variant="outline"
+                      onClick={handleRemoveLogo}
+                      type="button"
+                    >
+                      <RotateCcw className="w-4 h-4 mr-2" />
+                      移除Logo
+                    </Button>
+                  )}
+                </div>
+                <input
+                  ref={logoInputRef}
+                  type="file"
+                  className="hidden"
+                  onChange={handleLogoUpload}
+                  accept="image/*"
+                />
+                {logoPreview && (
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-600 mb-2">Logo预览：</p>
+                    <img
+                      src={logoPreview}
+                      alt="Logo预览"
+                      className="w-16 h-16 object-contain border rounded"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      使用Logo时建议选择"最高"纠错级别以确保可读性
+                    </p>
+                  </div>
+                )}
+                <p className="text-sm text-gray-500">
+                  支持PNG、JPG等格式，建议使用透明背景的Logo
+                </p>
+              </div>
+
               <div className="flex gap-2">
                 <Button onClick={handleGenerateQRCode}>{t('qr.input.generate_button')}</Button>
                 <Button variant="outline" onClick={handleClear}>
@@ -355,6 +451,20 @@ export default function QRPage() {
           <p><strong>{t('qr.instructions.size')}</strong>{t('qr.instructions.size_desc')}</p>
           <p><strong>{t('qr.instructions.error_correction')}</strong>{t('qr.instructions.error_correction_desc')}</p>
           <p><strong>{t('qr.instructions.types')}</strong>{t('qr.instructions.types_desc')}</p>
+          <p><strong>二维码样式类型：</strong></p>
+          <ul className="list-disc list-inside ml-4 space-y-1">
+            <li><strong>标准二维码：</strong>纯黑白图案，无Logo，适合一般用途</li>
+            <li><strong>带Logo二维码：</strong>中心嵌入公司Logo，增强品牌识别度</li>
+            <li><strong>彩色二维码：</strong>使用自定义颜色，保持品牌一致性</li>
+            <li><strong>艺术二维码：</strong>具有装饰性设计元素</li>
+          </ul>
+          <p><strong>Logo使用建议：</strong></p>
+          <ul className="list-disc list-inside ml-4 space-y-1">
+            <li>使用透明背景的PNG格式Logo效果最佳</li>
+            <li>Logo尺寸建议不超过二维码的20%</li>
+            <li>使用Logo时选择"最高"纠错级别以确保可读性</li>
+            <li>避免使用过于复杂的Logo图案</li>
+          </ul>
         </CardContent>
       </Card>
     </div>

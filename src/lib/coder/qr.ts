@@ -10,6 +10,11 @@ export interface QRCodeOptions {
     light: string;
   };
   errorCorrectionLevel: 'L' | 'M' | 'Q' | 'H';
+  logo?: {
+    src: string; // Logo图片的URL或DataURL
+    width: number; // Logo宽度（像素）
+    height: number; // Logo高度（像素）
+  };
 }
 
 export interface QRCodeResult {
@@ -25,6 +30,80 @@ export interface QRDecodeResult {
 }
 
 /**
+ * 生成带Logo的QR码
+ */
+export async function generateQRCodeWithLogo(
+  content: string,
+  options: QRCodeOptions
+): Promise<QRCodeResult> {
+  try {
+    // 动态导入QRCode库
+    const QRCode = (await import('qrcode')).default;
+    
+    // 首先生成基础二维码
+    const qrDataUrl = await QRCode.toDataURL(content, {
+      width: options.width,
+      margin: options.margin,
+      color: {
+        dark: options.color.dark,
+        light: options.color.light
+      },
+      errorCorrectionLevel: options.errorCorrectionLevel
+    });
+
+    // 如果没有Logo，直接返回基础二维码
+    if (!options.logo) {
+      return { success: true, dataUrl: qrDataUrl };
+    }
+
+    // 创建Canvas来合成Logo
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return { success: false, error: 'Unable to create canvas context' };
+    }
+
+    // 加载二维码图片
+    const qrImage = new Image();
+    await new Promise((resolve, reject) => {
+      qrImage.onload = resolve;
+      qrImage.onerror = reject;
+      qrImage.src = qrDataUrl;
+    });
+
+    // 设置Canvas尺寸
+    canvas.width = options.width;
+    canvas.height = options.width;
+
+    // 绘制二维码
+    ctx.drawImage(qrImage, 0, 0, options.width, options.width);
+
+    // 加载并绘制Logo
+    const logoImage = new Image();
+    await new Promise((resolve, reject) => {
+      logoImage.onload = resolve;
+      logoImage.onerror = reject;
+      logoImage.src = options.logo?.src || '';
+    });
+
+    // 计算Logo位置（居中）
+    const logoX = (options.width - (options.logo?.width || 0)) / 2;
+    const logoY = (options.width - (options.logo?.height || 0)) / 2;
+
+    // 绘制Logo
+    ctx.drawImage(logoImage, logoX, logoY, options.logo?.width || 0, options.logo?.height || 0);
+
+    // 返回合成后的DataURL
+    return { success: true, dataUrl: canvas.toDataURL('image/png') };
+  } catch (error) {
+    return { 
+      success: false, 
+      error: error instanceof Error ? error.message : 'QR code generation with logo failed' 
+    };
+  }
+}
+
+/**
  * 生成QR码
  */
 export async function generateQRCode(
@@ -36,6 +115,11 @@ export async function generateQRCode(
     errorCorrectionLevel: 'M'
   }
 ): Promise<QRCodeResult> {
+  // 如果有Logo选项，使用带Logo的生成方法
+  if (options.logo) {
+    return generateQRCodeWithLogo(content, options);
+  }
+
   try {
     // 动态导入QRCode库
     const QRCode = (await import('qrcode')).default;
@@ -60,52 +144,25 @@ export async function generateQRCode(
 }
 
 /**
- * 解码QR码
+ * 解码QR码（使用qr-scanner）
  */
 export async function decodeQRCode(file: File): Promise<QRDecodeResult> {
   try {
-    // 动态导入jsQR库
-    const jsQR = (await import('jsqr')).default;
+    const QrScanner = (await import('qr-scanner')).default;
     
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            resolve({ success: false, error: 'Unable to process image' });
-            return;
-          }
-
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const code = jsQR(imageData.data, imageData.width, imageData.height);
-          
-          if (code) {
-            resolve({ success: true, text: code.data });
-          } else {
-            resolve({ success: false, error: 'Unable to recognize QR code' });
-          }
-        };
-        img.onerror = () => {
-          resolve({ success: false, error: 'Image loading failed' });
-        };
-        img.src = e.target?.result as string;
+    try {
+      const result = await QrScanner.scanImage(file);
+      return { success: true, text: result };
+    } catch (error) {
+      return { 
+        success: false, 
+        error: '无法识别二维码，请确保图片清晰且包含有效的二维码' 
       };
-      reader.onerror = () => {
-        resolve({ success: false, error: 'File reading failed' });
-      };
-      reader.readAsDataURL(file);
-    });
+    }
   } catch (error) {
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'QR code decoding failed' 
+    return {
+      success: false,
+      error: '解码器加载失败'
     };
   }
 }

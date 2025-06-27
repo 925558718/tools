@@ -3,7 +3,6 @@ import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Open_Sans, Inter } from "next/font/google";
 import clsx from "clsx";
 import { Toaster } from "@/components/shadcn/sonner";
@@ -15,9 +14,6 @@ import {
 	getNormalizedLocale,
 } from "@/i18n/langMap";
 import BugsnagErrorBoundary from "@/components/Bugsnap";
-import { headers } from "next/headers";
-import { getTranslations } from "next-intl/server";
-
 
 const Opensans = Open_Sans({
 	subsets: ["latin"],
@@ -103,11 +99,6 @@ export default async function RootLayout({
 			<head>
 				{/* 多语言SEO优化 */}
 				<meta httpEquiv="content-language" content={locale} />
-				<script
-					src="https://analytics.ahrefs.com/analytics.js"
-					data-key="fAy0GhLZ8HwbJfkrQ3zMOw"
-					async
-				/>
 			</head>
 			<body
 				className={clsx(
@@ -148,7 +139,6 @@ export default async function RootLayout({
 						</NextIntlClientProvider>
 					</ThemeProvider>
 				</BugsnagErrorBoundary>
-				<GoogleAnalytics gaId="G-89618T8EX2" />
 			</body>
 		</html>
 	);
