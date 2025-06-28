@@ -23,19 +23,5 @@
   "nav_image_encoding": "Bildkodierung",
   "nav_image_encoding_desc": "Bild-Base64-Kodierungskonvertierung",
   "nav_keygen": "Schlüsselgenerator",
-  "nav_keygen_desc": "RSA-, ECDSA- und EdDSA-Schlüsselpaare generieren",
-  "home": "Startseite",
-  "coder": "Kodierer",
-  "cryption": "Verschlüsselung",
-  "css": "CSS",
-  "base64": "Base64",
-  "url": "URL",
-  "hash": "Hash",
-  "jwt": "JWT",
-  "qr": "QR-Code",
-  "hex": "Hex",
-  "json": "JSON",
-  "image": "Bild",
-  "keygen": "Schlüsselgenerator",
-  "gradient": "Gradient"
+  "nav_keygen_desc": "RSA-, ECDSA- und EdDSA-Schlüsselpaare generieren"
 } 

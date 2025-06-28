@@ -72,6 +72,7 @@ export const langVariantMap: Record<string, SupportedLocale> = {
  */
 export function getNormalizedLocale(locale: string): SupportedLocale {
   // 转为小写并查找映射
+  console.log(locale);
   const normalizedLocale = locale.toLowerCase();
   
   // 尝试直接匹配
@@ -88,42 +89,3 @@ export function getNormalizedLocale(locale: string): SupportedLocale {
   // 不支持的语言返回默认语言
   return defaultLocale;
 }
-
-/**
- * 获取语言的显示名称
- * @param locale 语言代码
- * @returns 语言的本地化显示名称
- */
-export function getLanguageDisplayName(locale: SupportedLocale): string {
-  const displayNames: Record<SupportedLocale, string> = {
-    'en': 'English',
-    'zh-CN': '简体中文',
-    'es': 'Español',
-    'fr': 'Français',
-    'de': 'Deutsch',
-    'ja': '日本語',
-    'ru': 'Русский'
-  };
-  
-  return displayNames[locale] || locale;
-}
-
-/**
- * 获取Open Graph的locale格式
- * @param locale 语言代码
- * @returns 符合Open Graph规范的locale字符串
- */
-export function getOpenGraphLocale(locale: SupportedLocale): string {
-  const ogLocaleMap: Record<SupportedLocale, string> = {
-    'en': 'en_US',
-    'zh-CN': 'zh_CN',
-    'es': 'es_ES',
-    'fr': 'fr_FR',
-    'de': 'de_DE',
-    'ja': 'ja_JP',
-    'ru': 'ru_RU'
-  };
-  
-  return ogLocaleMap[locale] || 'en_US';
-}
-

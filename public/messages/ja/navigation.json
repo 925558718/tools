@@ -23,19 +23,5 @@
   "nav_image_encoding": "画像エンコード",
   "nav_image_encoding_desc": "画像のBase64エンコード変換",
   "nav_keygen": "鍵生成",
-  "nav_keygen_desc": "RSA、ECDSA、EdDSA鍵ペアの生成",
-  "home": "ホーム",
-  "coder": "エンコーダー",
-  "cryption": "暗号化",
-  "css": "CSS",
-  "base64": "Base64",
-  "url": "URL",
-  "hash": "ハッシュ",
-  "jwt": "JWT",
-  "qr": "QRコード",
-  "hex": "16進数",
-  "json": "JSON",
-  "image": "画像",
-  "keygen": "鍵生成",
-  "gradient": "グラデーション"
+  "nav_keygen_desc": "RSA、ECDSA、EdDSA鍵ペアの生成"
 } 

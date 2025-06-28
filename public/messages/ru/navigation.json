@@ -23,19 +23,5 @@
   "nav_image_encoding": "Кодирование изображений",
   "nav_image_encoding_desc": "Преобразование изображений в Base64",
   "nav_keygen": "Генератор ключей",
-  "nav_keygen_desc": "Генерация пар ключей RSA, ECDSA и EdDSA",
-  "home": "Главная",
-  "coder": "Кодировщик",
-  "cryption": "Шифрование",
-  "css": "CSS",
-  "base64": "Base64",
-  "url": "URL",
-  "hash": "Хеш",
-  "jwt": "JWT",
-  "qr": "QR-код",
-  "hex": "Hex",
-  "json": "JSON",
-  "image": "Изображение",
-  "keygen": "Генератор ключей",
-  "gradient": "Градиент"
+  "nav_keygen_desc": "Генерация пар ключей RSA, ECDSA и EdDSA"
 } 

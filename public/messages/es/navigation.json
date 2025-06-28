@@ -1,18 +1,4 @@
 {
-  "home": "Inicio",
-  "coder": "Codificador",
-  "cryption": "Criptografía",
-  "css": "CSS",
-  "base64": "Base64",
-  "url": "URL",
-  "hash": "Hash",
-  "jwt": "JWT",
-  "qr": "Código QR",
-  "hex": "Hex",
-  "json": "JSON",
-  "image": "Imagen",
-  "keygen": "Generador de Claves",
-  "gradient": "Gradiente",
   "nav_gradient_generator": "Generador de Gradientes",
   "nav_home": "Inicio",
   "nav_tools": "Herramientas",
@@ -36,5 +22,6 @@
   "nav_json_formatter_desc": "Formateo y compresión JSON",
   "nav_image_encoding": "Codificación de Imagen",
   "nav_image_encoding_desc": "Conversión de codificación Base64 de imágenes",
+  "nav_keygen": "Generador de Claves",
   "nav_keygen_desc": "Generar pares de claves RSA, ECDSA y EdDSA"
 } 
