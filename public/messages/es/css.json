@@ -1,0 +1,89 @@
+{
+  "gradient": {
+    "title": "Generador de Gradientes CSS",
+    "subtitle": "Crea hermosos gradientes con vista previa en vivo y código CSS o Tailwind listo para copiar",
+    "meta": {
+      "title": "Generador de Gradientes CSS - Herramienta en línea para crear gradientes lineales y radiales",
+      "description": "Generador gratuito de gradientes CSS para gradientes lineales y radiales. Vista previa en vivo y exportación de código Tailwind para diseño web y desarrollo frontend."
+    },
+    "features": {
+      "live_preview": "Vista Previa en Vivo",
+      "css_tailwind": "CSS & Tailwind",
+      "interactive_editor": "Editor Interactivo"
+    },
+    "preview": {
+      "title": "Vista Previa en Vivo",
+      "description": "Ve tu gradiente en tiempo real",
+      "interactive_bar": "Barra de Colores Interactiva - Haz clic para agregar, arrastra para mover",
+      "tip": "💡 Haz clic en cualquier lugar para agregar una parada de color, arrastra las paradas existentes para reposicionarlas, haz clic en una parada para editarla"
+    },
+    "settings": {
+      "title": "Configuración",
+      "type": "Tipo",
+      "linear": "Lineal",
+      "radial": "Radial",
+      "direction": "Dirección",
+      "shape": "Forma",
+      "random": "Aleatorio",
+      "reset": "Restablecer",
+      "simplify": "Simplificar para Tailwind"
+    },
+    "directions": {
+      "to_right": "A la Derecha (90deg)",
+      "to_top": "Hacia Arriba (0deg)",
+      "to_bottom": "Hacia Abajo (180deg)",
+      "to_left": "A la Izquierda (270deg)",
+      "to_top_right": "Arriba-Derecha (45deg)",
+      "to_bottom_right": "Abajo-Derecha (135deg)",
+      "to_bottom_left": "Abajo-Izquierda (225deg)",
+      "to_top_left": "Arriba-Izquierda (315deg)"
+    },
+    "shapes": {
+      "circle": "Círculo",
+      "ellipse": "Elipse",
+      "circle_center": "Círculo en el Centro",
+      "ellipse_center": "Elipse en el Centro",
+      "circle_top": "Círculo en la Parte Superior",
+      "circle_bottom": "Círculo en la Parte Inferior"
+    },
+    "code": {
+      "title": "Código Generado",
+      "description": "Copia el código para usar en tu proyecto",
+      "css": "CSS",
+      "tailwind": "Tailwind",
+      "background_property": "Propiedad de Fondo",
+      "css_class": "Clase CSS",
+      "tailwind_classes": "Clases Tailwind CSS {version}",
+      "usage_example": "Ejemplo de Uso",
+      "copy": "Copiar"
+    },
+    "versions": {
+      "version": "Versión",
+      "v3": "v3 (Actual)",
+      "v4": "v4 (Última)",
+      "v3_note": "Tailwind CSS v3: Usa sintaxis tradicional de gradientes (bg-gradient-*). Esta es la versión estable actualmente en uso amplio.",
+      "v4_note": "Tailwind CSS v4: Usa nueva sintaxis de gradientes (bg-linear-*, bg-radial-*). Esta es la última versión con utilidades de gradientes mejoradas."
+    },
+    "complex_gradient": {
+      "title": "Gradiente Complejo",
+      "description": "Usando valor arbitrario porque:",
+      "reason1": "• Los colores no están en la paleta estándar de Tailwind, o",
+      "reason2": "• Más de 3 paradas de color (Tailwind soporta máximo 3: from/via/to)",
+      "note": "Nota: Tailwind CSS soporta sintaxis de posiciones como:",
+      "position_examples": "• from-blue-500 from-10%\n• via-red-500 via-30%\n• to-green-500 to-90%",
+      "arbitrary_format": "Formato de Valor Arbitrario: bg-[linear-gradient(...)]"
+    },
+    "color_stop": {
+      "edit": "Editar Parada de Color",
+      "color": "Color",
+      "position": "Posición (%)",
+      "opacity": "Opacidad (%)"
+    },
+    "messages": {
+      "positions_adjusted": "¡Posiciones del gradiente ajustadas a 0%, 50%, 100%!",
+      "simplified_to_3": "Simplificado a 3 colores: {colors}",
+      "copied": "¡Copiado al portapapeles!",
+      "added_color_stop": "Parada de color agregada en {percentage}%"
+    }
+  }
+} 

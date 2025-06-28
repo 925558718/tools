@@ -1,0 +1,33 @@
+{
+	"keygen": {
+		"title": "Generador de Pares de Claves",
+		"description": "Genera pares de claves criptográficas seguras para algoritmos RSA, ECDSA y EdDSA",
+		"algorithm": "Algoritmo",
+		"keySize": "Tamaño de Clave",
+		"curve": "Curva",
+		"format": "Formato",
+		"passphrase": "Contraseña (Opcional)",
+		"passphrasePlaceholder": "Ingresa una contraseña para encriptar la clave privada",
+		"generate": "Generar Par de Claves",
+		"generating": "Generando...",
+		"success": "¡Par de claves generado exitosamente!",
+		"error": "Error al generar el par de claves",
+		"privateKey": "Clave Privada",
+		"publicKey": "Clave Pública",
+		"algorithms": {
+			"RS256": "RSA SHA-256",
+			"RS384": "RSA SHA-384",
+			"RS512": "RSA SHA-512",
+			"ES256": "ECDSA SHA-256",
+			"ES384": "ECDSA SHA-384",
+			"ES512": "ECDSA SHA-512",
+			"EdDSA": "Firma Digital de Curva de Edwards"
+		},
+		"security": "Alto",
+		"bits": "bits",
+		"metadata": {
+			"title": "Generador de Pares de Claves - Generar Claves RSA, ECDSA, EdDSA",
+			"description": "Herramienta gratuita en línea para generar pares de claves criptográficas seguras. Soporte para algoritmos RSA, ECDSA y EdDSA con múltiples formatos de salida."
+		}
+	}
+}

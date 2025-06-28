@@ -1,0 +1,89 @@
+{
+  "gradient": {
+    "title": "CSS-Gradient-Generator",
+    "subtitle": "Erstellen Sie schöne Gradienten mit Live-Vorschau und kopierbereitem CSS- oder Tailwind-Code",
+    "meta": {
+      "title": "CSS-Gradient-Generator - Online-Linear-Radial-Gradient-Code-Tool",
+      "description": "Kostenloser CSS-Gradient-Generator für lineare und radiale Gradienten. Live-Vorschau und Tailwind-Code-Export für Webdesign und Frontend-Entwicklung."
+    },
+    "features": {
+      "live_preview": "Live-Vorschau",
+      "css_tailwind": "CSS & Tailwind",
+      "interactive_editor": "Interaktiver Editor"
+    },
+    "preview": {
+      "title": "Live-Vorschau",
+      "description": "Sehen Sie Ihren Gradienten in Echtzeit",
+      "interactive_bar": "Interaktive Farbleiste - Klicken zum Hinzufügen, Ziehen zum Bewegen",
+      "tip": "💡 Klicken Sie überall, um einen Farbstopp hinzuzufügen, ziehen Sie bestehende Stopps, um sie neu zu positionieren, klicken Sie auf einen Stopp, um ihn zu bearbeiten"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "type": "Typ",
+      "linear": "Linear",
+      "radial": "Radial",
+      "direction": "Richtung",
+      "shape": "Form",
+      "random": "Zufällig",
+      "reset": "Zurücksetzen",
+      "simplify": "Für Tailwind vereinfachen"
+    },
+    "directions": {
+      "to_right": "Nach Rechts (90deg)",
+      "to_top": "Nach Oben (0deg)",
+      "to_bottom": "Nach Unten (180deg)",
+      "to_left": "Nach Links (270deg)",
+      "to_top_right": "Nach Oben-Rechts (45deg)",
+      "to_bottom_right": "Nach Unten-Rechts (135deg)",
+      "to_bottom_left": "Nach Unten-Links (225deg)",
+      "to_top_left": "Nach Oben-Links (315deg)"
+    },
+    "shapes": {
+      "circle": "Kreis",
+      "ellipse": "Ellipse",
+      "circle_center": "Kreis im Zentrum",
+      "ellipse_center": "Ellipse im Zentrum",
+      "circle_top": "Kreis oben",
+      "circle_bottom": "Kreis unten"
+    },
+    "code": {
+      "title": "Generierter Code",
+      "description": "Kopieren Sie den Code für Ihr Projekt",
+      "css": "CSS",
+      "tailwind": "Tailwind",
+      "background_property": "Hintergrund-Eigenschaft",
+      "css_class": "CSS-Klasse",
+      "tailwind_classes": "Tailwind CSS {version} Klassen",
+      "usage_example": "Verwendungsbeispiel",
+      "copy": "Kopieren"
+    },
+    "versions": {
+      "version": "Version",
+      "v3": "v3 (Aktuell)",
+      "v4": "v4 (Neueste)",
+      "v3_note": "Tailwind CSS v3: Verwendet traditionelle Gradient-Syntax (bg-gradient-*). Dies ist die stabile Version, die derzeit weit verbreitet ist.",
+      "v4_note": "Tailwind CSS v4: Verwendet neue Gradient-Syntax (bg-linear-*, bg-radial-*). Dies ist die neueste Version mit verbesserten Gradient-Utilities."
+    },
+    "complex_gradient": {
+      "title": "Komplexer Gradient",
+      "description": "Verwenden von beliebigem Wert, weil:",
+      "reason1": "• Farben nicht in Tailwinds Standard-Palette, oder",
+      "reason2": "• Mehr als 3 Farbstopps (Tailwind unterstützt max. 3: from/via/to)",
+      "note": "Hinweis: Tailwind CSS unterstützt Positions-Syntax wie:",
+      "position_examples": "• from-blue-500 from-10%\n• via-red-500 via-30%\n• to-green-500 to-90%",
+      "arbitrary_format": "Beliebiger Wert-Format: bg-[linear-gradient(...)]"
+    },
+    "color_stop": {
+      "edit": "Farbstopp bearbeiten",
+      "color": "Farbe",
+      "position": "Position (%)",
+      "opacity": "Deckkraft (%)"
+    },
+    "messages": {
+      "positions_adjusted": "Gradient-Positionen auf 0%, 50%, 100% angepasst!",
+      "simplified_to_3": "Auf 3 Farben vereinfacht: {colors}",
+      "copied": "In die Zwischenablage kopiert!",
+      "added_color_stop": "Farbstopp bei {percentage}% hinzugefügt"
+    }
+  }
+} 

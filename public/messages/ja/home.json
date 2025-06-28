@@ -1,0 +1,64 @@
+{
+  "title": "開発ツール",
+  "description": "Web開発とプログラミングユーティリティの完全なコレクション",
+  "meta": {
+    "title": "開発ツール - Webユーティリティとプログラミング",
+    "description": "Web開発者向けの無料ツール。エンコーディング、暗号化、CSS、ジェネレーターなど。"
+  },
+  "hero": {
+    "title": "開発ツール",
+    "subtitle": "開発者向けの完全なユーティリティコレクション",
+    "description": "エンコーディング、暗号化、CSSなどの無料オープンソースツール。Web開発者とプログラマー向けに設計。",
+    "cta": "ツールを探索"
+  },
+  "features": {
+    "title": "主要機能",
+    "items": [
+      {
+        "title": "エンコーディングツール",
+        "description": "Base64、URL、ハッシュ、JWTなど",
+        "icon": "code"
+      },
+      {
+        "title": "暗号化",
+        "description": "鍵生成と安全な暗号化",
+        "icon": "shield"
+      },
+      {
+        "title": "CSSとデザイン",
+        "description": "グラデーションジェネレーターとCSSユーティリティ",
+        "icon": "palette"
+      }
+    ]
+  },
+  "tools": {
+    "title": "利用可能なツール",
+    "description": "開発ツールコレクションを探索"
+  },
+  "meta_title": "開発ツール - 無料オンライン開発ユーティリティ",
+  "meta_description": "CSSグラデーションジェネレーター、コードユーティリティ、Web開発支援を含む無料オンライン開発ツール。",
+  "meta_keywords": "開発ツール、CSSツール、グラデーションジェネレーター、Web開発、無料ツール、オンラインユーティリティ",
+  "structured_data_app_name": "開発ツール",
+  "structured_data_description": "無料オンライン開発ツールとWeb開発ユーティリティ",
+  "structured_data_features": [
+    "CSSグラデーションジェネレーター",
+    "コードユーティリティ",
+    "Web開発ツール",
+    "無料開発ツール"
+  ],
+  "hero_title": "無料開発ツール",
+  "hero_subtitle": "開発者とデザイナー向けのプロフェッショナルユーティリティ",
+  "tools_section_title": "私たちのツール",
+  "tools_section_description": "無料オンライン開発ツールコレクションを発見",
+  "logo_subtitle": "開発ツール",
+  "ad_label": "広告",
+  "footer_copyright": "© 2024 limgx.com. 全著作権所有。",
+  "footer_description": "ソフトウェア開発のための無料オンライン開発ツール",
+  "footer_services_title": "LimgXサービスエコシステム",
+  "footer_service_main": "画像処理サービス",
+  "footer_service_tools": "開発ツールコレクション",
+  "footer_main_site": "メインサイト",
+  "theme_light": "ライト",
+  "theme_dark": "ダーク",
+  "language_selector": "言語"
+} 

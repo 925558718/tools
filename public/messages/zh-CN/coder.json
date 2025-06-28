@@ -663,7 +663,12 @@
       "alt_text": "二维码"
     },
     "examples": {
-      "title": "快速示例"
+      "title": "快速示例",
+      "url": "https://example.com",
+      "text": "Hello World",
+      "number": "123456789",
+      "wifi": "WIFI:T:WPA;S:MyWiFi;P:password123;;",
+      "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:张三\nTEL:13800138000\nEND:VCARD"
     },
     "types": {
       "text": "文本",
@@ -710,17 +715,43 @@
       "invalid_url": "无效的网址格式",
       "invalid_email": "无效的邮箱格式",
       "invalid_phone": "无效的电话号码格式",
-      "generation_failed": "二维码生成失败"
+      "generation_failed": "二维码生成失败",
+      "decode_failed": "二维码解码失败",
+      "no_qr_found": "无法识别QR码，请确保图片清晰且包含有效的QR码"
     },
     "success": {
       "generated": "二维码生成成功",
-      "copied": "已复制到剪贴板"
+      "copied": "已复制到剪贴板",
+      "decoded": "QR码解码成功"
     },
     "common": {
       "clear": "清空",
       "copy": "复制",
       "reset": "重置",
       "preview": "预览"
+    },
+    "logo": {
+      "title": "Logo设置（可选）",
+      "upload": "上传Logo",
+      "remove": "移除Logo",
+      "preview": "Logo预览：",
+      "preview_alt": "Logo预览",
+      "error_correction_hint": "使用Logo时建议选择\"最高\"纠错级别以确保可读性",
+      "format_hint": "支持PNG、JPG等格式，建议使用透明背景的Logo"
+    },
+    "qr_styles": {
+      "title": "二维码样式类型：",
+      "standard": "标准二维码：纯黑白图案，无Logo，适合一般用途",
+      "with_logo": "带Logo二维码：中心嵌入公司Logo，增强品牌识别度",
+      "colored": "彩色二维码：使用自定义颜色，保持品牌一致性",
+      "artistic": "艺术二维码：具有装饰性设计元素"
+    },
+    "logo_tips": {
+      "title": "Logo使用建议：",
+      "format": "使用透明背景的PNG格式Logo效果最佳",
+      "size": "Logo尺寸建议不超过二维码的20%",
+      "error_correction": "使用Logo时选择\"最高\"纠错级别以确保可读性",
+      "complexity": "避免使用过于复杂的Logo图案"
     }
   },
   "text_to_hex": {

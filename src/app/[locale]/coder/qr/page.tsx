@@ -37,7 +37,7 @@ export default function QRPage() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      toast.error('请选择图片文件');
+      toast.error(t('qr.errors.invalid_format'));
       return;
     }
 
@@ -107,10 +107,10 @@ export default function QRPage() {
       
       if (result.success && result.text) {
         setDecodedText(result.text);
-        toast.success('QR码解码成功');
+        toast.success(t('qr.success.decoded'));
       } else {
-        setDecodedText('无法识别QR码，请确保图片清晰且包含有效的QR码');
-        toast.error(result.error || '无法识别QR码');
+        setDecodedText(t('qr.errors.no_qr_found'));
+        toast.error(result.error || t('qr.errors.decode_failed'));
       }
     } catch (error) {
       toast.error(t('qr.errors.decode_failed'));
@@ -148,11 +148,11 @@ export default function QRPage() {
   };
 
   const quickExamples = [
-    'https://example.com',
-    'Hello World',
-    '123456789',
-    'WIFI:T:WPA;S:MyWiFi;P:password123;;',
-    'BEGIN:VCARD\nVERSION:3.0\nFN:张三\nTEL:13800138000\nEND:VCARD'
+    t('qr.examples.url'),
+    t('qr.examples.text'),
+    t('qr.examples.number'),
+    t('qr.examples.wifi'),
+    t('qr.examples.vcard')
   ];
 
   const errorCorrectionLevels = [
@@ -274,7 +274,7 @@ export default function QRPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="logo-upload">Logo设置（可选）</Label>
+                <Label htmlFor="logo-upload">{t('qr.logo.title')}</Label>
                 <div className="flex gap-2 items-center">
                   <Button
                     variant="outline"
@@ -282,7 +282,7 @@ export default function QRPage() {
                     type="button"
                   >
                     <Upload className="w-4 h-4 mr-2" />
-                    上传Logo
+                    {t('qr.logo.upload')}
                   </Button>
                   {logoFile && (
                     <Button
@@ -291,7 +291,7 @@ export default function QRPage() {
                       type="button"
                     >
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      移除Logo
+                      {t('qr.logo.remove')}
                     </Button>
                   )}
                 </div>
@@ -304,19 +304,19 @@ export default function QRPage() {
                 />
                 {logoPreview && (
                   <div className="mt-2">
-                    <p className="text-sm text-gray-600 mb-2">Logo预览：</p>
+                    <p className="text-sm text-gray-600 mb-2">{t('qr.logo.preview')}</p>
                     <img
                       src={logoPreview}
-                      alt="Logo预览"
+                      alt={t('qr.logo.preview_alt')}
                       className="w-16 h-16 object-contain border rounded"
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      {`使用Logo时建议选择"最高"纠错级别以确保可读性`}
+                      {t('qr.logo.error_correction_hint')}
                     </p>
                   </div>
                 )}
                 <p className="text-sm text-gray-500">
-                  {"支持PNG、JPG等格式，建议使用透明背景的Logo"}
+                  {t('qr.logo.format_hint')}
                 </p>
               </div>
 
@@ -451,19 +451,19 @@ export default function QRPage() {
           <p><strong>{t('qr.instructions.size')}</strong>{t('qr.instructions.size_desc')}</p>
           <p><strong>{t('qr.instructions.error_correction')}</strong>{t('qr.instructions.error_correction_desc')}</p>
           <p><strong>{t('qr.instructions.types')}</strong>{t('qr.instructions.types_desc')}</p>
-          <p><strong>二维码样式类型：</strong></p>
+          <p><strong>{t('qr.qr_styles.title')}</strong></p>
           <ul className="list-disc list-inside ml-4 space-y-1">
-            <li><strong>标准二维码：</strong>纯黑白图案，无Logo，适合一般用途</li>
-            <li><strong>带Logo二维码：</strong>中心嵌入公司Logo，增强品牌识别度</li>
-            <li><strong>彩色二维码：</strong>使用自定义颜色，保持品牌一致性</li>
-            <li><strong>艺术二维码：</strong>具有装饰性设计元素</li>
+            <li><strong>{t('qr.qr_styles.standard')}</strong></li>
+            <li><strong>{t('qr.qr_styles.with_logo')}</strong></li>
+            <li><strong>{t('qr.qr_styles.colored')}</strong></li>
+            <li><strong>{t('qr.qr_styles.artistic')}</strong></li>
           </ul>
-          <p><strong>Logo使用建议：</strong></p>
+          <p><strong>{t('qr.logo_tips.title')}</strong></p>
           <ul className="list-disc list-inside ml-4 space-y-1">
-            <li>使用透明背景的PNG格式Logo效果最佳</li>
-            <li>Logo尺寸建议不超过二维码的20%</li>
-            <li>{`使用Logo时选择"最高"纠错级别以确保可读性`}</li>
-            <li>避免使用过于复杂的Logo图案</li>
+            <li>{t('qr.logo_tips.format')}</li>
+            <li>{t('qr.logo_tips.size')}</li>
+            <li>{t('qr.logo_tips.error_correction')}</li>
+            <li>{t('qr.logo_tips.complexity')}</li>
           </ul>
         </CardContent>
       </Card>

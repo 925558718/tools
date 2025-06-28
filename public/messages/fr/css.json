@@ -1,0 +1,89 @@
+{
+  "gradient": {
+    "title": "Générateur de Dégradés CSS",
+    "subtitle": "Créez de beaux dégradés avec aperçu en direct et code CSS ou Tailwind prêt à copier",
+    "meta": {
+      "title": "Générateur de Dégradés CSS - Outil en ligne pour créer des dégradés linéaires et radiaux",
+      "description": "Générateur gratuit de dégradés CSS pour les dégradés linéaires et radiaux. Aperçu en direct et export de code Tailwind pour la conception web et le développement frontend."
+    },
+    "features": {
+      "live_preview": "Aperçu en Direct",
+      "css_tailwind": "CSS & Tailwind",
+      "interactive_editor": "Éditeur Interactif"
+    },
+    "preview": {
+      "title": "Aperçu en Direct",
+      "description": "Voyez votre dégradé en temps réel",
+      "interactive_bar": "Barre de Couleurs Interactive - Cliquez pour ajouter, glissez pour déplacer",
+      "tip": "💡 Cliquez n'importe où pour ajouter un arrêt de couleur, glissez les arrêts existants pour les repositionner, cliquez sur un arrêt pour l'éditer"
+    },
+    "settings": {
+      "title": "Paramètres",
+      "type": "Type",
+      "linear": "Linéaire",
+      "radial": "Radial",
+      "direction": "Direction",
+      "shape": "Forme",
+      "random": "Aléatoire",
+      "reset": "Réinitialiser",
+      "simplify": "Simplifier pour Tailwind"
+    },
+    "directions": {
+      "to_right": "Vers la Droite (90deg)",
+      "to_top": "Vers le Haut (0deg)",
+      "to_bottom": "Vers le Bas (180deg)",
+      "to_left": "Vers la Gauche (270deg)",
+      "to_top_right": "Haut-Droite (45deg)",
+      "to_bottom_right": "Bas-Droite (135deg)",
+      "to_bottom_left": "Bas-Gauche (225deg)",
+      "to_top_left": "Haut-Gauche (315deg)"
+    },
+    "shapes": {
+      "circle": "Cercle",
+      "ellipse": "Ellipse",
+      "circle_center": "Cercle au Centre",
+      "ellipse_center": "Ellipse au Centre",
+      "circle_top": "Cercle en Haut",
+      "circle_bottom": "Cercle en Bas"
+    },
+    "code": {
+      "title": "Code Généré",
+      "description": "Copiez le code pour l'utiliser dans votre projet",
+      "css": "CSS",
+      "tailwind": "Tailwind",
+      "background_property": "Propriété d'Arrière-plan",
+      "css_class": "Classe CSS",
+      "tailwind_classes": "Classes Tailwind CSS {version}",
+      "usage_example": "Exemple d'Utilisation",
+      "copy": "Copier"
+    },
+    "versions": {
+      "version": "Version",
+      "v3": "v3 (Actuelle)",
+      "v4": "v4 (Dernière)",
+      "v3_note": "Tailwind CSS v3 : Utilise la syntaxe traditionnelle des dégradés (bg-gradient-*). C'est la version stable actuellement largement utilisée.",
+      "v4_note": "Tailwind CSS v4 : Utilise la nouvelle syntaxe des dégradés (bg-linear-*, bg-radial-*). C'est la dernière version avec des utilitaires de dégradés améliorés."
+    },
+    "complex_gradient": {
+      "title": "Dégradé Complexe",
+      "description": "Utilisation d'une valeur arbitraire car :",
+      "reason1": "• Les couleurs ne sont pas dans la palette standard de Tailwind, ou",
+      "reason2": "• Plus de 3 arrêts de couleur (Tailwind supporte max 3 : from/via/to)",
+      "note": "Note : Tailwind CSS supporte la syntaxe de position comme :",
+      "position_examples": "• from-blue-500 from-10%\n• via-red-500 via-30%\n• to-green-500 to-90%",
+      "arbitrary_format": "Format de Valeur Arbitraire : bg-[linear-gradient(...)]"
+    },
+    "color_stop": {
+      "edit": "Éditer l'Arrêt de Couleur",
+      "color": "Couleur",
+      "position": "Position (%)",
+      "opacity": "Opacité (%)"
+    },
+    "messages": {
+      "positions_adjusted": "Positions du dégradé ajustées à 0%, 50%, 100% !",
+      "simplified_to_3": "Simplifié à 3 couleurs : {colors}",
+      "copied": "Copié dans le presse-papiers !",
+      "added_color_stop": "Arrêt de couleur ajouté à {percentage}%"
+    }
+  }
+} 

@@ -1,0 +1,33 @@
+{
+	"keygen": {
+		"title": "鍵ペアジェネレーター",
+		"description": "RSA、ECDSA、EdDSAアルゴリズム用の安全な暗号鍵ペアを生成",
+		"algorithm": "アルゴリズム",
+		"keySize": "鍵サイズ",
+		"curve": "曲線",
+		"format": "形式",
+		"passphrase": "パスフレーズ（オプション）",
+		"passphrasePlaceholder": "秘密鍵を暗号化するパスフレーズを入力",
+		"generate": "鍵ペア生成",
+		"generating": "生成中...",
+		"success": "鍵ペアが正常に生成されました！",
+		"error": "鍵ペアの生成に失敗しました",
+		"privateKey": "秘密鍵",
+		"publicKey": "公開鍵",
+		"algorithms": {
+			"RS256": "RSA SHA-256",
+			"RS384": "RSA SHA-384",
+			"RS512": "RSA SHA-512",
+			"ES256": "ECDSA SHA-256",
+			"ES384": "ECDSA SHA-384",
+			"ES512": "ECDSA SHA-512",
+			"EdDSA": "Edwards曲線デジタル署名"
+		},
+		"security": "高",
+		"bits": "ビット",
+		"metadata": {
+			"title": "鍵ペアジェネレーター - RSA、ECDSA、EdDSA鍵生成",
+			"description": "安全な暗号鍵ペアを生成する無料オンラインツール。RSA、ECDSA、EdDSAアルゴリズムを複数の出力形式でサポート。"
+		}
+	}
+}

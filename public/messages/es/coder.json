@@ -1,0 +1,578 @@
+{
+  "title": "Herramientas de Codificación",
+  "description": "Herramientas profesionales de codificación y decodificación para desarrolladores",
+  "features": {
+    "title": "Características",
+    "encoding": {
+      "title": "Herramientas de Codificación"
+    },
+    "security": {
+      "title": "Herramientas de Seguridad"
+    }
+  },
+  "tools": {
+    "base64": {
+      "name": "Base64",
+      "description": "Herramienta de codificación y decodificación Base64"
+    },
+    "url": {
+      "name": "Codificación URL",
+      "description": "Herramienta de codificación y decodificación URL"
+    },
+    "hash": {
+      "name": "Calculadora de Hash",
+      "description": "Algoritmos MD5, SHA1, SHA256 y otros"
+    },
+    "jwt": {
+      "name": "Herramientas JWT",
+      "description": "Decodificación y validación de tokens JWT"
+    },
+    "qr": {
+      "name": "Código QR",
+      "description": "Generación y decodificación de códigos QR"
+    },
+    "hex": {
+      "name": "Convertidor Hex",
+      "description": "Convertir entre texto y formato hexadecimal"
+    },
+    "json": {
+      "name": "Formateador JSON",
+      "description": "Formatear, validar y embellecer datos JSON"
+    },
+    "image": {
+      "name": "Codificación de Imagen",
+      "description": "Conversión de codificación Base64 de imagen"
+    }
+  },
+  "meta": {
+    "title": "Herramientas de Codificación - Convertidor Online de Codificación y Decodificación",
+    "description": "Herramientas gratuitas de codificación para Base64, URL, hash, JWT, código QR, imagen y más. Conversión rápida, segura y fácil online."
+  },
+  "base64": {
+    "title": "Codificador/Decodificador Base64",
+    "description": "Convertir texto a formato Base64 o decodificar Base64 de vuelta a texto",
+    "features": {
+      "text_encoding": "Codificación de Texto",
+      "file_support": "Soporte de Archivos",
+      "chinese_support": "Soporte Chino"
+    },
+    "tabs": {
+      "encode": "Codificar",
+      "decode": "Decodificar"
+    },
+    "encode": {
+      "title": "Codificación de Texto",
+      "description": "Convertir texto plano a formato Base64",
+      "input_label": "Texto de Entrada",
+      "input_placeholder": "Ingresa texto para codificar...",
+      "button": "Codificar"
+    },
+    "decode": {
+      "title": "Decodificación Base64",
+      "description": "Convertir formato Base64 de vuelta a texto plano",
+      "input_label": "Texto Base64",
+      "input_placeholder": "Ingresa texto codificado en Base64...",
+      "button": "Decodificar"
+    },
+    "result": {
+      "title": "Resultado"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "encode_mode": "Modo Codificación: ",
+      "encode_desc": "Convertir texto plano a formato Base64, soporta caracteres chinos y especiales.",
+      "decode_mode": "Modo Decodificación: ",
+      "decode_desc": "Convertir formato Base64 de vuelta al texto original.",
+      "file_support": "Soporte de Archivos: ",
+      "file_desc": "Puedes subir archivos para codificación Base64.",
+      "notes": "Notas: ",
+      "notes_desc": "La codificación Base64 aumenta el tamaño de los datos aproximadamente un 33%."
+    },
+    "errors": {
+      "encode_failed": "Error de codificación: La entrada contiene caracteres inválidos",
+      "decode_failed": "Error de decodificación: La entrada no es un formato Base64 válido",
+      "empty_input": "Por favor ingresa contenido para convertir",
+      "conversion_failed": "Error de conversión"
+    },
+    "success": {
+      "encoded": "Codificado exitosamente",
+      "decoded": "Decodificado exitosamente",
+      "copied": "Copiado al portapapeles"
+    },
+    "common": {
+      "clear": "Limpiar",
+      "upload_file": "Subir Archivo",
+      "copy": "Copiar",
+      "download": "Descargar"
+    },
+    "meta": {
+      "title": "Codificador Decodificador Base64 - Convertidor Online de Texto e Imagen",
+      "description": "Herramienta gratuita de codificación/decodificación Base64 para texto, imágenes y archivos. Rápida, segura y fácil de usar para desarrolladores y tareas diarias."
+    }
+  },
+  "url": {
+    "title": "Codificador/Decodificador URL",
+    "description": "Codificar y decodificar parámetros URL",
+    "features": {
+      "url_safe": "Seguro para URL",
+      "chinese_support": "Soporte Chino",
+      "parameter_encoding": "Codificación de Parámetros"
+    },
+    "tabs": {
+      "encode": "Codificar",
+      "decode": "Decodificar"
+    },
+    "encode": {
+      "title": "Codificación URL",
+      "description": "Convertir texto a formato de codificación seguro para URL",
+      "input_label": "Texto de Entrada",
+      "input_placeholder": "Ingresa texto para codificar...",
+      "button": "Codificar"
+    },
+    "decode": {
+      "title": "Decodificación URL",
+      "description": "Convertir formato de codificación URL de vuelta al texto original",
+      "input_label": "Texto Codificado URL",
+      "input_placeholder": "Ingresa texto codificado en URL...",
+      "button": "Decodificar"
+    },
+    "result": {
+      "title": "Resultado"
+    },
+    "examples": {
+      "title": "Ejemplos de Codificación",
+      "chinese_text": "Texto Chino",
+      "special_chars": "Caracteres Especiales",
+      "url_params": "Parámetros URL",
+      "original_text": "Texto Original",
+      "encoded_result": "Resultado Codificado",
+      "encode": "Codificar",
+      "decode": "Decodificar"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "url_encoding": "Codificación URL: ",
+      "url_encoding_desc": "Convertir caracteres especiales al formato %XX para asegurar la seguridad de la URL.",
+      "common_encoding": "Codificación Común: ",
+      "common_encoding_desc": "Espacio→%20, Chino→%XX%XX%XX, Símbolos especiales→%XX.",
+      "use_cases": "Casos de Uso: ",
+      "use_cases_desc": "Parámetros URL, envío de formularios, llamadas API, etc.",
+      "notes": "Notas: ",
+      "notes_desc": "Algunos caracteres tienen significados especiales en URLs y necesitan ser codificados."
+    },
+    "errors": {
+      "empty_input": "Por favor ingresa contenido para convertir",
+      "conversion_failed": "Error de conversión",
+      "invalid_url": "Esto no es una URL completa"
+    },
+    "success": {
+      "encoded": "Codificado exitosamente",
+      "decoded": "Decodificado exitosamente",
+      "copied": "Copiado al portapapeles"
+    },
+    "common": {
+      "clear": "Limpiar",
+      "copy": "Copiar",
+      "test_link": "Probar Enlace"
+    },
+    "meta": {
+      "title": "Codificador Decodificador URL - Convertidor Online de Parámetros",
+      "description": "Herramienta gratuita de codificación/decodificación URL que soporta chino y caracteres especiales. Perfecta para desarrollo web y conversión de parámetros API."
+    }
+  },
+  "hash": {
+    "title": "Calculadora de Hash",
+    "description": "Calcular valores hash usando varios algoritmos",
+    "features": {
+      "multiple_algorithms": "Múltiples Algoritmos",
+      "salt_encryption": "Encriptación con Salt",
+      "file_support": "Soporte de Archivos"
+    },
+    "input": {
+      "title": "Contenido de Entrada",
+      "description": "Ingresa contenido de texto para calcular hash",
+      "text_label": "Contenido de Texto",
+      "text_placeholder": "Ingresa texto para calcular hash...",
+      "salt_label": "Salt (Opcional)",
+      "salt_placeholder": "Ingresa salt para aumentar la seguridad...",
+      "calculate_button": "Calcular Hash",
+      "calculating": "Calculando...",
+      "clear": "Limpiar"
+    },
+    "algorithms": {
+      "title": "Algoritmos de Hash",
+      "md5": "MD5",
+      "sha1": "SHA1",
+      "sha256": "SHA256",
+      "sha512": "SHA512"
+    },
+    "result": {
+      "title": "Resultado del Hash",
+      "algorithm": "Algoritmo",
+      "hash_value": "Valor Hash",
+      "copy_hash": "Copiar Hash"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "hash_calculation": "Cálculo de Hash: ",
+      "hash_calculation_desc": "Convierte texto en un valor hash único usando algoritmos criptográficos.",
+      "salt_usage": "Uso de Salt: ",
+      "salt_usage_desc": "Agregar salt aumenta la seguridad del hash contra ataques de diccionario.",
+      "algorithm_selection": "Selección de Algoritmo: ",
+      "algorithm_selection_desc": "SHA256 es recomendado para la mayoría de casos de uso.",
+      "security_notes": "Notas de Seguridad: ",
+      "security_notes_desc": "Los hashes son unidireccionales y no pueden ser revertidos."
+    },
+    "errors": {
+      "empty_input": "Por favor ingresa contenido para calcular hash",
+      "calculation_failed": "Error al calcular hash"
+    },
+    "success": {
+      "calculated": "Hash calculado exitosamente",
+      "copied": "Hash copiado al portapapeles"
+    },
+    "meta": {
+      "title": "Calculadora de Hash - Herramienta Online de Cálculo de Hash",
+      "description": "Calculadora gratuita de hash online con soporte para MD5, SHA1, SHA256, SHA512 y más. Herramienta segura para desarrolladores y administradores de sistemas."
+    }
+  },
+  "jwt": {
+    "title": "Herramientas JWT",
+    "description": "Decodificar y validar tokens JWT",
+    "features": {
+      "token_decoding": "Decodificación de Tokens",
+      "validation": "Validación",
+      "header_payload": "Header y Payload"
+    },
+    "input": {
+      "title": "Token JWT",
+      "description": "Ingresa un token JWT para decodificar y validar",
+      "token_label": "Token JWT",
+      "token_placeholder": "Ingresa token JWT...",
+      "decode_button": "Decodificar Token",
+      "clear": "Limpiar"
+    },
+    "result": {
+      "title": "Token Decodificado",
+      "header": "Header",
+      "payload": "Payload",
+      "signature": "Firma",
+      "copy_json": "Copiar JSON"
+    },
+    "validation": {
+      "title": "Validación",
+      "expired": "Token Expirado",
+      "not_yet_valid": "Token Aún No Válido",
+      "invalid_signature": "Firma Inválida",
+      "valid": "Token Válido"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "jwt_structure": "Estructura JWT: ",
+      "jwt_structure_desc": "Los tokens JWT consisten en header, payload y firma separados por puntos.",
+      "decoding_process": "Proceso de Decodificación: ",
+      "decoding_process_desc": "El header y payload son decodificados desde Base64URL.",
+      "validation_check": "Verificación de Validación: ",
+      "validation_check_desc": "Verifica expiración, tiempo de emisión y firma del token.",
+      "security_notes": "Notas de Seguridad: ",
+      "security_notes_desc": "No compartas tokens JWT sensibles en entornos no seguros."
+    },
+    "errors": {
+      "empty_token": "Por favor ingresa un token JWT",
+      "invalid_format": "Formato de token JWT inválido",
+      "decode_failed": "Error al decodificar token"
+    },
+    "success": {
+      "decoded": "Token decodificado exitosamente",
+      "copied": "JSON copiado al portapapeles"
+    },
+    "meta": {
+      "title": "Herramientas JWT - Decodificador y Validador Online",
+      "description": "Herramienta gratuita para decodificar y validar tokens JWT. Visualiza header, payload y verifica la validez del token."
+    }
+  },
+  "hex": {
+    "title": "Convertidor Hexadecimal",
+    "description": "Convertir entre texto y formato hexadecimal",
+    "features": {
+      "text_hex": "Texto ↔ Hex",
+      "binary_support": "Soporte Binario",
+      "encoding_options": "Opciones de Codificación"
+    },
+    "tabs": {
+      "text_to_hex": "Texto a Hex",
+      "hex_to_text": "Hex a Texto"
+    },
+    "text_to_hex": {
+      "title": "Texto a Hexadecimal",
+      "description": "Convertir texto a representación hexadecimal",
+      "input_label": "Texto de Entrada",
+      "input_placeholder": "Ingresa texto para convertir...",
+      "button": "Convertir a Hex"
+    },
+    "hex_to_text": {
+      "title": "Hexadecimal a Texto",
+      "description": "Convertir representación hexadecimal de vuelta a texto",
+      "input_label": "Hexadecimal",
+      "input_placeholder": "Ingresa hexadecimal...",
+      "button": "Convertir a Texto"
+    },
+    "result": {
+      "title": "Resultado"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "text_to_hex_mode": "Modo Texto a Hex: ",
+      "text_to_hex_desc": "Cada carácter se convierte a su valor hexadecimal correspondiente.",
+      "hex_to_text_mode": "Modo Hex a Texto: ",
+      "hex_to_text_desc": "Cada par de dígitos hexadecimales se convierte de vuelta a carácter.",
+      "encoding_options": "Opciones de Codificación: ",
+      "encoding_options_desc": "UTF-8 es el estándar para codificación de caracteres.",
+      "use_cases": "Casos de Uso: ",
+      "use_cases_desc": "Análisis de datos binarios, debugging, programación de bajo nivel."
+    },
+    "errors": {
+      "empty_input": "Por favor ingresa contenido para convertir",
+      "invalid_hex": "Formato hexadecimal inválido",
+      "conversion_failed": "Error de conversión"
+    },
+    "success": {
+      "converted": "Convertido exitosamente",
+      "copied": "Copiado al portapapeles"
+    },
+    "common": {
+      "clear": "Limpiar",
+      "copy": "Copiar"
+    },
+    "meta": {
+      "title": "Convertidor Hexadecimal - Herramienta Online de Conversión",
+      "description": "Convertidor gratuito entre texto y formato hexadecimal. Herramienta útil para desarrolladores y análisis de datos."
+    }
+  },
+  "json": {
+    "title": "Formateador JSON",
+    "description": "Formatear, validar y embellecer datos JSON",
+    "features": {
+      "formatting": "Formateo",
+      "validation": "Validación",
+      "minification": "Minificación"
+    },
+    "input": {
+      "title": "Datos JSON",
+      "description": "Ingresa datos JSON para formatear o validar",
+      "json_label": "JSON",
+      "json_placeholder": "Ingresa JSON...",
+      "format_button": "Formatear JSON",
+      "minify_button": "Minificar JSON",
+      "validate_button": "Validar JSON",
+      "clear": "Limpiar"
+    },
+    "result": {
+      "title": "Resultado",
+      "formatted": "JSON Formateado",
+      "minified": "JSON Minificado",
+      "validation_result": "Resultado de Validación"
+    },
+    "validation": {
+      "valid": "JSON Válido",
+      "invalid": "JSON Inválido",
+      "error_details": "Detalles del Error"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "json_formatting": "Formateo JSON: ",
+      "json_formatting_desc": "Agrega indentación y saltos de línea para mejorar la legibilidad.",
+      "json_validation": "Validación JSON: ",
+      "json_validation_desc": "Verifica que el JSON tenga sintaxis correcta y estructura válida.",
+      "json_minification": "Minificación JSON: ",
+      "json_minification_desc": "Elimina espacios en blanco innecesarios para reducir el tamaño.",
+      "best_practices": "Mejores Prácticas: ",
+      "best_practices_desc": "Usa comillas dobles para strings y asegúrate de que las comas estén correctamente colocadas."
+    },
+    "errors": {
+      "empty_input": "Por favor ingresa datos JSON",
+      "invalid_json": "JSON inválido",
+      "formatting_failed": "Error al formatear JSON"
+    },
+    "success": {
+      "formatted": "JSON formateado exitosamente",
+      "minified": "JSON minificado exitosamente",
+      "validated": "JSON validado exitosamente",
+      "copied": "Copiado al portapapeles"
+    },
+    "common": {
+      "clear": "Limpiar",
+      "copy": "Copiar"
+    },
+    "meta": {
+      "title": "Formateador JSON - Herramienta Online de Formateo y Validación",
+      "description": "Formateador gratuito de JSON online. Formatea, valida y minifica datos JSON fácilmente."
+    }
+  },
+  "image": {
+    "title": "Codificación de Imagen",
+    "description": "Convertir imágenes a formato Base64",
+    "features": {
+      "image_support": "Soporte de Imágenes",
+      "base64_output": "Salida Base64",
+      "format_conversion": "Conversión de Formatos"
+    },
+    "input": {
+      "title": "Subir Imagen",
+      "description": "Selecciona una imagen para convertir a Base64",
+      "upload_label": "Seleccionar Imagen",
+      "upload_button": "Subir Imagen",
+      "supported_formats": "Formatos soportados: PNG, JPG, JPEG, GIF, BMP",
+      "clear": "Limpiar"
+    },
+    "result": {
+      "title": "Imagen Codificada",
+      "preview": "Vista Previa",
+      "base64_code": "Código Base64",
+      "copy_base64": "Copiar Base64",
+      "download_base64": "Descargar Base64"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "image_upload": "Subida de Imagen: ",
+      "image_upload_desc": "Selecciona una imagen de tu dispositivo para convertir.",
+      "base64_conversion": "Conversión Base64: ",
+      "base64_conversion_desc": "La imagen se convierte a formato Base64 para uso en web.",
+      "usage_examples": "Ejemplos de Uso: ",
+      "usage_examples_desc": "CSS inline, HTML img src, APIs, almacenamiento de datos.",
+      "size_considerations": "Consideraciones de Tamaño: ",
+      "size_considerations_desc": "Las imágenes grandes pueden generar strings Base64 muy largos."
+    },
+    "errors": {
+      "no_file_selected": "Por favor selecciona una imagen",
+      "invalid_format": "Formato de imagen no soportado",
+      "file_too_large": "Archivo demasiado grande",
+      "conversion_failed": "Error al convertir imagen"
+    },
+    "success": {
+      "converted": "Imagen convertida exitosamente",
+      "copied": "Base64 copiado al portapapeles"
+    },
+    "common": {
+      "clear": "Limpiar",
+      "copy": "Copiar",
+      "download": "Descargar"
+    },
+    "meta": {
+      "title": "Codificador de Imagen Base64 - Convertidor Online de Imagen",
+      "description": "Convertidor gratuito de imagen a Base64 online. Convierte imágenes a formato Base64 para uso en desarrollo web."
+    }
+  },
+  "qr": {
+    "title": "Generador de Código QR",
+    "description": "Genera códigos QR personalizables y decodifica códigos QR existentes",
+    "features": {
+      "multiple_types": "Múltiples Tipos de Contenido",
+      "customizable": "Personalizable",
+      "download": "Descarga PNG"
+    },
+    "tabs": {
+      "generate": "Generar",
+      "decode": "Decodificar"
+    },
+    "generate": {
+      "title": "Generar Código QR",
+      "description": "Crea códigos QR personalizables con diferentes opciones"
+    },
+    "decode": {
+      "title": "Decodificar Código QR",
+      "description": "Extrae texto de códigos QR existentes"
+    },
+    "input": {
+      "content_label": "Contenido",
+      "generate_button": "Generar Código QR"
+    },
+    "options": {
+      "size_label": "Tamaño (px)",
+      "margin_label": "Margen",
+      "foreground_color": "Color de Primer Plano",
+      "background_color": "Color de Fondo",
+      "error_correction_label": "Nivel de Corrección de Errores",
+      "error_correction_low": "Bajo (L)",
+      "error_correction_low_desc": "7% de datos de recuperación",
+      "error_correction_medium": "Medio (M)",
+      "error_correction_medium_desc": "15% de datos de recuperación",
+      "error_correction_high": "Alto (Q)",
+      "error_correction_high_desc": "25% de datos de recuperación",
+      "error_correction_highest": "Máximo (H)",
+      "error_correction_highest_desc": "30% de datos de recuperación"
+    },
+    "logo": {
+      "title": "Logo Personalizado",
+      "upload": "Subir Logo",
+      "remove": "Eliminar Logo",
+      "preview": "Vista Previa:",
+      "preview_alt": "Vista previa del logo",
+      "format_hint": "Formatos soportados: PNG, JPG, SVG. Tamaño recomendado: 48x48px",
+      "error_correction_hint": "Se recomienda usar corrección de errores alta (H) cuando se usa logo"
+    },
+    "result": {
+      "title": "Código QR Generado",
+      "download_png": "Descargar PNG",
+      "copy_content": "Copiar Contenido",
+      "alt_text": "Código QR generado"
+    },
+    "decode": {
+      "title": "Decodificar Código QR",
+      "description": "Sube una imagen de código QR para extraer su contenido",
+      "upload_label": "Subir Imagen",
+      "upload_button": "Seleccionar Archivo",
+      "supported_formats": "Formatos soportados: PNG, JPG, JPEG, GIF, BMP",
+      "result_title": "Contenido Decodificado"
+    },
+    "examples": {
+      "title": "Ejemplos Rápidos",
+      "url": "https://ejemplo.com",
+      "text": "Texto de ejemplo",
+      "number": "123456789",
+      "wifi": "WIFI:T:WPA;S:MiRed;P:MiContraseña;;",
+      "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:Juan Pérez\nTEL:+1234567890\nEND:VCARD"
+    },
+    "instructions": {
+      "title": "Instrucciones de Uso",
+      "content": "Contenido: ",
+      "content_desc": "Puedes ingresar texto, URL, números, información de WiFi, tarjetas de contacto y más.",
+      "size": "Tamaño: ",
+      "size_desc": "El tamaño afecta la resolución y legibilidad del código QR. Recomendado: 256-512px.",
+      "error_correction": "Corrección de Errores: ",
+      "error_correction_desc": "Niveles más altos permiten que el código QR sea legible incluso si está parcialmente dañado.",
+      "types": "Tipos de Contenido: ",
+      "types_desc": "URL, texto, números, información de WiFi, tarjetas de contacto, coordenadas GPS y más."
+    },
+    "qr_styles": {
+      "title": "Estilos de Código QR",
+      "standard": "Estándar - Código QR básico en blanco y negro",
+      "with_logo": "Con Logo - Código QR con logo personalizado en el centro",
+      "colored": "Coloreado - Código QR con colores personalizados",
+      "artistic": "Artístico - Código QR con diseño creativo"
+    },
+    "logo_tips": {
+      "title": "Consejos para Logos",
+      "format": "Usa formatos PNG o SVG para mejor calidad",
+      "size": "Mantén el logo pequeño (máximo 25% del código QR)",
+      "error_correction": "Usa corrección de errores alta (H) cuando agregues logo",
+      "complexity": "Logos simples funcionan mejor que diseños complejos"
+    },
+    "errors": {
+      "empty_content": "Por favor ingresa contenido para generar el código QR",
+      "invalid_format": "Formato de archivo no válido. Por favor selecciona una imagen.",
+      "generation_failed": "Error al generar el código QR",
+      "no_qr_found": "No se encontró código QR en la imagen",
+      "decode_failed": "Error al decodificar el código QR"
+    },
+    "success": {
+      "generated": "Código QR generado exitosamente",
+      "decoded": "Código QR decodificado exitosamente",
+      "copied": "Copiado al portapapeles"
+    },
+    "common": {
+      "clear": "Limpiar",
+      "copy": "Copiar"
+    }
+  }
+} 

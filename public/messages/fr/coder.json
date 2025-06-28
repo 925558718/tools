@@ -1,52 +1,52 @@
 {
-  "title": "Codec Tools",
-  "description": "Professional encoding and decoding tools for developers",
+  "title": "Outils de Codage",
+  "description": "Outils professionnels de codage et décodage pour développeurs",
   "features": {
-    "title": "Features",
+    "title": "Fonctionnalités",
     "encoding": {
-      "title": "Encoding Tools"
+      "title": "Outils de Codage"
     },
     "security": {
-      "title": "Security Tools"
+      "title": "Outils de Sécurité"
     }
   },
   "tools": {
     "base64": {
       "name": "Base64",
-      "description": "Base64 encoding and decoding tool"
+      "description": "Outil de codage et décodage Base64"
     },
     "url": {
-      "name": "URL Encoding",
-      "description": "URL encoding and decoding tool"
+      "name": "Codage URL",
+      "description": "Outil de codage et décodage URL"
     },
     "hash": {
-      "name": "Hash Calculator",
-      "description": "MD5, SHA1, SHA256 and other hash algorithms"
+      "name": "Calculateur de Hash",
+      "description": "Algorithmes MD5, SHA1, SHA256 et autres"
     },
     "jwt": {
-      "name": "JWT Tools",
-      "description": "JWT token decoding and validation"
+      "name": "Outils JWT",
+      "description": "Décodage et validation de tokens JWT"
     },
     "qr": {
-      "name": "QR Code",
-      "description": "QR code generation and decoding"
+      "name": "Code QR",
+      "description": "Génération et décodage de codes QR"
     },
     "hex": {
-      "name": "Hex Converter",
-      "description": "Convert between text and hexadecimal format"
+      "name": "Convertisseur Hex",
+      "description": "Convertir entre texte et format hexadécimal"
     },
     "json": {
-      "name": "JSON Formatter",
-      "description": "Format, validate and beautify JSON data"
+      "name": "Formateur JSON",
+      "description": "Formater, valider et embellir les données JSON"
     },
     "image": {
-      "name": "Image Encoding",
-      "description": "Image Base64 encoding conversion"
+      "name": "Codage d'Image",
+      "description": "Conversion de codage Base64 d'image"
     }
   },
   "meta": {
-    "title": "Codec Tools - Online Encoding Decoding Converter",
-    "description": "Free codec tools for Base64, URL, hash, JWT, QR code, image and more. Fast, secure, and easy online conversion."
+    "title": "Outils de Codage - Convertisseur Online de Codage et Décodage",
+    "description": "Outils gratuits de codage pour Base64, URL, hash, JWT, code QR, image et plus. Conversion rapide, sécurisée et facile en ligne."
   },
   "base64": {
     "title": "Base64 Encoder/Decoder",
@@ -601,157 +601,119 @@
     }
   },
   "qr": {
-    "title": "QR Code Generator",
-    "description": "Generate QR codes for URLs, text, WiFi, phone numbers and more",
+    "title": "Générateur de Code QR",
+    "description": "Générer des codes QR personnalisables et décoder des codes QR existants",
+    "meta": {
+      "title": "Générateur de Code QR - Créateur Online de QR",
+      "description": "Outil gratuit de génération et décodage de codes QR, compatible avec texte, URL, WiFi, contacts et plus de formats, avec personnalisation de style et niveau de correction d'erreurs."
+    },
     "features": {
-      "multiple_types": "Multiple Types",
-      "customizable": "Customizable",
-      "download": "Download"
+      "multiple_types": "Types de Contenu Multiples",
+      "customizable": "Personnalisable",
+      "download": "Téléchargement PNG"
     },
     "tabs": {
-      "generate": "Generate QR Code",
-      "decode": "Decode QR Code"
+      "generate": "Générer",
+      "decode": "Décoder"
     },
     "generate": {
-      "title": "Generate QR Code",
-      "description": "Convert text content to QR code"
+      "title": "Générer un Code QR",
+      "description": "Créer des codes QR personnalisables avec différentes options"
     },
     "decode": {
-      "title": "Decode QR Code",
-      "description": "Extract content from QR code image",
-      "upload_label": "Upload QR Code Image",
-      "upload_button": "Upload Image",
-      "supported_formats": "Supported formats: JPG, PNG, GIF, etc., max 5MB",
-      "result_title": "Decode Result",
-      "placeholder": "Image decoding requires backend support",
-      "info": "Image decoding requires backend support"
+      "title": "Décoder un Code QR",
+      "description": "Extraire le texte des codes QR existants"
     },
     "input": {
-      "title": "QR Code Content",
-      "description": "Enter content to generate QR code",
-      "content_label": "Content",
-      "content_placeholder": "Enter text, URL, or other content...",
-      "type_label": "QR Code Type",
-      "generate_button": "Generate QR Code"
+      "content_label": "Contenu",
+      "generate_button": "Générer le Code QR"
     },
     "options": {
-      "title": "QR Code Options",
-      "size_label": "Size",
-      "error_correction_label": "Error Correction Level",
-      "error_correction_low": "Low (7%)",
-      "error_correction_low_desc": "Can recover 7% of data",
-      "error_correction_medium": "Medium (15%)",
-      "error_correction_medium_desc": "Can recover 15% of data",
-      "error_correction_high": "High (25%)",
-      "error_correction_high_desc": "Can recover 25% of data",
-      "error_correction_highest": "Highest (30%)",
-      "error_correction_highest_desc": "Can recover 30% of data",
-      "foreground_color": "Foreground Color",
-      "background_color": "Background Color",
-      "margin_label": "Margin"
-    },
-    "result": {
-      "title": "Generated QR Code",
-      "download_png": "Download",
-      "download_svg": "Download SVG",
-      "copy_image": "Copy Image",
-      "copy_content": "Copy Content",
-      "alt_text": "QR Code"
-    },
-    "examples": {
-      "title": "Quick Examples",
-      "url": "https://example.com",
-      "text": "Hello World",
-      "number": "123456789",
-      "wifi": "WIFI:T:WPA;S:MyWiFi;P:password123;;",
-      "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:John Doe\nTEL:+1-234-567-8900\nEND:VCARD"
-    },
-    "types": {
-      "text": "Text",
-      "url": "URL",
-      "wifi": "WiFi",
-      "phone": "Phone Number",
-      "email": "Email",
-      "sms": "SMS",
-      "vcard": "vCard",
-      "geo": "Geolocation"
-    },
-    "wifi_form": {
-      "title": "WiFi Configuration",
-      "ssid_label": "Network Name (SSID)",
-      "password_label": "Password",
-      "encryption_label": "Encryption Type",
-      "hidden_label": "Hidden Network"
-    },
-    "phone_form": {
-      "title": "Phone Number",
-      "number_label": "Phone Number",
-      "number_placeholder": "+1-234-567-8900"
-    },
-    "email_form": {
-      "title": "Email",
-      "email_label": "Email Address",
-      "subject_label": "Subject (Optional)",
-      "body_label": "Message Body (Optional)"
-    },
-    "instructions": {
-      "title": "Usage Instructions",
-      "content": "Generate QR Code: ",
-      "content_desc": "Convert text, URLs, contact information and other content to QR codes.",
-      "size": "Custom Options: ",
-      "size_desc": "Adjust size, color, margin and error correction level.",
-      "error_correction": "Error Correction Level: ",
-      "error_correction_desc": "Higher levels make QR codes more fault-tolerant but larger in size.",
-      "types": "Supported Formats: ",
-      "types_desc": "URLs, text, WiFi configuration, contact information, etc."
-    },
-    "errors": {
-      "empty_content": "Please enter content to generate QR code",
-      "invalid_format": "Please select an image file",
-      "invalid_url": "Invalid URL format",
-      "invalid_email": "Invalid email format",
-      "invalid_phone": "Invalid phone number format",
-      "generation_failed": "QR code generation failed",
-      "decode_failed": "QR code decode failed",
-      "no_qr_found": "Unable to recognize QR code, please ensure the image is clear and contains a valid QR code"
-    },
-    "success": {
-      "generated": "QR code generated successfully",
-      "copied": "Copied to clipboard",
-      "decoded": "QR code decoded successfully"
-    },
-    "common": {
-      "clear": "Clear",
-      "copy": "Copy",
-      "reset": "Reset",
-      "preview": "Preview"
+      "size_label": "Taille (px)",
+      "margin_label": "Marge",
+      "foreground_color": "Couleur de Premier Plan",
+      "background_color": "Couleur d'Arrière-plan",
+      "error_correction_label": "Niveau de Correction d'Erreurs",
+      "error_correction_low": "Faible (L)",
+      "error_correction_low_desc": "7% de données de récupération",
+      "error_correction_medium": "Moyen (M)",
+      "error_correction_medium_desc": "15% de données de récupération",
+      "error_correction_high": "Élevé (Q)",
+      "error_correction_high_desc": "25% de données de récupération",
+      "error_correction_highest": "Maximum (H)",
+      "error_correction_highest_desc": "30% de données de récupération"
     },
     "logo": {
-      "title": "Logo Settings (Optional)",
-      "upload": "Upload Logo",
-      "remove": "Remove Logo",
-      "preview": "Logo Preview:",
-      "preview_alt": "Logo Preview",
-      "error_correction_hint": "When using logo, it's recommended to select \"Highest\" error correction level for readability",
-      "format_hint": "Supports PNG, JPG and other formats, transparent background logo is recommended"
+      "title": "Logo Personnalisé",
+      "upload": "Télécharger Logo",
+      "remove": "Supprimer Logo",
+      "preview": "Aperçu:",
+      "preview_alt": "Aperçu du logo",
+      "format_hint": "Formats supportés: PNG, JPG, SVG. Taille recommandée: 48x48px",
+      "error_correction_hint": "Il est recommandé d'utiliser une correction d'erreurs élevée (H) lors de l'utilisation d'un logo"
+    },
+    "result": {
+      "title": "Code QR Généré",
+      "download_png": "Télécharger PNG",
+      "copy_content": "Copier le Contenu",
+      "alt_text": "Code QR généré"
+    },
+    "decode": {
+      "title": "Décoder un Code QR",
+      "description": "Téléchargez une image de code QR pour extraire son contenu",
+      "upload_label": "Télécharger Image",
+      "upload_button": "Sélectionner Fichier",
+      "supported_formats": "Formats supportés: PNG, JPG, JPEG, GIF, BMP",
+      "result_title": "Contenu Décodé"
+    },
+    "examples": {
+      "title": "Exemples Rapides",
+      "url": "https://exemple.com",
+      "text": "Texte d'exemple",
+      "number": "123456789",
+      "wifi": "WIFI:T:WPA;S:MonRéseau;P:MonMotDePasse;;",
+      "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:Jean Dupont\nTEL:+1234567890\nEND:VCARD"
+    },
+    "instructions": {
+      "title": "Instructions d'Utilisation",
+      "content": "Contenu: ",
+      "content_desc": "Vous pouvez saisir du texte, URL, nombres, informations WiFi, cartes de contact et plus.",
+      "size": "Taille: ",
+      "size_desc": "La taille affecte la résolution et la lisibilité du code QR. Recommandé: 256-512px.",
+      "error_correction": "Correction d'Erreurs: ",
+      "error_correction_desc": "Des niveaux plus élevés permettent au code QR d'être lisible même s'il est partiellement endommagé.",
+      "types": "Types de Contenu: ",
+      "types_desc": "URL, texte, nombres, informations WiFi, cartes de contact, coordonnées GPS et plus."
     },
     "qr_styles": {
-      "title": "QR Code Style Types:",
-      "standard": "Standard QR Code: Pure black and white pattern, no logo, suitable for general use",
-      "with_logo": "QR Code with Logo: Company logo embedded in center, enhances brand recognition",
-      "colored": "Colored QR Code: Uses custom colors, maintains brand consistency",
-      "artistic": "Artistic QR Code: Has decorative design elements"
+      "title": "Styles de Code QR",
+      "standard": "Standard - Code QR basique en noir et blanc",
+      "with_logo": "Avec Logo - Code QR avec logo personnalisé au centre",
+      "colored": "Coloré - Code QR avec couleurs personnalisées",
+      "artistic": "Artistique - Code QR avec design créatif"
     },
     "logo_tips": {
-      "title": "Logo Usage Tips:",
-      "format": "PNG format logo with transparent background works best",
-      "size": "Logo size should not exceed 20% of the QR code",
-      "error_correction": "When using logo, select \"Highest\" error correction level for readability",
-      "complexity": "Avoid using overly complex logo patterns"
+      "title": "Conseils pour les Logos",
+      "format": "Utilisez des formats PNG ou SVG pour une meilleure qualité",
+      "size": "Gardez le logo petit (maximum 25% du code QR)",
+      "error_correction": "Utilisez une correction d'erreurs élevée (H) lors de l'ajout d'un logo",
+      "complexity": "Les logos simples fonctionnent mieux que les designs complexes"
     },
-    "meta": {
-      "title": "QR Code Generator - Online Text URL WiFi QR Maker",
-      "description": "Generate QR codes for text, URL, WiFi, phone, and more. Custom size, color, and error correction for various scenarios."
+    "errors": {
+      "empty_content": "Veuillez saisir du contenu pour générer le code QR",
+      "invalid_format": "Format de fichier invalide. Veuillez sélectionner une image.",
+      "generation_failed": "Erreur lors de la génération du code QR",
+      "no_qr_found": "Aucun code QR trouvé dans l'image",
+      "decode_failed": "Erreur lors du décodage du code QR"
+    },
+    "success": {
+      "generated": "Code QR généré avec succès",
+      "decoded": "Code QR décodé avec succès",
+      "copied": "Copié dans le presse-papiers"
+    },
+    "common": {
+      "clear": "Effacer",
+      "copy": "Copier"
     }
   },
   "text_to_hex": {

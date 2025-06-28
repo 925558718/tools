@@ -1,0 +1,64 @@
+{
+  "title": "Herramientas de Desarrollo",
+  "description": "Colección completa de herramientas de desarrollo web y utilidades de programación",
+  "meta": {
+    "title": "Herramientas de Desarrollo - Utilidades Web y Programación",
+    "description": "Herramientas gratuitas para desarrolladores web. Codificación, criptografía, CSS, generadores y más."
+  },
+  "hero": {
+    "title": "Herramientas de Desarrollo",
+    "subtitle": "Colección completa de utilidades para desarrolladores",
+    "description": "Herramientas gratuitas y de código abierto para codificación, criptografía, CSS y más. Diseñadas para desarrolladores web y programadores.",
+    "cta": "Explorar Herramientas"
+  },
+  "features": {
+    "title": "Características Principales",
+    "items": [
+      {
+        "title": "Herramientas de Codificación",
+        "description": "Base64, URL, Hash, JWT y más",
+        "icon": "code"
+      },
+      {
+        "title": "Criptografía",
+        "description": "Generación de claves y cifrado seguro",
+        "icon": "shield"
+      },
+      {
+        "title": "CSS y Diseño",
+        "description": "Generadores de gradientes y utilidades CSS",
+        "icon": "palette"
+      }
+    ]
+  },
+  "tools": {
+    "title": "Herramientas Disponibles",
+    "description": "Explora nuestra colección de herramientas de desarrollo"
+  },
+  "meta_title": "Herramientas de Desarrollo - Utilidades de Desarrollo Online Gratuitas",
+  "meta_description": "Herramientas gratuitas de desarrollo online incluyendo generadores de gradientes CSS, utilidades de código y ayudas de desarrollo web.",
+  "meta_keywords": "herramientas de desarrollo, herramientas CSS, generador de gradientes, desarrollo web, herramientas gratuitas, utilidades online",
+  "structured_data_app_name": "Herramientas de Desarrollo",
+  "structured_data_description": "Herramientas gratuitas de desarrollo online y utilidades para desarrollo web",
+  "structured_data_features": [
+    "Generador de Gradientes CSS",
+    "Utilidades de Código",
+    "Herramientas de Desarrollo Web",
+    "Herramientas de Desarrollo Gratuitas"
+  ],
+  "hero_title": "Herramientas de Desarrollo Gratuitas",
+  "hero_subtitle": "Utilidades profesionales para desarrolladores y diseñadores",
+  "tools_section_title": "Nuestras Herramientas",
+  "tools_section_description": "Descubre nuestra colección de herramientas gratuitas de desarrollo online",
+  "logo_subtitle": "Herramientas de Desarrollo",
+  "ad_label": "Publicidad",
+  "footer_copyright": "© 2024 limgx.com. Todos los derechos reservados.",
+  "footer_description": "Herramientas gratuitas de desarrollo online para desarrollo de software",
+  "footer_services_title": "Ecosistema de Servicios LimgX",
+  "footer_service_main": "Servicios de Procesamiento de Imágenes",
+  "footer_service_tools": "Colección de Herramientas de Desarrollo",
+  "footer_main_site": "Sitio Principal",
+  "theme_light": "Claro",
+  "theme_dark": "Oscuro",
+  "language_selector": "Idioma"
+} 

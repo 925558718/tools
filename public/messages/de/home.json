@@ -1,0 +1,64 @@
+{
+  "title": "Entwicklungstools",
+  "description": "Vollständige Sammlung von Webentwicklungs- und Programmierwerkzeugen",
+  "meta": {
+    "title": "Entwicklungstools - Web-Utilities und Programmierung",
+    "description": "Kostenlose Tools für Webentwickler. Kodierung, Kryptographie, CSS, Generatoren und mehr."
+  },
+  "hero": {
+    "title": "Entwicklungstools",
+    "subtitle": "Vollständige Sammlung von Utilities für Entwickler",
+    "description": "Kostenlose Open-Source-Tools für Kodierung, Kryptographie, CSS und mehr. Entwickelt für Webentwickler und Programmierer.",
+    "cta": "Tools erkunden"
+  },
+  "features": {
+    "title": "Hauptfunktionen",
+    "items": [
+      {
+        "title": "Kodierungstools",
+        "description": "Base64, URL, Hash, JWT und mehr",
+        "icon": "code"
+      },
+      {
+        "title": "Kryptographie",
+        "description": "Schlüsselgenerierung und sichere Verschlüsselung",
+        "icon": "shield"
+      },
+      {
+        "title": "CSS und Design",
+        "description": "Gradient-Generatoren und CSS-Utilities",
+        "icon": "palette"
+      }
+    ]
+  },
+  "tools": {
+    "title": "Verfügbare Tools",
+    "description": "Entdecken Sie unsere Sammlung von Entwicklungstools"
+  },
+  "meta_title": "Entwicklungstools - Kostenlose Online-Entwicklungsutilities",
+  "meta_description": "Kostenlose Online-Entwicklungstools einschließlich CSS-Gradient-Generatoren, Code-Utilities und Webentwicklungshilfen.",
+  "meta_keywords": "Entwicklungstools, CSS-Tools, Gradient-Generator, Webentwicklung, kostenlose Tools, Online-Utilities",
+  "structured_data_app_name": "Entwicklungstools",
+  "structured_data_description": "Kostenlose Online-Entwicklungstools und Webentwicklungsutilities",
+  "structured_data_features": [
+    "CSS-Gradient-Generator",
+    "Code-Utilities",
+    "Webentwicklungstools",
+    "Kostenlose Entwicklungstools"
+  ],
+  "hero_title": "Kostenlose Entwicklungstools",
+  "hero_subtitle": "Professionelle Utilities für Entwickler und Designer",
+  "tools_section_title": "Unsere Tools",
+  "tools_section_description": "Entdecken Sie unsere Sammlung kostenloser Online-Entwicklungstools",
+  "logo_subtitle": "Entwicklungstools",
+  "ad_label": "Werbung",
+  "footer_copyright": "© 2024 limgx.com. Alle Rechte vorbehalten.",
+  "footer_description": "Kostenlose Online-Entwicklungstools für Softwareentwicklung",
+  "footer_services_title": "LimgX-Service-Ökosystem",
+  "footer_service_main": "Bildverarbeitungsdienste",
+  "footer_service_tools": "Entwicklungstools-Sammlung",
+  "footer_main_site": "Hauptseite",
+  "theme_light": "Hell",
+  "theme_dark": "Dunkel",
+  "language_selector": "Sprache"
+} 

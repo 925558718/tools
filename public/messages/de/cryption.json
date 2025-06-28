@@ -1,0 +1,33 @@
+{
+	"keygen": {
+		"title": "Schlüsselpaar-Generator",
+		"description": "Generieren Sie sichere kryptographische Schlüsselpaare für RSA-, ECDSA- und EdDSA-Algorithmen",
+		"algorithm": "Algorithmus",
+		"keySize": "Schlüsselgröße",
+		"curve": "Kurve",
+		"format": "Format",
+		"passphrase": "Passphrase (Optional)",
+		"passphrasePlaceholder": "Passphrase eingeben, um privaten Schlüssel zu verschlüsseln",
+		"generate": "Schlüsselpaar generieren",
+		"generating": "Generiere...",
+		"success": "Schlüsselpaar erfolgreich generiert!",
+		"error": "Schlüsselpaar-Generierung fehlgeschlagen",
+		"privateKey": "Privater Schlüssel",
+		"publicKey": "Öffentlicher Schlüssel",
+		"algorithms": {
+			"RS256": "RSA SHA-256",
+			"RS384": "RSA SHA-384",
+			"RS512": "RSA SHA-512",
+			"ES256": "ECDSA SHA-256",
+			"ES384": "ECDSA SHA-384",
+			"ES512": "ECDSA SHA-512",
+			"EdDSA": "Edwards-Kurven-Digital-Signatur"
+		},
+		"security": "Hoch",
+		"bits": "Bits",
+		"metadata": {
+			"title": "Schlüsselpaar-Generator - RSA, ECDSA, EdDSA-Schlüssel generieren",
+			"description": "Kostenloses Online-Tool zur Generierung sicherer kryptographischer Schlüsselpaare. Unterstützt RSA-, ECDSA- und EdDSA-Algorithmen mit mehreren Ausgabeformaten."
+		}
+	}
+}

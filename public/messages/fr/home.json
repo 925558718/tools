@@ -1,0 +1,64 @@
+{
+  "title": "Outils de Développement",
+  "description": "Collection complète d'outils de développement web et d'utilitaires de programmation",
+  "meta": {
+    "title": "Outils de Développement - Utilitaires Web et Programmation",
+    "description": "Outils gratuits pour les développeurs web. Encodage, cryptographie, CSS, générateurs et plus."
+  },
+  "hero": {
+    "title": "Outils de Développement",
+    "subtitle": "Collection complète d'utilitaires pour développeurs",
+    "description": "Outils gratuits et open source pour l'encodage, la cryptographie, CSS et plus. Conçus pour les développeurs web et programmeurs.",
+    "cta": "Explorer les Outils"
+  },
+  "features": {
+    "title": "Fonctionnalités Principales",
+    "items": [
+      {
+        "title": "Outils d'Encodage",
+        "description": "Base64, URL, Hash, JWT et plus",
+        "icon": "code"
+      },
+      {
+        "title": "Cryptographie",
+        "description": "Génération de clés et chiffrement sécurisé",
+        "icon": "shield"
+      },
+      {
+        "title": "CSS et Design",
+        "description": "Générateurs de dégradés et utilitaires CSS",
+        "icon": "palette"
+      }
+    ]
+  },
+  "tools": {
+    "title": "Outils Disponibles",
+    "description": "Explorez notre collection d'outils de développement"
+  },
+  "meta_title": "Outils de Développement - Utilitaires de Développement Online Gratuits",
+  "meta_description": "Outils gratuits de développement online incluant des générateurs de dégradés CSS, des utilitaires de code et des aides au développement web.",
+  "meta_keywords": "outils de développement, outils CSS, générateur de dégradés, développement web, outils gratuits, utilitaires online",
+  "structured_data_app_name": "Outils de Développement",
+  "structured_data_description": "Outils gratuits de développement online et utilitaires pour le développement web",
+  "structured_data_features": [
+    "Générateur de Dégradés CSS",
+    "Utilitaires de Code",
+    "Outils de Développement Web",
+    "Outils de Développement Gratuits"
+  ],
+  "hero_title": "Outils de Développement Gratuits",
+  "hero_subtitle": "Utilitaires professionnels pour développeurs et designers",
+  "tools_section_title": "Nos Outils",
+  "tools_section_description": "Découvrez notre collection d'outils gratuits de développement online",
+  "logo_subtitle": "Outils de Développement",
+  "ad_label": "Publicité",
+  "footer_copyright": "© 2024 limgx.com. Tous droits réservés.",
+  "footer_description": "Outils gratuits de développement online pour le développement de logiciels",
+  "footer_services_title": "Écosystème de Services LimgX",
+  "footer_service_main": "Services de Traitement d'Images",
+  "footer_service_tools": "Collection d'Outils de Développement",
+  "footer_main_site": "Site Principal",
+  "theme_light": "Clair",
+  "theme_dark": "Sombre",
+  "language_selector": "Langue"
+} 

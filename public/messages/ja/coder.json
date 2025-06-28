@@ -1,52 +1,52 @@
 {
-  "title": "Codec Tools",
-  "description": "Professional encoding and decoding tools for developers",
+  "title": "コーデックツール",
+  "description": "開発者向けのプロフェッショナルなエンコード・デコードツール",
   "features": {
-    "title": "Features",
+    "title": "特徴",
     "encoding": {
-      "title": "Encoding Tools"
+      "title": "エンコードツール"
     },
     "security": {
-      "title": "Security Tools"
+      "title": "セキュリティツール"
     }
   },
   "tools": {
     "base64": {
       "name": "Base64",
-      "description": "Base64 encoding and decoding tool"
+      "description": "Base64エンコード・デコードツール"
     },
     "url": {
-      "name": "URL Encoding",
-      "description": "URL encoding and decoding tool"
+      "name": "URLエンコード",
+      "description": "URLエンコード・デコードツール"
     },
     "hash": {
-      "name": "Hash Calculator",
-      "description": "MD5, SHA1, SHA256 and other hash algorithms"
+      "name": "ハッシュ計算",
+      "description": "MD5、SHA1、SHA256などのハッシュアルゴリズム"
     },
     "jwt": {
-      "name": "JWT Tools",
-      "description": "JWT token decoding and validation"
+      "name": "JWTツール",
+      "description": "JWTトークンのデコードと検証"
     },
     "qr": {
-      "name": "QR Code",
-      "description": "QR code generation and decoding"
+      "name": "QRコード",
+      "description": "QRコードの生成とデコード"
     },
     "hex": {
-      "name": "Hex Converter",
-      "description": "Convert between text and hexadecimal format"
+      "name": "16進変換",
+      "description": "テキストと16進数の相互変換"
     },
     "json": {
-      "name": "JSON Formatter",
-      "description": "Format, validate and beautify JSON data"
+      "name": "JSONフォーマッタ",
+      "description": "JSONデータの整形・検証・美化"
     },
     "image": {
-      "name": "Image Encoding",
-      "description": "Image Base64 encoding conversion"
+      "name": "画像エンコード",
+      "description": "画像のBase64エンコード変換"
     }
   },
   "meta": {
-    "title": "Codec Tools - Online Encoding Decoding Converter",
-    "description": "Free codec tools for Base64, URL, hash, JWT, QR code, image and more. Fast, secure, and easy online conversion."
+    "title": "コーデックツール - オンラインエンコード・デコード変換",
+    "description": "Base64、URL、ハッシュ、JWT、QRコード、画像などの無料コーデックツール。高速・安全・簡単なオンライン変換。"
   },
   "base64": {
     "title": "Base64 Encoder/Decoder",
@@ -601,157 +601,152 @@
     }
   },
   "qr": {
-    "title": "QR Code Generator",
-    "description": "Generate QR codes for URLs, text, WiFi, phone numbers and more",
+    "title": "QRコードジェネレーター",
+    "description": "カスタマイズ可能なQRコードの生成と既存QRコードのデコード",
+    "meta": {
+      "title": "QRコード生成器 - オンラインQR作成ツール",
+      "description": "無料のQRコード生成・デコードツール。テキスト、URL、WiFi、連絡先など複数のフォーマットに対応。スタイルとエラー訂正レベルのカスタマイズ可能。"
+    },
     "features": {
-      "multiple_types": "Multiple Types",
-      "customizable": "Customizable",
-      "download": "Download"
+      "multiple_types": "多様なコンテンツタイプ",
+      "customizable": "カスタマイズ可能",
+      "download": "PNGダウンロード"
     },
     "tabs": {
-      "generate": "Generate QR Code",
-      "decode": "Decode QR Code"
+      "generate": "生成",
+      "decode": "デコード"
     },
     "generate": {
-      "title": "Generate QR Code",
-      "description": "Convert text content to QR code"
+      "title": "QRコード生成",
+      "description": "様々なオプションでカスタマイズ可能なQRコードを作成"
     },
     "decode": {
-      "title": "Decode QR Code",
-      "description": "Extract content from QR code image",
-      "upload_label": "Upload QR Code Image",
-      "upload_button": "Upload Image",
-      "supported_formats": "Supported formats: JPG, PNG, GIF, etc., max 5MB",
-      "result_title": "Decode Result",
-      "placeholder": "Image decoding requires backend support",
-      "info": "Image decoding requires backend support"
+      "title": "QRコードデコード",
+      "description": "既存のQRコードからテキストを抽出",
+      "upload_label": "QRコード画像をアップロード",
+      "upload_button": "ファイル選択",
+      "supported_formats": "対応形式: PNG, JPG, JPEG, GIF, BMP",
+      "result_title": "デコード結果"
     },
     "input": {
-      "title": "QR Code Content",
-      "description": "Enter content to generate QR code",
-      "content_label": "Content",
-      "content_placeholder": "Enter text, URL, or other content...",
-      "type_label": "QR Code Type",
-      "generate_button": "Generate QR Code"
+      "title": "QRコードコンテンツ",
+      "description": "QRコードを生成するコンテンツを入力",
+      "content_label": "内容",
+      "content_placeholder": "テキスト、URL、その他のコンテンツを入力...",
+      "type_label": "QRコードタイプ",
+      "generate_button": "QRコード生成"
     },
     "options": {
-      "title": "QR Code Options",
-      "size_label": "Size",
-      "error_correction_label": "Error Correction Level",
-      "error_correction_low": "Low (7%)",
-      "error_correction_low_desc": "Can recover 7% of data",
-      "error_correction_medium": "Medium (15%)",
-      "error_correction_medium_desc": "Can recover 15% of data",
-      "error_correction_high": "High (25%)",
-      "error_correction_high_desc": "Can recover 25% of data",
-      "error_correction_highest": "Highest (30%)",
-      "error_correction_highest_desc": "Can recover 30% of data",
-      "foreground_color": "Foreground Color",
-      "background_color": "Background Color",
-      "margin_label": "Margin"
+      "title": "QRコードオプション",
+      "size_label": "サイズ(px)",
+      "margin_label": "余白",
+      "foreground_color": "前景色",
+      "background_color": "背景色",
+      "error_correction_label": "誤り訂正レベル",
+      "error_correction_low": "低 (L)",
+      "error_correction_low_desc": "7%のデータ復元",
+      "error_correction_medium": "中 (M)",
+      "error_correction_medium_desc": "15%のデータ復元",
+      "error_correction_high": "高 (Q)",
+      "error_correction_high_desc": "25%のデータ復元",
+      "error_correction_highest": "最高 (H)",
+      "error_correction_highest_desc": "30%のデータ復元"
     },
     "result": {
-      "title": "Generated QR Code",
-      "download_png": "Download",
-      "download_svg": "Download SVG",
-      "copy_image": "Copy Image",
-      "copy_content": "Copy Content",
-      "alt_text": "QR Code"
+      "title": "生成されたQRコード",
+      "download_png": "PNGダウンロード",
+      "copy_content": "内容をコピー",
+      "alt_text": "生成されたQRコード"
     },
     "examples": {
-      "title": "Quick Examples",
+      "title": "クイック例",
       "url": "https://example.com",
-      "text": "Hello World",
+      "text": "サンプルテキスト",
       "number": "123456789",
       "wifi": "WIFI:T:WPA;S:MyWiFi;P:password123;;",
-      "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:John Doe\nTEL:+1-234-567-8900\nEND:VCARD"
+      "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:山田太郎\nTEL:+819012345678\nEND:VCARD"
     },
     "types": {
-      "text": "Text",
+      "text": "テキスト",
       "url": "URL",
       "wifi": "WiFi",
-      "phone": "Phone Number",
-      "email": "Email",
+      "phone": "電話番号",
+      "email": "メール",
       "sms": "SMS",
       "vcard": "vCard",
-      "geo": "Geolocation"
+      "geo": "位置情報"
     },
     "wifi_form": {
-      "title": "WiFi Configuration",
-      "ssid_label": "Network Name (SSID)",
-      "password_label": "Password",
-      "encryption_label": "Encryption Type",
-      "hidden_label": "Hidden Network"
+      "title": "WiFi設定",
+      "ssid_label": "ネットワーク名（SSID）",
+      "password_label": "パスワード",
+      "encryption_label": "暗号化タイプ",
+      "hidden_label": "隠しネットワーク"
     },
     "phone_form": {
-      "title": "Phone Number",
-      "number_label": "Phone Number",
-      "number_placeholder": "+1-234-567-8900"
+      "title": "電話番号",
+      "number_label": "電話番号",
+      "number_placeholder": "+81-3-1234-5678"
     },
     "email_form": {
-      "title": "Email",
-      "email_label": "Email Address",
-      "subject_label": "Subject (Optional)",
-      "body_label": "Message Body (Optional)"
+      "title": "メール",
+      "email_label": "メールアドレス",
+      "subject_label": "件名（オプション）",
+      "body_label": "メッセージ本文（オプション）"
     },
     "instructions": {
-      "title": "Usage Instructions",
-      "content": "Generate QR Code: ",
-      "content_desc": "Convert text, URLs, contact information and other content to QR codes.",
-      "size": "Custom Options: ",
-      "size_desc": "Adjust size, color, margin and error correction level.",
-      "error_correction": "Error Correction Level: ",
-      "error_correction_desc": "Higher levels make QR codes more fault-tolerant but larger in size.",
-      "types": "Supported Formats: ",
-      "types_desc": "URLs, text, WiFi configuration, contact information, etc."
+      "title": "使い方ガイド",
+      "content": "内容: ",
+      "content_desc": "テキスト、URL、数字、WiFi情報、連絡先などを入力できます。",
+      "size": "サイズ: ",
+      "size_desc": "サイズはQRコードの解像度と読みやすさに影響します。推奨: 256-512px。",
+      "error_correction": "誤り訂正: ",
+      "error_correction_desc": "高いレベルほど一部破損しても読み取り可能です。",
+      "types": "コンテンツタイプ: ",
+      "types_desc": "URL、テキスト、数字、WiFi、連絡先、GPS座標など。"
     },
     "errors": {
-      "empty_content": "Please enter content to generate QR code",
-      "invalid_format": "Please select an image file",
-      "invalid_url": "Invalid URL format",
-      "invalid_email": "Invalid email format",
-      "invalid_phone": "Invalid phone number format",
-      "generation_failed": "QR code generation failed",
-      "decode_failed": "QR code decode failed",
-      "no_qr_found": "Unable to recognize QR code, please ensure the image is clear and contains a valid QR code"
+      "empty_content": "QRコード生成内容を入力してください",
+      "invalid_format": "無効なファイル形式です。画像を選択してください。",
+      "generation_failed": "QRコード生成に失敗しました",
+      "no_qr_found": "画像にQRコードが見つかりません",
+      "decode_failed": "QRコードのデコードに失敗しました"
     },
     "success": {
-      "generated": "QR code generated successfully",
-      "copied": "Copied to clipboard",
-      "decoded": "QR code decoded successfully"
+      "generated": "QRコードを生成しました",
+      "decoded": "QRコードをデコードしました",
+      "copied": "クリップボードにコピーしました"
     },
     "common": {
-      "clear": "Clear",
-      "copy": "Copy",
-      "reset": "Reset",
-      "preview": "Preview"
+      "clear": "クリア",
+      "copy": "コピー"
     },
     "logo": {
-      "title": "Logo Settings (Optional)",
-      "upload": "Upload Logo",
-      "remove": "Remove Logo",
-      "preview": "Logo Preview:",
-      "preview_alt": "Logo Preview",
-      "error_correction_hint": "When using logo, it's recommended to select \"Highest\" error correction level for readability",
-      "format_hint": "Supports PNG, JPG and other formats, transparent background logo is recommended"
+      "title": "カスタムロゴ",
+      "upload": "ロゴをアップロード",
+      "remove": "ロゴを削除",
+      "preview": "プレビュー:",
+      "preview_alt": "ロゴのプレビュー",
+      "format_hint": "対応形式: PNG, JPG, SVG。推奨サイズ: 48x48px",
+      "error_correction_hint": "ロゴ使用時は高い誤り訂正(H)を推奨"
     },
     "qr_styles": {
-      "title": "QR Code Style Types:",
-      "standard": "Standard QR Code: Pure black and white pattern, no logo, suitable for general use",
-      "with_logo": "QR Code with Logo: Company logo embedded in center, enhances brand recognition",
-      "colored": "Colored QR Code: Uses custom colors, maintains brand consistency",
-      "artistic": "Artistic QR Code: Has decorative design elements"
+      "title": "QRコードスタイル",
+      "standard": "標準 - 白黒の基本QRコード",
+      "with_logo": "ロゴ付き - 中央にカスタムロゴ",
+      "colored": "カラー - カスタム色のQRコード",
+      "artistic": "アート - デザイン性の高いQRコード"
     },
     "logo_tips": {
-      "title": "Logo Usage Tips:",
-      "format": "PNG format logo with transparent background works best",
-      "size": "Logo size should not exceed 20% of the QR code",
-      "error_correction": "When using logo, select \"Highest\" error correction level for readability",
-      "complexity": "Avoid using overly complex logo patterns"
+      "title": "ロゴ利用のコツ",
+      "format": "高品質にはPNGやSVG推奨",
+      "size": "ロゴはQRコードの25%以下に",
+      "error_correction": "ロゴ追加時は誤り訂正Hを推奨",
+      "complexity": "シンプルなロゴが最適"
     },
     "meta": {
-      "title": "QR Code Generator - Online Text URL WiFi QR Maker",
-      "description": "Generate QR codes for text, URL, WiFi, phone, and more. Custom size, color, and error correction for various scenarios."
+      "title": "QRコード生成器 - オンラインテキストURL WiFi QRメーカー",
+      "description": "テキスト、URL、WiFi、電話などでQRコードを生成。様々なシナリオに対応したカスタムサイズ、色、エラー訂正。"
     }
   },
   "text_to_hex": {
