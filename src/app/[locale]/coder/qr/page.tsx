@@ -311,12 +311,12 @@ export default function QRPage() {
                       className="w-16 h-16 object-contain border rounded"
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      使用Logo时建议选择"最高"纠错级别以确保可读性
+                      {`使用Logo时建议选择"最高"纠错级别以确保可读性`}
                     </p>
                   </div>
                 )}
                 <p className="text-sm text-gray-500">
-                  支持PNG、JPG等格式，建议使用透明背景的Logo
+                  {"支持PNG、JPG等格式，建议使用透明背景的Logo"}
                 </p>
               </div>
 
@@ -462,7 +462,7 @@ export default function QRPage() {
           <ul className="list-disc list-inside ml-4 space-y-1">
             <li>使用透明背景的PNG格式Logo效果最佳</li>
             <li>Logo尺寸建议不超过二维码的20%</li>
-            <li>使用Logo时选择"最高"纠错级别以确保可读性</li>
+            <li>{`使用Logo时选择"最高"纠错级别以确保可读性`}</li>
             <li>避免使用过于复杂的Logo图案</li>
           </ul>
         </CardContent>
